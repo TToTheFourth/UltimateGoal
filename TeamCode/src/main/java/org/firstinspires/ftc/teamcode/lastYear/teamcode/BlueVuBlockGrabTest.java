@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.lastYear.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.vuforia.CameraDevice;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.Directions;
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolder;
 
 @Autonomous
+@Disabled
 public class BlueVuBlockGrabTest extends LinearOpMode {
     @Override
     public void runOpMode() {

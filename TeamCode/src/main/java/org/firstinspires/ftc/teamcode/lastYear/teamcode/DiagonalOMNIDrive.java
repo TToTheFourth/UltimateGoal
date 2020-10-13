@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.lastYear.teamcode;
  * Created by natemckelvey on 10/14/16.
  */
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -22,6 +23,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 
 @TeleOp(name="FTC Black OMNI", group="FTCBlack")
+@Disabled
 public class DiagonalOMNIDrive extends OpMode {
 
     /* Declare OpMode members. */

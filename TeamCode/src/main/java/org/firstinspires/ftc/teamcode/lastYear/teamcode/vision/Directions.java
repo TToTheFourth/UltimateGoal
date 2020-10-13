@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.lastYear.teamcode.vision;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+@Disabled
 public class Directions {
     public float getDistance() {
         return distance;
