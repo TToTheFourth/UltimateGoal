@@ -134,13 +134,6 @@ public class ConceptTensorFlowObjectDetectionFromExample extends LinearOpMode {
                       }
                       telemetry.update();
                     }
-                    if(0 < updatedRecognitions.size()) {
-                        if (updatedRecognitions.size() < 2.1) {
-
-                        } else {
-
-                        }
-                    }
                 }
             }
         }
