@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.RepresentoBotSupremeLeader;
 
 @TeleOp
-class NewYellowJacketMotors extends LinearOpMode {
+public class NewYellowJacketMotors extends LinearOpMode {
 
     private DcMotor backLeftMotor;
     private DcMotor frontLeftMotor;
