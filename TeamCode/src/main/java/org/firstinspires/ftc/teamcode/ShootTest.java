@@ -24,7 +24,7 @@ public class ShootTest extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            claw.setPower(-100);
+            claw.setPower(1000);
 
             telemetry.addData("Target Power Claw", -5);
 

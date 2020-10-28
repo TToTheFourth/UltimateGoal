@@ -32,6 +32,7 @@ public class RepresentoBotMVP {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     private DcMotor rackMotor;
+    private DcMotor shoot;
     private Servo claw;
     private Servo servoCon;
 
@@ -58,27 +59,13 @@ public class RepresentoBotMVP {
     public RepresentoBotMVP(LinearOpMode om) {
         this.opMode = om;
 
-
-        //backLeftMotor = hardwareMap.get(DcMotor.class, "motor0");
-        //frontLeftMotor = hardwareMap.get(DcMotor.class, "motor1");
-        //frontRightMotor = hardwareMap.get(DcMotor.class, "motor2");
-        //backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
-
         backLeftMotor = opMode.hardwareMap.get(DcMotor.class, "motor0");
         frontLeftMotor = opMode.hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor2");
-        backRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor3");//slideMotorF = opMode.hardwareMap.get(DcMotor.class, "motor4");
-        rackMotor = opMode.hardwareMap.get(DcMotor.class, "rackmotor");
-        servoCon = opMode.hardwareMap.get(Servo.class, "servoCon");
-        claw = opMode.hardwareMap.get(Servo.class, "claw");
-        //trackMotorF = opMode.hardwareMap.get(DcMotor.class, "motor5");
-        //foundationServo = opMode.hardwareMap.get(Servo.class, "foundServo");
+        backRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor3");
+        backRightMotor = opMode.hardwareMap.get(DcMotor.class, "claw");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         gyro = new Gyro(imu, opMode);
-        left = opMode.hardwareMap.get(Servo.class, "left");
-        right = opMode.hardwareMap.get(Servo.class, "right");
-        sensorDistance = opMode.hardwareMap.get(DistanceSensor.class, "sensor_distance");
-        sensorColor = opMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
         myTimer = new Timer();
         //stoneServo = opMode.hardwareMap.get(Servo.class, "stoneServo");
 
@@ -88,9 +75,6 @@ public class RepresentoBotMVP {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //slideMotorF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //trackMotorF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
     }
 
     public void startGyro(){
