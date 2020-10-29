@@ -46,7 +46,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-@TeleOp(name="Concept: VuMark Id", group ="Concept")
+@TeleOp(name="Concept: VuMark Identify", group ="Concept")
 @Disabled
 public class VuBlockIdentification extends LinearOpMode {
 
