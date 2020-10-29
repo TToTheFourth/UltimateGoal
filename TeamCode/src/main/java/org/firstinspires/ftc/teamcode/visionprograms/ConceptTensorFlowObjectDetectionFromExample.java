@@ -38,6 +38,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.RepresentoBotMVP;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class ConceptTensorFlowObjectDetectionFromExample extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
+    RepresentoBotMVP  bot = new RepresentoBotMVP(this);
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -134,18 +136,48 @@ public class ConceptTensorFlowObjectDetectionFromExample extends LinearOpMode {
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
                         if(recognition.getLabel() == LABEL_SECOND_ELEMENT) {
+                            //grab wobble
+                            bot.goForward(100, 70);
+                            //add color sensor to find line
+                            //from line you go to one of 3 variables
+                            //go back to line
+                            //go to specific point behind line
+                            //shoot 3 rings
+                            //find line with color sensor
+                            //stop on line
+
                             /*single:
                             shoot rings at goal
                             take wobble to corresponding box
                             stop on line
                             */
                         } else if(recognition.getLabel() == LABEL_FIRST_ELEMENT) {
+                            //grab wobble
+                            bot.goForward(100, 70);
+                            //add color sensor to find line
+                            //from line you go to one of 3 variables
+                            //go back to line
+                            //go to specific point behind line
+                            //shoot 3 rings
+                            //find line with color sensor
+                            //stop on line
+
                              /*quad:
                             shoot rings at goal
                             take wobble to corresponding box
                             stop on line
                             */
                         } else {
+                            //grab wobble
+                            bot.goForward(100, 70);
+                            //add color sensor to find line
+                            //from line you go to one of 3 variables
+                            //go back to line
+                            //go to specific point behind line
+                            //shoot 3 rings
+                            //find line with color sensor
+                            //stop on line
+
                              /*no rings:
                             shoot rings at goal
                             take wobble to corresponding box

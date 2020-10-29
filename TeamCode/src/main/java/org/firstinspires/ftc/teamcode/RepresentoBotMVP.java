@@ -596,4 +596,8 @@ public class RepresentoBotMVP {
         return (long) (0.0384 * inches * 500.0 / power);
         // inches to time formula
     }
+
+    public void shootRings(double power, double seconds) {
+
+    }
 }
