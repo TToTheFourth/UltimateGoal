@@ -13,7 +13,7 @@ public class AutoBot extends LinearOpMode {
         int rct = 0;
 
         if (rct == 0) {
-            bot.forwardUntilColor(0.5);
+            bot.forwardUntilPink(0.5);
             bot.slide(0.5, 23);
             //drop goal
             bot.slide(0.5,-46);
@@ -21,16 +21,14 @@ public class AutoBot extends LinearOpMode {
             //shoot rings
             bot.goForward(0.5,18);
         } else if (rct==1) {
-            bot.forwardUntilColor(0.5);
+            bot.forwardUntilPink(0.5);
             bot.goForward(0.5, 23);
             //drop goal
             bot.goForward(0.5, -41);
             //shoot rings
             bot.goForward(0.5, 18);
-        }
-
-        else{
-                bot.forwardUntilColor(0.5);
+        } else {
+                bot.forwardUntilPink(0.5);
                 bot.goForward(0.5,46);
                 bot.slide(0.5, 23);
                 //drop goal
@@ -38,7 +36,6 @@ public class AutoBot extends LinearOpMode {
                 bot.goForward(0.5, -64);
                 //shoot rings
                 bot.goForward(0.5, 18);
-            }
         }
     }
 }
