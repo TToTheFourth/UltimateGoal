@@ -7,12 +7,20 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp
-public class MechDrive2020 extends LinearOpMode {
+public class MechDriveWithRampUp extends LinearOpMode {
 
     private DcMotor backLeftMotor;
     private DcMotor frontLeftMotor;
     private DcMotor backRightMotor;
     private DcMotor frontRightMotor;
+
+    static final double INCREMENT   = 0.01;
+    static final int    CYCLE_MS    =   50;
+    static final double MAX_FWD     =  1.0;
+    static final double MAX_REV     = -1.0;
+
+    double  power   = 0;
+    boolean rampUp  = true;
 
     @Override
     public void runOpMode() {
@@ -39,10 +47,6 @@ public class MechDrive2020 extends LinearOpMode {
             double rightY_G1;
             double leftX_G1;
             double leftY_G1;
-            double leftX_G2;
-            double leftY_G2;
-            double rightX_G2;
-            double rightY_G2;
 
             rightY_G1 = -gamepad1.right_stick_y;
             rightX_G1 = -gamepad1.right_stick_x;
@@ -53,6 +57,53 @@ public class MechDrive2020 extends LinearOpMode {
             double backLeft = (rightX_G1 + rightY_G1 + leftX_G1);
             double backRight = (rightX_G1 - rightY_G1 + leftX_G1);
             double frontRight = (rightX_G1 - rightY_G1 - leftX_G1);
+
+            if (rampUp) {
+                // Keep stepping up until we hit the max value.
+                frontLeft += INCREMENT;
+                frontRight += INCREMENT;
+                backLeft += INCREMENT;
+                backRight += INCREMENT;
+                if (frontLeft >= MAX_FWD ) {
+                    frontLeft = MAX_FWD;
+                    rampUp = !rampUp;   // Switch ramp direction
+                }
+                if (frontRight >= MAX_FWD ) {
+                    frontRight = MAX_FWD;
+                    rampUp = !rampUp;   // Switch ramp direction
+                }
+                if (backLeft >= MAX_FWD ) {
+                    backLeft = MAX_FWD;
+                    rampUp = !rampUp;   // Switch ramp direction
+                }
+                if (backRight >= MAX_FWD ) {
+                    backRight = MAX_FWD;
+                    rampUp = !rampUp;   // Switch ramp direction
+                }
+            }
+            else {
+                // Keep stepping down until we hit the min value.
+                frontLeft -= INCREMENT ;
+                frontRight -= INCREMENT ;
+                backLeft -= INCREMENT ;
+                backRight -= INCREMENT ;
+                if (frontLeft <= MAX_REV ) {
+                    frontLeft = MAX_REV;
+                    rampUp = !rampUp;  // Switch ramp direction
+                }
+                if (frontRight <= MAX_REV ) {
+                    frontRight = MAX_REV;
+                    rampUp = !rampUp;  // Switch ramp direction
+                }
+                if (backLeft <= MAX_REV ) {
+                    backLeft = MAX_REV;
+                    rampUp = !rampUp;  // Switch ramp direction
+                }
+                if (backRight <= MAX_REV ) {
+                    backRight = MAX_REV;
+                    rampUp = !rampUp;  // Switch ramp direction
+                }
+            }
 
             frontLeftMotor.setPower(frontLeft);
             backLeftMotor.setPower(backLeft);
