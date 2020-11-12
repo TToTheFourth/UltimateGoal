@@ -13,7 +13,8 @@ public class MechDrive2020 extends LinearOpMode {
     private DcMotor frontLeftMotor;
     private DcMotor backRightMotor;
     private DcMotor frontRightMotor;
-
+    private DcMotor goalclaw;
+    private  DcMotor goalarm;
     @Override
     public void runOpMode() {
 
@@ -21,6 +22,9 @@ public class MechDrive2020 extends LinearOpMode {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
+
+        goalclaw = hardwareMap.get(DcMotor.class, "goalclaw");
+        goalarm = hardwareMap.get(DcMotor.class, "goalarm");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -43,12 +47,19 @@ public class MechDrive2020 extends LinearOpMode {
             double leftY_G2;
             double rightX_G2;
             double rightY_G2;
+            double rightTrigger;
 
             rightY_G1 = -gamepad1.right_stick_y;
             rightX_G1 = -gamepad1.right_stick_x;
             leftY_G1 = gamepad1.left_stick_y;
             leftX_G1 = -gamepad1.left_stick_x;
+            rightTrigger = gamepad1.right_trigger;
 
+            if (gamepad1.dpad_right){
+                goalclaw.setPower(1);
+            } else if (gamepad1.dpad_left){
+                goalclaw.setPower(-1);
+            }
 
 
             frontLeftMotor.setPower(rightX_G1 + rightY_G1 - leftX_G1);
@@ -64,5 +75,8 @@ public class MechDrive2020 extends LinearOpMode {
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
         // turns off motors
+
+
     }
+
 }
