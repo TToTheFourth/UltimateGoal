@@ -29,7 +29,7 @@ public class VuHolder {
     float roboth;
 
 
-    VuforiaTrackables targetsSkyStone;
+    VuforiaTrackables targetsUltimateGoal;
     
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false;
@@ -86,9 +86,8 @@ public class VuHolder {
         // Load the data sets for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
 
-       targetsSkyStone = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
+       targetsUltimateGoal = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
 
-        VuforiaTrackables targetsUltimateGoal = this.vuforia.loadTrackablesFromAsset("UltimateGoal");
         VuforiaTrackable blueTowerGoalTarget = targetsUltimateGoal.get(0);
         blueTowerGoalTarget.setName("Blue Tower Goal Target");
         VuforiaTrackable redTowerGoalTarget = targetsUltimateGoal.get(1);
@@ -204,11 +203,9 @@ public class VuHolder {
         return targetVisible;
     }
 
-    public void activate() {
-        targetsSkyStone.activate();
-    }
+    public void activate() { targetsUltimateGoal.activate(); }
     public void deactivate() {
-        targetsSkyStone.deactivate();
+        targetsUltimateGoal.deactivate();
     }
     public float xCoor() {
         float xCoor = robotx;
