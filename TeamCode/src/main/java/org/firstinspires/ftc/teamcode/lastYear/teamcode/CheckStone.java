@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolder;
+import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolderSkyStone;
 
 @Disabled
 @Autonomous
@@ -12,7 +12,7 @@ public class CheckStone extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        VuHolder vu = new VuHolder(this);
+        VuHolderSkyStone vu = new VuHolderSkyStone(this);
 
         waitForStart();
         vu.activate();

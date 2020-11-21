@@ -21,7 +21,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 
-public class VuHolder {
+public class VuHolderSkyStone {
     List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
     float robotx;
     float roboty;
@@ -84,7 +84,7 @@ public class VuHolder {
     private LinearOpMode opMode;
     private VuforiaTrackable stoneTarget;
 
-    public VuHolder(LinearOpMode om) {
+    public VuHolderSkyStone(LinearOpMode om) {
         opMode = om;
         int cameraMonitorViewId = opMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
