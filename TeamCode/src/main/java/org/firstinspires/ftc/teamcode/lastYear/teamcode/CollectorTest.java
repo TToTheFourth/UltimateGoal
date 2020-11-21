@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.Directions;
-import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolder;
+import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolderSkyStone;
 
 @Disabled
 @Autonomous
@@ -14,7 +14,7 @@ public class CollectorTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        VuHolder vu = new VuHolder(this);
+        VuHolderSkyStone vu = new VuHolderSkyStone(this);
         RepresentoBotSupremeLeader bot = new RepresentoBotSupremeLeader(this);
         float path[][] = {{-35, -45, 3.14f/2}, {35, -45, 3.14f/2}, {35, 45, 3.14f/2}};
 

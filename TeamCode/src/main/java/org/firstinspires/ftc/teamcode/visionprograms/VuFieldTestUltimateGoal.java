@@ -1,22 +1,23 @@
-package org.firstinspires.ftc.teamcode.lastYear.teamcode;
+package org.firstinspires.ftc.teamcode.visionprograms;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.lastYear.teamcode.RepresentoBotSupremeLeader;
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.Directions;
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolderSkyStone;
 
 
 @Disabled
 @Autonomous
-public class VuFieldTest extends LinearOpMode {
+public class VuFieldTestUltimateGoal extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        VuHolderSkyStone vu = new VuHolderSkyStone(this);
+        VuHolder vu = new VuHolder(this);
         RepresentoBotSupremeLeader bot = new RepresentoBotSupremeLeader(this);
-        float path[][] = {{-35, -35, -3.14f/2}, {-35, 0, 3.14f/2}, {-35, 35, 3.14f/2}};
+        float path[][] = {{0, 0, -3.14f/2}};
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
