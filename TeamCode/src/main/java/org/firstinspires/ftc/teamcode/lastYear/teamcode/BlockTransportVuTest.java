@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.Directions;
-import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolder;
+import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolderSkyStone;
 
 @Disabled
 @Autonomous
@@ -15,7 +15,7 @@ public class BlockTransportVuTest extends LinearOpMode {
 
         Timer timer = new Timer();
         RepresentoBotSupremeLeader bot = new RepresentoBotSupremeLeader(this);
-        VuHolder vu = new VuHolder(this);
+        VuHolderSkyStone vu = new VuHolderSkyStone(this);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
