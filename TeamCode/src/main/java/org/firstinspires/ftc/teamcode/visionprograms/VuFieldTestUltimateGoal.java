@@ -3,13 +3,14 @@ package org.firstinspires.ftc.teamcode.visionprograms;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.vuforia.CameraDevice;
+import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.RepresentoBotSupremeLeader;
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.Directions;
 import org.firstinspires.ftc.teamcode.lastYear.teamcode.vision.VuHolderSkyStone;
 
 
-@Disabled
 @Autonomous
 public class VuFieldTestUltimateGoal extends LinearOpMode {
     @Override
@@ -23,6 +24,8 @@ public class VuFieldTestUltimateGoal extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
+        vu.activate();
+        com.vuforia.Vuforia.init();
         float x;
         float y;
         float curx;
@@ -68,8 +71,10 @@ public class VuFieldTestUltimateGoal extends LinearOpMode {
                     }
                     bot.goForward(0.5, dist);
                 }
-                bot.timeRackOut(4.5f);
             }
         }
+        CameraDevice.getInstance().setFlashTorchMode(false);
+        vu.deactivate();
+        com.vuforia.Vuforia.deinit();
     }
 }
