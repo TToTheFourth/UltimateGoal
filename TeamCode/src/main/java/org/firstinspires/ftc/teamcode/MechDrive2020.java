@@ -14,6 +14,11 @@ public class MechDrive2020 extends LinearOpMode {
     private DcMotor backRightMotor;
     private DcMotor frontRightMotor;
 
+    // TODO: declare motor for claw and elbow
+    private DcMotor claw;
+    private  DcMotor elbow;
+
+
     @Override
     public void runOpMode() {
 
@@ -21,6 +26,8 @@ public class MechDrive2020 extends LinearOpMode {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
+
+        // TODO: get claw and elbow motors
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -58,7 +65,11 @@ public class MechDrive2020 extends LinearOpMode {
             backLeftMotor.setPower(backLeft);
             backRightMotor.setPower(backRight);
             frontRightMotor.setPower(frontRight);
-            // sets each motor to correct variables
+
+            // TODO: get input from controller dpad left - right for claw
+
+
+            // TODO: get input from controller dpad up - down for elbow
 
         }
 
