@@ -62,7 +62,7 @@ import java.util.List;
  * is explained in {@link ConceptVuforiaNavigation}.
  */
 
-@TeleOp ////////(name="Concept: VuMark Id", group ="Concept")
+@TeleOp /////(name="Concept: VuMark Id", group ="Concept")
 //@Disabled
 @Disabled
 public class TTTTVuMarkIdentification extends LinearOpMode {
