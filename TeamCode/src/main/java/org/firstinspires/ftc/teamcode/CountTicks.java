@@ -25,8 +25,8 @@ public class CountTicks extends LinearOpMode {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // initialize the encoder
-        //backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // remove -->RepresentoBotMVP  bot = new RepresentoBotMVP(this);
 
@@ -36,6 +36,16 @@ public class CountTicks extends LinearOpMode {
         while (opModeIsActive()) {
 
             ticks = backLeft.getCurrentPosition();
+            while(ticks > 5000) {
+                frontLeft.setPower(1);
+                frontRight.setPower(1);
+                backLeft.setPower(1);
+                backRight.setPower(1);
+            }
+            frontLeft.setPower(0);
+            frontRight.setPower(0);
+            backLeft.setPower(0);
+            backRight.setPower(0);
             // if ticks >= 5000 break
 
         }
