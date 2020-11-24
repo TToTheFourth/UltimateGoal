@@ -24,20 +24,22 @@ public class CountTicks extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        RepresentoBotMVP  bot = new RepresentoBotMVP(this);
+        // initialize the encoder
+        //backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        // remove -->RepresentoBotMVP  bot = new RepresentoBotMVP(this);
 
         long ticks;
 
-
-
+        // turn on the motors to forward for 5000 ticks
         while (opModeIsActive()) {
 
-           bot.goForward(1, 10);
-
-           ticks = backLeft.getCurrentPosition();
-
-           telemetry.addData("Ticks", ticks);
+            ticks = backLeft.getCurrentPosition();
+            // if ticks >= 5000 break
 
         }
+
+        // turn off motors
     }
 }
