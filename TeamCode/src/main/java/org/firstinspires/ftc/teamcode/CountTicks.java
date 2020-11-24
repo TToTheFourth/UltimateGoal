@@ -24,6 +24,7 @@ public class CountTicks extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        waitForStart();
         // initialize the encoder
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -31,25 +32,40 @@ public class CountTicks extends LinearOpMode {
         // remove -->RepresentoBotMVP  bot = new RepresentoBotMVP(this);
 
         long ticks;
+       double rightY_G1 = -0.5;
+       double rightX_G1 = -0;
+       double leftY_G1 = -0;
+       double leftX_G1 = -0;
 
+        double frontLeftp = (rightX_G1 + rightY_G1 - leftX_G1);
+        double backLeftp = (rightX_G1 + rightY_G1 + leftX_G1);
+        double backRightp = (rightX_G1 - rightY_G1 + leftX_G1);
+        double frontRightp = (rightX_G1 - rightY_G1 - leftX_G1);
         // turn on the motors to forward for 5000 ticks
+        frontLeft.setPower(frontLeftp);
+       frontRight.setPower(frontRightp);
+        backLeft.setPower(backLeftp);
+       backRight.setPower(backRightp);
+
         while (opModeIsActive()) {
 
             ticks = backLeft.getCurrentPosition();
-            while(ticks > 5000) {
-                frontLeft.setPower(1);
-                frontRight.setPower(1);
-                backLeft.setPower(1);
-                backRight.setPower(1);
+            if(ticks < 0) {
+                ticks = -ticks;
             }
-            frontLeft.setPower(0);
-            frontRight.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
+
+            if (ticks >= 5000) {
+                break;
+            }
+
             // if ticks >= 5000 break
-
+            telemetry.addData("ticks ", ticks);
+            telemetry.update();
         }
-
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
         // turn off motors
     }
 }
