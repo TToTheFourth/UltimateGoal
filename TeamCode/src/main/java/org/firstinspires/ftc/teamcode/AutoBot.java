@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+@Autonomous
 public class AutoBot extends LinearOpMode {
     RepresentoBotMVP bot;
 
@@ -13,10 +15,11 @@ public class AutoBot extends LinearOpMode {
         int rct = 0;
 
         if (rct == 0) {
-            bot.forwardUntilPink(0.5);
+            //bot.forwardUntilPink(0.5);
+            bot.goForward(0.5, 70);
             bot.slide(0.5, 23);
             //drop goal
-            bot.slide(0.5,-46);
+            bot.slide(0.5,46);
             bot.goForward(0.5,-18);
             //shoot rings
             bot.goForward(0.5,18);

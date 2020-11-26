@@ -28,6 +28,8 @@ public class MechDrive2020 extends LinearOpMode {
         backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
 
         // TODO: get claw and elbow motors
+        claw = hardwareMap.get(DcMotor.class, "claw0");
+        elbow = hardwareMap.get(DcMotor.class, "elbow1");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -67,9 +69,22 @@ public class MechDrive2020 extends LinearOpMode {
             frontRightMotor.setPower(frontRight);
 
             // TODO: get input from controller dpad left - right for claw
-
+            if (gamepad1.dpad_left){
+                claw.setPower(0.5);
+            } else if (gamepad1.dpad_right){
+                claw.setPower(-0.5);
+            } else {
+                claw.setPower(0);
+            }
 
             // TODO: get input from controller dpad up - down for elbow
+            if (gamepad1.dpad_down){
+                elbow.setPower(0.5);
+            } else if (gamepad1.dpad_up){
+                elbow.setPower(-0.5);
+            } else {
+                elbow.setPower(0);
+            }
 
         }
 
