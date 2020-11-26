@@ -645,11 +645,11 @@ public class RepresentoBotMVP {
         frontRightMotor.setPower(0.0);
     }
     public long ticksToInchesForward(double inches) {
-        return (long) (inches * 30.26086956217);
+        return (long) (inches * 38.4);
         // ticks forward formula
     }
     public long ticksToInchesSlide(double inches) {
-        return (long) (inches * 31.930232558139);
+        return (long) (inches * 74.6);
         // tick to slide inches formula
     }
     public long inchesToTime(double inches, double power) {

@@ -31,21 +31,8 @@ public class CountTicks extends LinearOpMode {
 
         // remove -->RepresentoBotMVP  bot = new RepresentoBotMVP(this);
 
+        motorslide();
         long ticks;
-       double rightY_G1 = -0.5;
-       double rightX_G1 = -0;
-       double leftY_G1 = -0;
-       double leftX_G1 = -0;
-
-        double frontLeftp = (rightX_G1 + rightY_G1 - leftX_G1);
-        double backLeftp = (rightX_G1 + rightY_G1 + leftX_G1);
-        double backRightp = (rightX_G1 - rightY_G1 + leftX_G1);
-        double frontRightp = (rightX_G1 - rightY_G1 - leftX_G1);
-        // turn on the motors to forward for 5000 ticks
-        frontLeft.setPower(frontLeftp);
-       frontRight.setPower(frontRightp);
-        backLeft.setPower(backLeftp);
-       backRight.setPower(backRightp);
 
         while (opModeIsActive()) {
 
@@ -54,7 +41,7 @@ public class CountTicks extends LinearOpMode {
                 ticks = -ticks;
             }
 
-            if (ticks >= 5000) {
+            if (ticks >= 3000) {
                 break;
             }
 
@@ -68,4 +55,44 @@ public class CountTicks extends LinearOpMode {
         backRight.setPower(0);
         // turn off motors
     }
+
+    public void motorsforward (){
+
+        double rightY_G1 = -0.5;
+        double rightX_G1 = -0;
+        double leftY_G1 = -0;
+        double leftX_G1 = -0;
+
+        double frontLeftp = (rightX_G1 + rightY_G1 - leftX_G1);
+        double backLeftp = (rightX_G1 + rightY_G1 + leftX_G1);
+        double backRightp = (rightX_G1 - rightY_G1 + leftX_G1);
+        double frontRightp = (rightX_G1 - rightY_G1 - leftX_G1);
+
+        // turn on the motors to forward for 3000 ticks
+        frontLeft.setPower(frontLeftp);
+        frontRight.setPower(frontRightp);
+        backLeft.setPower(backLeftp);
+        backRight.setPower(backRightp);
+
+    }
+    public void motorslide (){
+
+    double rightY_G1 = -0;
+    double rightX_G1 = -0;
+    double leftY_G1 = -0;
+    double leftX_G1 = -0.5;
+
+    double frontLeftp = (rightX_G1 + rightY_G1 - leftX_G1);
+    double backLeftp = (rightX_G1 + rightY_G1 + leftX_G1);
+    double backRightp = (rightX_G1 - rightY_G1 + leftX_G1);
+    double frontRightp = (rightX_G1 - rightY_G1 - leftX_G1);
+
+    // turn on the motors to forward for 3000 ticks
+        frontLeft.setPower(frontLeftp);
+        frontRight.setPower(frontRightp);
+        backLeft.setPower(backLeftp);
+        backRight.setPower(backRightp);
+
+}
+
 }
