@@ -12,9 +12,9 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.lastYear.teamcode.Gyro;
-import org.firstinspires.ftc.teamcode.lastYear.teamcode.Gyro2;
-import org.firstinspires.ftc.teamcode.lastYear.teamcode.Timer;
+import org.firstinspires.ftc.teamcode.Gyro;
+import org.firstinspires.ftc.teamcode.Gyro2;
+import org.firstinspires.ftc.teamcode.Timer;
 
 import java.util.TimerTask;
 
@@ -31,17 +31,9 @@ public class RepresentoBotMVP {
     private DcMotor frontLeftMotor;
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
-    private DcMotor rackMotor;
     private DcMotor shoot;
     private Servo claw;
-    private Servo servoCon;
 
-    private DcMotor slideMotorF;
-    private DcMotor trackMotorF;
-    private Servo foundationServo;
-    private Servo stoneServo;
-    private Servo left;
-    private Servo right;
     private Gyro gyro;
     private LinearOpMode opMode;
     private DistanceSensor sensorDistance;
@@ -49,11 +41,6 @@ public class RepresentoBotMVP {
     ModernRoboticsI2cRangeSensor rangeSensor;
     private Gyro2 miniGyro;
 
-    class MotorStopper extends TimerTask {
-        public void run() {
-            rackMotor.setPower(0);
-        }
-    }
     private java.util.Timer timeKeeper = new java.util.Timer();
 
     public RepresentoBotMVP(LinearOpMode om) {
@@ -63,7 +50,7 @@ public class RepresentoBotMVP {
         frontLeftMotor = opMode.hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor3");
-        backRightMotor = opMode.hardwareMap.get(DcMotor.class, "claw");
+        backRightMotor = opMode.hardwareMap.get(DcMotor.class, "claw0");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         gyro = new Gyro(imu, opMode);
         myTimer = new Timer();
@@ -74,7 +61,6 @@ public class RepresentoBotMVP {
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void startGyro(){
@@ -143,17 +129,6 @@ public class RepresentoBotMVP {
         backRightMotor.setPower(0.0);
         frontRightMotor.setPower(0.0);
         // stops motors
-    }
-    public void servoLatch() {
-        right.setPosition(1.0);
-        left.setPosition(1.0);
-        // latches both servos, moving them to the down position
-    }
-
-    public void ServoUnlatch() {
-        right.setPosition(0);
-        left.setPosition(0);
-        // unlatches both servos, moving them to the up position
     }
 
     public void forwardUntilDistance(double until, double power) {
@@ -525,30 +500,6 @@ public class RepresentoBotMVP {
         // tells the colors now that they are normalized
     }
 
-    public void timeRackIn(float time) {
-        myTimer.setCompareTime((long)(time * 1000));
-        rackMotor.setPower(1);
-        myTimer.start();
-        while (opMode.opModeIsActive()) {
-            if (myTimer.timeChecker()) {
-                break;
-            }
-        }
-        rackMotor.setPower(0);
-        // moves the rack for a certain amount of time
-    }
-
-    public void timeRackOut(float time) {
-        rackMotor.setPower(-1);
-        timeKeeper.schedule(new MotorStopper(), 4500);
-        // moves the rack for a certain amount of time
-    }
-
-    public void moveClaw(double position) {
-        servoCon.setPosition(position);
-        // sets claw to a position
-    }
-
     public void getReady(double pos) {
         claw.setPosition(pos);
         myTimer.waitT(1000);
@@ -603,7 +554,8 @@ public class RepresentoBotMVP {
         frontRightMotor.setPower(0.0);
         // sets motors to zero
     }
-    public void goForwardWithoutFix(double power, double distance){
+
+    public void goForwardNoGyro(double power, double distance){
         double rightY_G1 = 1.0 * power;
         double rightX_G1 = 0.0;
         double leftX_G1 = 0.0;
@@ -620,7 +572,7 @@ public class RepresentoBotMVP {
         // sets the encoders
 
         long ticks = ticksToInchesForward(distance);
-        miniGyro.reset();
+
         while (opMode.opModeIsActive()) {
             int rotations = backLeftMotor.getCurrentPosition();
             if (rotations<0) {
@@ -629,6 +581,7 @@ public class RepresentoBotMVP {
             if (rotations >= ticks) {
                 break;
             }
+
             // makes inches transfer to ticks
         }
 

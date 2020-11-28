@@ -10,19 +10,20 @@ public class AutoBot extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         bot=new RepresentoBotMVP(this);
-
+        waitForStart();
+        bot.startGyro();
         //see how many rings there are
         int rct = 0;
 
         if (rct == 0) {
             //bot.forwardUntilPink(0.5);
-            bot.goForward(0.5, 70);
+            bot.goForwardNoGyro(0.5, 70);
             bot.slide(0.5, 23);
             //drop goal
             bot.slide(0.5,46);
-            bot.goForward(0.5,-18);
+            bot.goForwardNoGyro(0.5,-18);
             //shoot rings
-            bot.goForward(0.5,18);
+            bot.goForwardNoGyro(0.5,18);
         } else if (rct==1) {
             bot.forwardUntilPink(0.5);
             bot.goForward(0.5, 23);
