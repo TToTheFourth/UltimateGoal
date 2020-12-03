@@ -32,7 +32,7 @@ public class RepresentoBotMVP {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     private DcMotor shoot;
-    private Servo claw;
+    private DcMotor claw;
 
     private Gyro gyro;
     private LinearOpMode opMode;
@@ -50,7 +50,7 @@ public class RepresentoBotMVP {
         frontLeftMotor = opMode.hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor3");
-        backRightMotor = opMode.hardwareMap.get(DcMotor.class, "claw0");
+        claw = opMode.hardwareMap.get(DcMotor.class, "claw0");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         gyro = new Gyro(imu, opMode);
         myTimer = new Timer();
@@ -355,17 +355,23 @@ public class RepresentoBotMVP {
         // stops motor
     }
     public void slide (double power, double distance) {
-        double rightY_G1 = 0.0;
-        double rightX_G1 = 0.0;
-        double leftX_G1 = 1.0 * power;
+
         // sets power
 
-        double slowperc = 0.6;
-        frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
-        backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
-        backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1)*slowperc);
-        frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
-        // connects power to the correct variables
+        double rightY_G1 = 0;
+        double rightX_G1 = 0;
+        double leftY_G1 = 0;
+        double leftX_G1 = -power;
+
+        double frontLeft = (rightX_G1 + rightY_G1 - leftX_G1);
+        double backLeft = (rightX_G1 + rightY_G1 + leftX_G1);
+        double backRight = (rightX_G1 - rightY_G1 + leftX_G1);
+        double frontRight = (rightX_G1 - rightY_G1 - leftX_G1);
+
+        frontLeftMotor.setPower(frontLeft);
+        backLeftMotor.setPower(backLeft);
+        backRightMotor.setPower(backRight);
+        frontRightMotor.setPower(frontRight);
 
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -384,16 +390,16 @@ public class RepresentoBotMVP {
 
             if (miniGyro.getAngle() > MAX_ANGLE) {
                 turnRight(ANGLE_ADJ_PERC * miniGyro.getAngle(), ANGLE_ADJ_SPEED);
-                frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
-                backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
-                backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1)*slowperc);
-                frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+                frontLeftMotor.setPower(frontLeft);
+                backLeftMotor.setPower(backLeft);
+                backRightMotor.setPower(backRight);
+                frontRightMotor.setPower(frontRight);
             }else if (miniGyro.getAngle() < -MAX_ANGLE){
                 turnLeft (-ANGLE_ADJ_PERC * miniGyro.getAngle(), ANGLE_ADJ_SPEED);
-                frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
-                backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
-                backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1)*slowperc);
-                frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+                frontLeftMotor.setPower(frontLeft);
+                backLeftMotor.setPower(backLeft);
+                backRightMotor.setPower(backRight);
+                frontRightMotor.setPower(frontRight);
             }
         }
         // sets the inches to ticks so the motors understand
@@ -498,11 +504,6 @@ public class RepresentoBotMVP {
 
         Color.colorToHSV(colors.toColor(), hsvValues);
         // tells the colors now that they are normalized
-    }
-
-    public void getReady(double pos) {
-        claw.setPosition(pos);
-        myTimer.waitT(1000);
     }
 
     public void goForward(double power, double distance){
