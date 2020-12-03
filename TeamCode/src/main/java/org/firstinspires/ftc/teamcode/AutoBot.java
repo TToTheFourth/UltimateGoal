@@ -18,11 +18,18 @@ public class AutoBot extends LinearOpMode {
         if (rct == 0) {
             //bot.forwardUntilPink(0.5);
             bot.goForwardNoGyro(0.5, 70);
-            bot.slide(0.5, 23);
+            sleep(2000);
+
+            bot.slide(-0.5, 23);
             //drop goal
+            sleep(2000);
+
             bot.slide(0.5,46);
-            bot.goForwardNoGyro(0.5,-18);
+            sleep(2000);
+            bot.goForwardNoGyro(-0.5,18);
             //shoot rings
+            sleep(2000);
+
             bot.goForwardNoGyro(0.5,18);
         } else if (rct==1) {
             bot.forwardUntilPink(0.5);
