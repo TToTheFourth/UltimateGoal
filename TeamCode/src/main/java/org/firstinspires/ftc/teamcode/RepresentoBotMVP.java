@@ -413,7 +413,8 @@ public class RepresentoBotMVP {
         double rightY_G1 = 0.0;
         double rightX_G1 = 0.0;
         double leftX_G1 = 1.0 * power;
-        // sets power
+        // sets
+        // negative power is left
 
         double slowperc = 0.6;
         frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
