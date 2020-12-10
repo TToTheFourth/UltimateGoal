@@ -136,7 +136,9 @@ public class UltimateVuforia {
     public UltimateVuforia (LinearOpMode opMode){
         op = opMode;
     }
-     public void yesVuforia() {
+
+    // Turn on Vuforia
+    public void yesVuforia() {
          /*
           * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
           * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -268,6 +270,8 @@ public class UltimateVuforia {
          targetsUltimateGoal.activate();
      }
 
+     // Return the X, Y, Heading coordinates if Vuforia sees an image
+     // if Vuforia sees am image then CoordHolder.seeImage is true; otherwise it is false
      public CoordHolder getCoords() {
          CoordHolder coord= new CoordHolder();
 
@@ -305,6 +309,8 @@ public class UltimateVuforia {
 
          return coord;
      }
+
+     // Turn off Vuforia
      public void noVuforia() {
         // Disable Tracking when we are done;
         targetsUltimateGoal.deactivate();
