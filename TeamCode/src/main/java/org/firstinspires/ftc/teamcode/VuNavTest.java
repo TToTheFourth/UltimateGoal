@@ -13,16 +13,17 @@ public class VuNavTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         bot=new RepresentoBotMVP(this);
+        vu = new UltimateVuforia(this);
         waitForStart();
         bot.startGyro();
 
-        Vuforia.init();
+        vu.yesVuforia();
 
         waitForStart();
 
         // Navigate from (-72, 35) to (43, 35)
         // go forward 115 inches
-        bot.goForward(.75,115);
+        bot.goForward(.75,100);
         // Ask Vuforia if we are at (43, 35) heading is 0 degrees; if an image is seen then:
         cH = vu.getCoords();
         if(cH.seeImage) {
@@ -54,6 +55,6 @@ public class VuNavTest extends LinearOpMode {
         // If image not seen do nothing
 
         // Turn off Vuforia
-        Vuforia.deinit();
+        vu.noVuforia();
     }
 }
