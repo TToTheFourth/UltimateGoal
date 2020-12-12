@@ -22,7 +22,7 @@ public class VuNavTest extends LinearOpMode {
 
         // Navigate from (-72, 35) to (43, 35)
         // go forward 115 inches
-        bot.goForward(1,115);
+        bot.goForward(.75,115);
         // Ask Vuforia if we are at (43, 35) heading is 0 degrees; if an image is seen then:
         cH = vu.getCoords();
         if(cH.seeImage) {
