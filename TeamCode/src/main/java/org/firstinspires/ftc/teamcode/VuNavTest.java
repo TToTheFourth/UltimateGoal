@@ -24,14 +24,14 @@ public class VuNavTest extends LinearOpMode {
         // go forward 115 inches
         bot.goForward(1,115);
         // Ask Vuforia if we are at (43, 35) heading is 0 degrees; if an image is seen then:
-        // TODO: need to call vu.getCoords() here - this returns the CoordHolder to test in the following If statement
+        vu.getCoords();
         if(cH.seeImage) {
-            // TODO: move this before the if statement
-            vu.getCoords();
 
             // If heading is not zero, then turn robot to correct
-            // TODO: if the angle is positive, turn right; if it is negative, turn left
-            if (cH.angle != 0) {
+            if (cH.angle > 0 ) {
+                bot.turnRight(cH.angle, .25);
+                //assuming cH is based on angle right
+            } else if (cH.angle < 0 ) {
                 bot.turnLeft(cH.angle, .25);
                 //assuming cH is based on angle right
             }
