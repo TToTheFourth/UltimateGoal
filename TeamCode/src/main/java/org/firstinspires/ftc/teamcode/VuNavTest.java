@@ -16,10 +16,7 @@ public class VuNavTest extends LinearOpMode {
         vu = new UltimateVuforia(this);
         waitForStart();
         bot.startGyro();
-
         vu.yesVuforia();
-
-        waitForStart();
 
         // Navigate from (-72, 35) to (43, 35)
         // go forward 115 inches
