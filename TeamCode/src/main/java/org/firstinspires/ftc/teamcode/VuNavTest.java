@@ -23,6 +23,7 @@ public class VuNavTest extends LinearOpMode {
         bot.goForward(.75,100);
         // Ask Vuforia if we are at (43, 35) heading is 0 degrees; if an image is seen then:
         cH = vu.getCoords();
+        sleep(3000);
         if(cH.seeImage) {
 
             // If heading is not zero, then turn robot to correct
