@@ -6,13 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous
 public class AutoBot extends LinearOpMode {
     RepresentoBotMVP bot;
+    VuforiaNavigator vuNav;
+    UltimateVuforia vision;
 
     @Override
     public void runOpMode() throws InterruptedException {
         bot=new RepresentoBotMVP(this);
         waitForStart();
         bot.startGyro();
-        //see how many rings there are
+
+        // TODO: see how many rings there are
         int rct = 0;
 
         if (rct == 0) {

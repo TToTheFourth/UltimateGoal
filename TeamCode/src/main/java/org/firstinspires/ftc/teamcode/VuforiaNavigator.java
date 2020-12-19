@@ -9,24 +9,26 @@ public class VuforiaNavigator {
     CoordHolder cH;
 
 
+    // TODO: pass in UltimateVuforia instead of creating it here
     public VuforiaNavigator(LinearOpMode op, RepresentoBotMVP b) {
         bot = b;
         opMode = op;
         vu = new UltimateVuforia(op);
     }
 
+    // TODO: remove
     public void yesVuforia() {
         // TODO: tell vu to turn on
         vu.yesVuforia();
     }
 
+    // TODO: remove
     public void noVuforia() {
         // TODO: tell vu to turn off
         vu.noVuforia();
     }
 
     public void navigate(float targetX, float targetY, float targetAngle) {
-        // TODO: use logic from VuNavTest here...
         cH = vu.getCoords();
         if (cH.angle > targetAngle ) {
             bot.turnRight(cH.angle, .25);

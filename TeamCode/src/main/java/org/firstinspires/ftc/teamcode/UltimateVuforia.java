@@ -266,7 +266,11 @@ public class UltimateVuforia {
          // Tap the preview window to receive a fresh image.
 
          targetsUltimateGoal.activate();
+
+         // TODO: initialize TF
      }
+
+     // TODO: function to return how many rings are seen: 0, 1, 2, 4
 
      // Return the X, Y, Heading coordinates if Vuforia sees an image
      // if Vuforia sees am image then CoordHolder.seeImage is true; otherwise it is false
@@ -312,5 +316,7 @@ public class UltimateVuforia {
      public void noVuforia() {
         // Disable Tracking when we are done;
         targetsUltimateGoal.deactivate();
+
+        // TODO: shutdown TF
      }
 }
