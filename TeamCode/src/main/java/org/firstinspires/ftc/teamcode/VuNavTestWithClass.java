@@ -25,7 +25,7 @@ public class VuNavTestWithClass extends LinearOpMode {
 
         // Ask Vuforia if we are at (43, 35) heading is 0 degrees; if an image is seen then:
         vuNav.navigate(43, 35, 0);
-        sleep(3000);
+        sleep(500);
         vuNav.navigate(43,35,0);
         // If image not seen do nothing
 
