@@ -8,24 +8,10 @@ public class VuforiaNavigator {
     RepresentoBotMVP bot;
     CoordHolder cH;
 
-
-    // TODO: pass in UltimateVuforia instead of creating it here
-    public VuforiaNavigator(LinearOpMode op, RepresentoBotMVP b) {
+    public VuforiaNavigator(LinearOpMode op, RepresentoBotMVP b, UltimateVuforia v) {
         bot = b;
         opMode = op;
-        vu = new UltimateVuforia(op);
-    }
-
-    // TODO: remove
-    public void yesVuforia() {
-        // TODO: tell vu to turn on
-        vu.yesVuforia();
-    }
-
-    // TODO: remove
-    public void noVuforia() {
-        // TODO: tell vu to turn off
-        vu.noVuforia();
+        vu = v;
     }
 
     public void navigate(float targetX, float targetY, float targetAngle) {

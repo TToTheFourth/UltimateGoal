@@ -43,6 +43,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
@@ -93,6 +96,9 @@ public class UltimateVuforia {
     //
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
+    private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
+    private static final String LABEL_FIRST_ELEMENT = "Quad";
+    private static final String LABEL_SECOND_ELEMENT = "Single";
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -127,6 +133,7 @@ public class UltimateVuforia {
     VuforiaTrackables targetsUltimateGoal;
     private OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
+    private TFObjectDetector tfod = null;
     private boolean targetVisible = false;
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
@@ -267,10 +274,37 @@ public class UltimateVuforia {
 
          targetsUltimateGoal.activate();
 
-         // TODO: initialize TF
+        initTfod();
+        tfod.activate();
      }
 
-     // TODO: function to return how many rings are seen: 0, 1, 2, 4
+     public int tensorflow () {
+        int OTF = 0;
+        if (tfod != null) {List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            if (updatedRecognitions != null) {
+                op.telemetry.addData("# Object Detected", updatedRecognitions.size());
+                int i = 0;
+                for (Recognition recognition : updatedRecognitions) {
+                    op.telemetry.addData(String.format("height", i), recognition.getHeight());
+                    op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                    op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            recognition.getLeft(), recognition.getTop());
+                    op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                            recognition.getRight(), recognition.getBottom());
+                    if (recognition.getLabel() == LABEL_SECOND_ELEMENT) {
+                        OTF = 0;
+                    } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {
+                        OTF = 1;
+                    } else {
+                        OTF = 4;
+                    }
+                }
+                op.telemetry.update();
+            }
+        }
+         return OTF;
+     }
+
 
      // Return the X, Y, Heading coordinates if Vuforia sees an image
      // if Vuforia sees am image then CoordHolder.seeImage is true; otherwise it is false
@@ -316,7 +350,15 @@ public class UltimateVuforia {
      public void noVuforia() {
         // Disable Tracking when we are done;
         targetsUltimateGoal.deactivate();
-
-        // TODO: shutdown TF
+        tfod.deactivate();
      }
+
+    private void initTfod() {
+        int tfodMonitorViewId = op.hardwareMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id", op.hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+    }
+
 }
