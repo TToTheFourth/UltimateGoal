@@ -22,6 +22,7 @@ public class VuNavTestWithClass extends LinearOpMode {
         waitForStart();
         bot.startGyro();
         Vuforia.init();
+        vu.yesVuforia();
 
         // Navigate from (-72, 35) to (43, 35)
         // go forward 115 inches
@@ -63,6 +64,7 @@ public class VuNavTestWithClass extends LinearOpMode {
         // If image not seen do nothing
 
         // Turn off Vuforia
+        vu.noVuforia();
         Vuforia.deinit();
     }
 }
