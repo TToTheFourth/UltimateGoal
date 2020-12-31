@@ -17,8 +17,8 @@ public class VuNavTestWithClass extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         bot=new RepresentoBotMVP(this);
-        vuNav = new VuforiaNavigator(this, bot, vu);
         vu = new UltimateVuforia(this);
+        vuNav = new VuforiaNavigator(this, bot, vu);
         waitForStart();
         bot.startGyro();
         Vuforia.init();
@@ -28,9 +28,9 @@ public class VuNavTestWithClass extends LinearOpMode {
         rings = vu.tensorflow();
         if (rings == 0) {
             //add dead reckoning
-            bot.turnLeft(90, 0.1);
+            bot.turnLeft(90, 0.3);
             bot.goForward(0.5, 24);
-            bot.turnRight(90, 0.1);
+            bot.turnRight(90, 0.3);
             bot.goForward(0.5, 55);
             vuNav.navigate(0, 60, 0);
             sleep(500);
@@ -43,9 +43,9 @@ public class VuNavTestWithClass extends LinearOpMode {
             vuNav.navigate(36, 36, 0);
         } else {
             //add dead reckoning
-            bot.turnLeft(90, 0.1);
+            bot.turnLeft(90, 0.3);
             bot.goForward(0.5, 24);
-            bot.turnRight(90, 0.1);
+            bot.turnRight(90, 0.3);
             bot.goForward(0.5, 115);
             vuNav.navigate(60, 60, 0);
             sleep(500);
