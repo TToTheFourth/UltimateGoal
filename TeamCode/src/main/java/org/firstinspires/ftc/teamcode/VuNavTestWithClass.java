@@ -21,7 +21,6 @@ public class VuNavTestWithClass extends LinearOpMode {
         vuNav = new VuforiaNavigator(this, bot, vu);
         waitForStart();
         bot.startGyro();
-        Vuforia.init();
         vu.yesVuforia();
 
         // Navigate from (-72, 35) to (43, 35)
@@ -65,6 +64,5 @@ public class VuNavTestWithClass extends LinearOpMode {
 
         // Turn off Vuforia
         vu.noVuforia();
-        Vuforia.deinit();
     }
 }
