@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.vuforia.Vuforia;
 
+import org.tensorflow.lite.TensorFlowLite;
+
 @Autonomous
 public class VuNavTestWithClass extends LinearOpMode {
     RepresentoBotMVP bot;
@@ -16,6 +18,7 @@ public class VuNavTestWithClass extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         bot=new RepresentoBotMVP(this);
         vuNav = new VuforiaNavigator(this, bot, vu);
+        vu = new UltimateVuforia(this);
         waitForStart();
         bot.startGyro();
         Vuforia.init();
