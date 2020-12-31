@@ -28,15 +28,15 @@ public class VuNavTestWithClass extends LinearOpMode {
         rings = vu.tensorflow();
         telemetry.addData("rings", rings);
         telemetry.update();
-        if (rings == 0) {
+        if (rings == 4) {
             //add dead reckoning
             bot.turnLeft(90, 0.3);
             bot.goForward(0.5, 24);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 55);
-            vuNav.navigate(0, 60, 0);
+            bot.goForward(0.5, 115);
+            vuNav.navigate(60, 60, 0);
             sleep(500);
-            vuNav.navigate(0, 60, 0);
+            vuNav.navigate(60, 60, 0);
         } else if (rings == 1) {
             //add dead reckoning
             bot.goForward(0.5, 96);
@@ -48,10 +48,10 @@ public class VuNavTestWithClass extends LinearOpMode {
             bot.turnLeft(90, 0.3);
             bot.goForward(0.5, 24);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 115);
-            vuNav.navigate(60, 60, 0);
+            bot.goForward(0.5, 55);
+            vuNav.navigate(0, 60, 0);
             sleep(500);
-            vuNav.navigate(60, 60, 0);
+            vuNav.navigate(0, 60, 0);
         }
         bot.goForward(.5,100);
         sleep(3000);
