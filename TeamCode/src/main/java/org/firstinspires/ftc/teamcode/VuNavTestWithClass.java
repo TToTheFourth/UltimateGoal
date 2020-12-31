@@ -27,6 +27,7 @@ public class VuNavTestWithClass extends LinearOpMode {
         // go forward 115 inches
         rings = vu.tensorflow();
         telemetry.addData("rings", rings);
+        telemetry.update();
         if (rings == 0) {
             //add dead reckoning
             bot.turnLeft(90, 0.3);

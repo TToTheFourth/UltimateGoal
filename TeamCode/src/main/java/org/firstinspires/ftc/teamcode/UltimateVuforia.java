@@ -292,11 +292,11 @@ public class UltimateVuforia {
                     op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                             recognition.getRight(), recognition.getBottom());
                     if (recognition.getLabel() == LABEL_SECOND_ELEMENT) {
-                        OTF = 0;
-                    } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {
                         OTF = 1;
-                    } else {
+                    } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {
                         OTF = 4;
+                    } else {
+                        OTF = 0;
                     }
                 }
                 op.telemetry.update();
