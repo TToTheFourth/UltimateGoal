@@ -25,9 +25,14 @@ public class VuNavTestWithClass extends LinearOpMode {
 
         // Navigate from (-72, 35) to (43, 35)
         // go forward 115 inches
-        rings = vu.tensorflow();
-        telemetry.addData("rings", rings);
-        telemetry.update();
+
+        while (opModeIsActive()) {
+            rings = vu.tensorflow();
+           // telemetry.addData("rings", rings);
+            //telemetry.update();
+        }
+
+        /*
         if (rings == 0) {
             //add dead reckoning
             bot.turnLeft(90, 0.3);
@@ -61,7 +66,7 @@ public class VuNavTestWithClass extends LinearOpMode {
         sleep(500);
         vuNav.navigate(43,35,0);
         // If image not seen do nothing
-
+*/
         // Turn off Vuforia
         vu.noVuforia();
     }

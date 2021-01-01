@@ -17,6 +17,7 @@ public class MechDrive2020 extends LinearOpMode {
     private DcMotor claw;
     private  DcMotor elbow;
     private DcMotor convoy;
+    private DcMotor thrower;
 
     static final double INCREMENT   = 0.01;
     static final int    CYCLE_MS    =   50;
@@ -38,6 +39,7 @@ public class MechDrive2020 extends LinearOpMode {
         claw = hardwareMap.get(DcMotor.class, "claw0");
         elbow = hardwareMap.get(DcMotor.class, "elbow1");
         convoy = hardwareMap.get(DcMotor.class, "convey2");
+        thrower = hardwareMap.get(DcMotor.class, "thrower");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -68,6 +70,7 @@ public class MechDrive2020 extends LinearOpMode {
             double backRight = (rightX_G1 - rightY_G1 + leftX_G1);
             double frontRight = (rightX_G1 - rightY_G1 - leftX_G1);
 
+            /*
             if (rampUp) {
                 // Keep stepping up until we hit the max value.
                 frontLeft += INCREMENT;
@@ -114,6 +117,7 @@ public class MechDrive2020 extends LinearOpMode {
                     rampUp = !rampUp;  // Switch ramp direction
                 }
             }
+            */
 
             frontLeftMotor.setPower(frontLeft);
             backLeftMotor.setPower(backLeft);
@@ -139,12 +143,23 @@ public class MechDrive2020 extends LinearOpMode {
             }
 
             if (gamepad1.a){
+                telemetry.addLine("a pushed");
                 convoy.setPower(1);
             } else if (gamepad1.y){
+                telemetry.addLine("y pushed");
                 convoy.setPower(-1);
             } else {
                 convoy.setPower(0);
             }
+
+            if(gamepad1.right_bumper) {
+                telemetry.addLine("right bumper");
+                thrower.setPower(1);
+            } else {
+                thrower.setPower(0);
+            }
+
+            telemetry.update();
 
 
         }
