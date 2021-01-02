@@ -285,18 +285,20 @@ public class UltimateVuforia {
                 op.telemetry.addData("# Object Detected", updatedRecognitions.size());
                 int i = 0;
                 for (Recognition recognition : updatedRecognitions) {
-                    op.telemetry.addData(String.format("height", i), recognition.getHeight());
-                    op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                    op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                            recognition.getLeft(), recognition.getTop());
-                    op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                            recognition.getRight(), recognition.getBottom());
-                    if (recognition.getLabel() == LABEL_SECOND_ELEMENT) {
-                        OTF = 1;
-                    } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {
-                        OTF = 4;
-                    } else {
-                        OTF = 0;
+                    if (recognition.getBottom()>= 800) {
+                        op.telemetry.addData(String.format("height", i), recognition.getHeight());
+                        op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        if (recognition.getLabel() == LABEL_SECOND_ELEMENT) {
+                            OTF = 1;
+                        } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {
+                            OTF = 4;
+                        } else {
+                            OTF = 0;
+                        }
                     }
                 }
                 op.telemetry.update();
