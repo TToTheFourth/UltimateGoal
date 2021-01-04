@@ -235,65 +235,65 @@ public class RepresentoBotMVP {
     }
 
 
-        public void forwardUntilColor(double power) {
-            float hsvValues[] = {0F, 0F, 0F};
+    public void forwardUntilColor(double power) {
+        float hsvValues[] = {0F, 0F, 0F};
 
-            // wait for the start button to be pressed.
+        // wait for the start button to be pressed.
 
-            double h;
-            double s;
-            double v;
+        double h;
+        double s;
+        double v;
 
-            double rightY_G1 = 1.0 * power;
-            double rightX_G1 = 0.0;
-            double leftX_G1 = 0.0;
-            // sets power
+        double rightY_G1 = 1.0 * power;
+        double rightX_G1 = 0.0;
+        double leftX_G1 = 0.0;
+        // sets power
 
-            frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
-            backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
-            backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
-            frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+        frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
+        backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
+        backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
+        frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
 
-            miniGyro.reset();
-            do {
-                NormalizedRGBA colors = sensorColor.getNormalizedColors();
-                // normalizes the colors so none of the colors have readings that are off the mark
-                // ( a jump of 50 to 1059 )
-                float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
-                colors.red   /= max;
-                colors.green /= max;
-                colors.blue  /= max;
+        miniGyro.reset();
+        do {
+            NormalizedRGBA colors = sensorColor.getNormalizedColors();
+            // normalizes the colors so none of the colors have readings that are off the mark
+            // ( a jump of 50 to 1059 )
+            float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
+            colors.red   /= max;
+            colors.green /= max;
+            colors.blue  /= max;
 
-                Color.colorToHSV(colors.toColor(), hsvValues);
-                // changes rbg to hsv
+            Color.colorToHSV(colors.toColor(), hsvValues);
+            // changes rbg to hsv
 
-                h = hsvValues[0];
-                s = hsvValues[1];
-                v = hsvValues[2];
+            h = hsvValues[0];
+            s = hsvValues[1];
+            v = hsvValues[2];
 
-                if (miniGyro.getAngle() > MAX_ANGLE) {
-                    turnRight(ANGLE_ADJ_PERC * miniGyro.getAngle(), ANGLE_ADJ_SPEED);
-                    frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
-                    backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
-                    backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
-                    frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+            if (miniGyro.getAngle() > MAX_ANGLE) {
+                turnRight(ANGLE_ADJ_PERC * miniGyro.getAngle(), ANGLE_ADJ_SPEED);
+                frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
+                backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
+                backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
+                frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
 
-                }else if (miniGyro.getAngle() < -MAX_ANGLE){
-                    turnLeft (-ANGLE_ADJ_PERC * miniGyro.getAngle(), ANGLE_ADJ_SPEED);
-                    frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
-                    backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
-                    backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
-                    frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+            }else if (miniGyro.getAngle() < -MAX_ANGLE){
+                turnLeft (-ANGLE_ADJ_PERC * miniGyro.getAngle(), ANGLE_ADJ_SPEED);
+                frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
+                backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
+                backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
+                frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
 
-                }
-            } while (154.88 > h && h > 103.04 && 0.107 > s && s > 0.055 && 0.361 > v && v > 0.349);
+            }
+        } while (154.88 > h && h > 103.04 && 0.107 > s && s > 0.055 && 0.361 > v && v > 0.349);
 
-            frontLeftMotor.setPower(0.0);
-            backLeftMotor.setPower(0.0);
-            backRightMotor.setPower(0.0);
-            frontRightMotor.setPower(0.0);
-            // stops motor
-        }
+        frontLeftMotor.setPower(0.0);
+        backLeftMotor.setPower(0.0);
+        backRightMotor.setPower(0.0);
+        frontRightMotor.setPower(0.0);
+        // stops motor
+    }
 
     public void forwardUntil(double power) {
         float hsvValues[] = {0F, 0F, 0F};

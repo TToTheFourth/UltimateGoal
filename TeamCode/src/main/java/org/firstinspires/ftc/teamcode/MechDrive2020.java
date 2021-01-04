@@ -68,6 +68,11 @@ public class MechDrive2020 extends LinearOpMode {
             double backRight = (rightX_G1 - rightY_G1 + leftX_G1);
             double frontRight = (rightX_G1 - rightY_G1 - leftX_G1);
 
+            telemetry.addData("frontLeft %.02f", frontLeft);
+            telemetry.addData("frontRight %.02f", frontRight);
+            telemetry.addData("backLeft %.02f", backLeft);
+            telemetry.addData("backRight %.02f", backRight);
+/*
             if (rampUp) {
                 // Keep stepping up until we hit the max value.
                 frontLeft += INCREMENT;
@@ -114,7 +119,7 @@ public class MechDrive2020 extends LinearOpMode {
                     rampUp = !rampUp;  // Switch ramp direction
                 }
             }
-
+*/
             frontLeftMotor.setPower(frontLeft);
             backLeftMotor.setPower(backLeft);
             backRightMotor.setPower(backRight);
@@ -146,7 +151,7 @@ public class MechDrive2020 extends LinearOpMode {
                 convoy.setPower(0);
             }
 
-
+            telemetry.update();
         }
 
         frontLeftMotor.setPower(0);

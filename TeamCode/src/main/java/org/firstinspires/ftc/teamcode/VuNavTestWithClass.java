@@ -25,7 +25,8 @@ public class VuNavTestWithClass extends LinearOpMode {
 
         // Navigate from (-72, 35) to (43, 35)
         // go forward 115 inches
-        rings = vu.tensorflow();
+       // rings = vu.tensorflow();
+        rings = 0;
         telemetry.addData("rings", rings);
         telemetry.update();
         if (rings == 4) {
@@ -49,17 +50,18 @@ public class VuNavTestWithClass extends LinearOpMode {
             bot.goForward(0.5, 24);
             bot.turnRight(90, 0.3);
             bot.goForward(0.5, 55);
-            vuNav.navigate(0, 60, 0);
-            sleep(500);
-            vuNav.navigate(0, 60, 0);
+            //vuNav.navigate(0, 60, 0);
+            //sleep(500);
+            //vuNav.navigate(0, 60, 0);
         }
-        bot.goForward(.5,100);
-        sleep(3000);
+        //bot.goForward(.5,100);
+
+        //sleep(3000);
 
         // Ask Vuforia if we are at (43, 35) heading is 0 degrees; if an image is seen then:
-        vuNav.navigate(43, 35, 0);
-        sleep(500);
-        vuNav.navigate(43,35,0);
+        //vuNav.navigate(43, 35, 0);
+        //sleep(500);
+        //vuNav.navigate(43,35,0);
         // If image not seen do nothing
 
         // Turn off Vuforia

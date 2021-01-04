@@ -29,9 +29,8 @@ public class CountTicks extends LinearOpMode {
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // remove -->RepresentoBotMVP  bot = new RepresentoBotMVP(this);
-
-        motorslide();
+        motorsforward();
+        //motorslide();
         long ticks;
 
         while (opModeIsActive()) {
@@ -77,22 +76,22 @@ public class CountTicks extends LinearOpMode {
     }
     public void motorslide (){
 
-    double rightY_G1 = -0;
-    double rightX_G1 = -0;
-    double leftY_G1 = -0;
-    double leftX_G1 = -0.5;
+        double rightY_G1 = -0;
+        double rightX_G1 = -0;
+        double leftY_G1 = -0;
+        double leftX_G1 = -0.5;
 
-    double frontLeftp = (rightX_G1 + rightY_G1 - leftX_G1);
-    double backLeftp = (rightX_G1 + rightY_G1 + leftX_G1);
-    double backRightp = (rightX_G1 - rightY_G1 + leftX_G1);
-    double frontRightp = (rightX_G1 - rightY_G1 - leftX_G1);
+        double frontLeftp = (rightX_G1 + rightY_G1 - leftX_G1);
+        double backLeftp = (rightX_G1 + rightY_G1 + leftX_G1);
+        double backRightp = (rightX_G1 - rightY_G1 + leftX_G1);
+        double frontRightp = (rightX_G1 - rightY_G1 - leftX_G1);
 
-    // turn on the motors to forward for 3000 ticks
+        // turn on the motors to forward for 3000 ticks
         frontLeft.setPower(frontLeftp);
         frontRight.setPower(frontRightp);
         backLeft.setPower(backLeftp);
         backRight.setPower(backRightp);
 
-}
+    }
 
 }
