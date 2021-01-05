@@ -20,23 +20,11 @@ public class ClawTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             if (gamepad1.dpad_left) {
-                lastDir = -1;
-                claw.setPosition(-1.0);
-                telemetry.addLine("left");
-                telemetry.addData("position %.3f", claw.getPosition());
-                telemetry.update();
+                claw.setPosition(0);
             } else if (gamepad1.dpad_right) {
-                lastDir = 1;
                 claw.setPosition(1.0);
-                telemetry.addLine("right");
-                telemetry.addData("position %.3f", claw.getPosition());
-                telemetry.update();
             } else {
-                lastDir = 0;
                 claw.setPosition(0.5);
-                telemetry.addLine("stop");
-                telemetry.addData("position %.3f", claw.getPosition());
-                telemetry.update();
             }
 
 
