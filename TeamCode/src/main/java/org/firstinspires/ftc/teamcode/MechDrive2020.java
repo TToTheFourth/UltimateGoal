@@ -140,23 +140,7 @@ public class MechDrive2020 extends LinearOpMode {
                 vuNav.navigate(50,50, 0 /*TODO: put in choords of where to shoot from, these are test choords*/);
             }
 
-            //Todo: add choord for power shot location
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            //Todo: add choord for power shot
 
             // TODO: get input from controller dpad left - right for claw
             if (gamepad2.dpad_left){

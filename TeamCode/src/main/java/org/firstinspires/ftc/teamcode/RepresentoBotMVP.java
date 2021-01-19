@@ -519,14 +519,14 @@ public class RepresentoBotMVP {
         frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
         // sets the correct variables to the motors
 
-        backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // sets the encoders
 
         long ticks = ticksToInchesForward(distance);
         miniGyro.reset();
         while (opMode.opModeIsActive()) {
-            int rotations = backLeftMotor.getCurrentPosition();
+            int rotations = frontRightMotor.getCurrentPosition();
             if (rotations<0) {
                 rotations = rotations * -1;
             }
