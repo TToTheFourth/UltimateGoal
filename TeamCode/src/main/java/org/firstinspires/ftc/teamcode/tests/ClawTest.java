@@ -20,9 +20,9 @@ public class ClawTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             if (gamepad1.dpad_left) {
-                claw.setPosition(0);
+                claw.setPosition(0.3);
             } else if (gamepad1.dpad_right) {
-                claw.setPosition(1.0);
+                claw.setPosition(0.5);
             } else {
                 claw.setPosition(0.5);
             }

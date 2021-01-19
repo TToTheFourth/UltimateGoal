@@ -18,7 +18,7 @@ public class MechDrive2020 extends LinearOpMode {
 
     // TODO: declare motor for claw and elbow
     private DcMotor claw;
-    private  DcMotor elbow;
+    private DcMotor elbow;
     private DcMotor convoy;
 
     static final double INCREMENT   = 0.01;
@@ -143,12 +143,18 @@ public class MechDrive2020 extends LinearOpMode {
             //Todo: add choord for power shot
 
             // TODO: get input from controller dpad left - right for claw
-            if (gamepad2.dpad_left){
-                claw.setPower(0.5);
-            } else if (gamepad2.x){
-                claw.setPower(-0.5);
+            //if (gamepad2.dpad_left){
+            //    claw.setPower(0.5);
+            //} else if (gamepad2.x){
+            ///    claw.setPower(-0.5);
+            //} else {
+            //    claw.setPower(0);
+            //}
+
+            if(gamepad2.x) {
+                // thrower on
             } else {
-                claw.setPower(0);
+                // thrower off
             }
 
             // TODO: get input from controller dpad up - down for elbow
