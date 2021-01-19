@@ -17,7 +17,7 @@ public class MechDrive2020 extends LinearOpMode {
     VuforiaNavigator vuNav;
 
     // TODO: declare motor for claw and elbow
-    private DcMotor claw;
+    private DcMotor thrower;
     private DcMotor elbow;
     private DcMotor convoy;
 
@@ -45,7 +45,7 @@ public class MechDrive2020 extends LinearOpMode {
         backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
 
         // TODO: get claw and elbow motors
-        claw = hardwareMap.get(DcMotor.class, "claw0");
+        thrower = hardwareMap.get(DcMotor.class, "claw0");
         elbow = hardwareMap.get(DcMotor.class, "elbow1");
         convoy = hardwareMap.get(DcMotor.class, "convey2");
 
@@ -153,8 +153,10 @@ public class MechDrive2020 extends LinearOpMode {
 
             if(gamepad2.x) {
                 // thrower on
+                thrower.setPower(1);
             } else {
                 // thrower off
+                thrower.setPower(0);
             }
 
             // TODO: get input from controller dpad up - down for elbow
@@ -183,7 +185,7 @@ public class MechDrive2020 extends LinearOpMode {
         backRightMotor.setPower(0);
         convoy.setPower(0);
         elbow.setPower(0);
-        claw.setPower(0);
+        thrower.setPower(0);
         // turns off motors
     }
 }
