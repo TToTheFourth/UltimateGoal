@@ -145,7 +145,7 @@ public class MechDrive2020 extends LinearOpMode {
             // TODO: get input from controller dpad left - right for claw
             if (gamepad2.dpad_left){
                 claw.setPower(0.5);
-            } else if (gamepad2.dpad_right){
+            } else if (gamepad2.x){
                 claw.setPower(-0.5);
             } else {
                 claw.setPower(0);
