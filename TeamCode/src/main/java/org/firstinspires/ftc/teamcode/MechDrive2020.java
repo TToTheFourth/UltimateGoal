@@ -20,6 +20,7 @@ public class MechDrive2020 extends LinearOpMode {
     private DcMotor thrower;
     private DcMotor elbow;
     private DcMotor convoy;
+    private DcMotor sweeper;
 
     static final double INCREMENT   = 0.01;
     static final int    CYCLE_MS    =   50;
@@ -45,9 +46,11 @@ public class MechDrive2020 extends LinearOpMode {
         backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
 
         // TODO: get claw and elbow motors
+
         thrower = hardwareMap.get(DcMotor.class, "claw0");
         elbow = hardwareMap.get(DcMotor.class, "elbow1");
         convoy = hardwareMap.get(DcMotor.class, "convey2");
+        sweeper = hardwareMap.get(DcMotor.class, "sweeper");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -59,6 +62,7 @@ public class MechDrive2020 extends LinearOpMode {
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         convoy.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sweeper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // makes sure the robot doesn't drift
 
         while (opModeIsActive()) {
@@ -157,6 +161,12 @@ public class MechDrive2020 extends LinearOpMode {
             } else {
                 // thrower off
                 thrower.setPower(0);
+            }
+
+            if(gamepad2.b) {
+                sweeper.setPower(1);
+            } else {
+                sweeper.setPower(0);
             }
 
             // TODO: get input from controller dpad up - down for elbow
