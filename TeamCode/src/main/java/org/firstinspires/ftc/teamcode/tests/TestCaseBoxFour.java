@@ -26,7 +26,7 @@ public class TestCaseBoxFour extends LinearOpMode {
 //        telemetry.addData("rings", rings);
 //        telemetry.update();
 //        if (rings == 4) {
-            bot.turnLeft(90, 0.3);
+            bot.turnLeft(85, 0.3);
             bot.goForward(0.5, 24);
             bot.turnRight(90, 0.3);
             bot.goForward(0.5, 115);
