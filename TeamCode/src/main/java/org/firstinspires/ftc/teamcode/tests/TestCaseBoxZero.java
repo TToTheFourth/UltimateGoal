@@ -30,7 +30,7 @@ public class TestCaseBoxZero extends LinearOpMode {
 //        if (rings == 0) {
             bot.goForward(0.5, 5);
             bot.turnLeft(85, 0.3);
-            bot.goForward(0.5, 19);
+            bot.goForward(0.5, 25);
             bot.turnRight(90, 0.3);
             bot.goForward(0.5, 65);
 //        }
