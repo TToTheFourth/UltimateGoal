@@ -19,8 +19,8 @@ public class MechDrive2020 extends LinearOpMode {
 
     // TODO: declare motor for claw and elbow
     private DcMotor thrower;
-    private DcMotor elbow;
     private DcMotor convoy;
+    private DcMotor elbow;
     private DcMotor sweeper;
 
     static final double INCREMENT   = 0.01;
@@ -49,8 +49,8 @@ public class MechDrive2020 extends LinearOpMode {
         // TODO: get claw and elbow motors
 
         thrower = hardwareMap.get(DcMotor.class, "claw0");
-        elbow = hardwareMap.get(DcMotor.class, "elbow1");
-        convoy = hardwareMap.get(DcMotor.class, "convey2");
+        convoy = hardwareMap.get(DcMotor.class, "elbow1");
+        elbow = hardwareMap.get(DcMotor.class, "convey2");
         sweeper = hardwareMap.get(DcMotor.class, "sweeper");
 
         telemetry.addData("Status", "Initialized");
@@ -62,7 +62,7 @@ public class MechDrive2020 extends LinearOpMode {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        convoy.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         sweeper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // makes sure the robot doesn't drift
 
@@ -179,19 +179,19 @@ public class MechDrive2020 extends LinearOpMode {
 
             // TODO: get input from controller dpad up - down for elbow
             if (gamepad2.dpad_down) {
-                elbow.setPower(0.5);
-            } else if (gamepad2.dpad_up){
-                elbow.setPower(-0.5);
-            } else {
-                elbow.setPower(0);
-            }
-
-            if (gamepad2.a){
                 convoy.setPower(0.5);
-            } else if (gamepad2.y){
+            } else if (gamepad2.dpad_up){
                 convoy.setPower(-0.5);
             } else {
                 convoy.setPower(0);
+            }
+
+            if (gamepad2.a){
+                elbow.setPower(0.5);
+            } else if (gamepad2.y){
+                elbow.setPower(-0.5);
+            } else {
+                elbow.setPower(0);
             }
 
 
@@ -203,8 +203,8 @@ public class MechDrive2020 extends LinearOpMode {
         backLeftMotor.setPower(0);
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
-        convoy.setPower(0);
         elbow.setPower(0);
+        convoy.setPower(0);
         thrower.setPower(0);
         Vuforia.deinit();
         // turns off motors
