@@ -7,7 +7,7 @@ import com.vuforia.Vuforia;
 import org.tensorflow.lite.TensorFlowLite;
 
 @Autonomous
-public class VuNavTestWithClass extends LinearOpMode {
+public class MainAuto extends LinearOpMode {
     RepresentoBotMVP bot;
     CoordHolder cH;
     VuforiaNavigator vuNav;
