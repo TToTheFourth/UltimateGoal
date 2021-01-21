@@ -29,7 +29,7 @@ public class TestCaseBoxZero extends LinearOpMode {
 //        telemetry.update();
 //        if (rings == 0) {
             bot.goForward(0.5, 5);
-            bot.turnLeft(90, 0.3);
+            bot.turnLeft(80, 0.3);
             bot.goForward(0.5, 19);
             bot.turnRight(90, 0.3);
             bot.goForward(0.5, 55);
