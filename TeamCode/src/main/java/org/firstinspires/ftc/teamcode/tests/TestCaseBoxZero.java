@@ -32,7 +32,7 @@ public class TestCaseBoxZero extends LinearOpMode {
             bot.turnLeft(85, 0.3);
             bot.goForward(0.5, 19);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 55);
+            bot.goForward(0.5, 65);
 //        }
 //        vu.noVuforia();
     }
