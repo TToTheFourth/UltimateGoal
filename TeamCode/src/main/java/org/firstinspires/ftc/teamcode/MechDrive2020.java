@@ -186,12 +186,10 @@ public class MechDrive2020 extends LinearOpMode {
                 convoy.setPower(0);
             }
 
-            if (gamepad2.a){
-                elbow.setPower(0.5);
-            } else if (gamepad2.y){
-                elbow.setPower(-0.5);
-            } else {
-                elbow.setPower(0);
+            if (gamepad2.dpad_right){
+                elbow.setTargetPosition(1);
+            } else if (gamepad2.dpad_left) {
+                elbow.setTargetPosition(0);
             }
 
 
