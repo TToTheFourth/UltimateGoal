@@ -33,6 +33,7 @@ public class RepresentoBotMVP {
     private DcMotor backRightMotor;
     private DcMotor shoot;
     private DcMotor claw;
+    private Servo elbow;
 
     private Gyro gyro;
     private LinearOpMode opMode;
@@ -50,6 +51,7 @@ public class RepresentoBotMVP {
         frontLeftMotor = opMode.hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor3");
+        elbow = opMode.hardwareMap.get(Servo.class, "convey2");
         claw = opMode.hardwareMap.get(DcMotor.class, "claw0");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         gyro = new Gyro(imu, opMode);
@@ -592,6 +594,12 @@ public class RepresentoBotMVP {
         backRightMotor.setPower(0.0);
         frontRightMotor.setPower(0.0);
         // sets motors to zero
+    }
+    public void clawOpenPosition() {
+        elbow.setPosition(0.5);
+    }
+    public void clawClosePosition() {
+        elbow.setPosition(0.3);
     }
     public void stopMotor(){
         frontLeftMotor.setPower(0.0);
