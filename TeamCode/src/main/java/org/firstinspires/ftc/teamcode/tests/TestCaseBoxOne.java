@@ -26,11 +26,7 @@ public class TestCaseBoxOne extends LinearOpMode {
 //        telemetry.addData("rings", rings);
 //        telemetry.update();
 //        if (rings == 1) {
-            bot.goForward(0.5, 5);
-            bot.turnLeft(90, 0.3);
-            bot.goForward(0.5, 19);
-            bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 55);
+        bot.goForward(0.5, 96);
 //        }
 //        vu.noVuforia();
     }
