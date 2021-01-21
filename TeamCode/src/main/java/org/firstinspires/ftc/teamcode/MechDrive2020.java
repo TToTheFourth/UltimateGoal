@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.vuforia.Vuforia;
 
 
@@ -20,7 +21,7 @@ public class MechDrive2020 extends LinearOpMode {
     // TODO: declare motor for claw and elbow
     private DcMotor thrower;
     private DcMotor convoy;
-    private DcMotor elbow;
+    private Servo elbow;
     private DcMotor sweeper;
 
     static final double INCREMENT   = 0.01;
@@ -50,7 +51,7 @@ public class MechDrive2020 extends LinearOpMode {
 
         thrower = hardwareMap.get(DcMotor.class, "claw0");
         convoy = hardwareMap.get(DcMotor.class, "elbow1");
-        elbow = hardwareMap.get(DcMotor.class, "convey2");
+        elbow = hardwareMap.get(Servo.class, "convey2");
         sweeper = hardwareMap.get(DcMotor.class, "sweeper");
 
         telemetry.addData("Status", "Initialized");
@@ -62,7 +63,6 @@ public class MechDrive2020 extends LinearOpMode {
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         sweeper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // makes sure the robot doesn't drift
 
@@ -186,10 +186,12 @@ public class MechDrive2020 extends LinearOpMode {
                 convoy.setPower(0);
             }
 
-            if (gamepad2.dpad_right){
-                elbow.setTargetPosition(1);
-            } else if (gamepad2.dpad_left) {
-                elbow.setTargetPosition(0);
+            if (gamepad1.dpad_left) {
+                elbow.setPosition(0.3);
+            } else if (gamepad1.dpad_right) {
+                elbow.setPosition(0.5);
+            } else {
+                elbow.setPosition(0.5);
             }
 
 
@@ -201,7 +203,6 @@ public class MechDrive2020 extends LinearOpMode {
         backLeftMotor.setPower(0);
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
-        elbow.setPower(0);
         convoy.setPower(0);
         thrower.setPower(0);
         Vuforia.deinit();
