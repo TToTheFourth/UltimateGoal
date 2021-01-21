@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.vuforia.Vuforia;
 
 
 @TeleOp
@@ -38,7 +39,7 @@ public class MechDrive2020 extends LinearOpMode {
         vuNav = new VuforiaNavigator(this, bot, vu);
         waitForStart();
         bot.startGyro();
-        vu.yesVuforia();
+        Vuforia.init();
 
         backLeftMotor = hardwareMap.get(DcMotor.class, "motor0");
         frontLeftMotor = hardwareMap.get(DcMotor.class, "motor1");
@@ -141,9 +142,16 @@ public class MechDrive2020 extends LinearOpMode {
 
             if(gamepad1.a) {
                 vu.getCoords();
-                vuNav.navigate(50,50, 0 /*TODO: put in choords of where to shoot from, these are test choords*/);
+                vuNav.navigate(-6,36, 0);
+                if(gamepad1.b) {
+                    break;
+                }
             }
 
+            if (gamepad1.x){
+                vu.getCoords();
+                telemetry.addData("coords", vu.getCoords());
+            }
             //Todo: add choord for power shot
 
             // TODO: get input from controller dpad left - right for claw
@@ -155,7 +163,7 @@ public class MechDrive2020 extends LinearOpMode {
             //    claw.setPower(0);
             //}
 
-            if(gamepad2.x) {
+            if(gamepad2.right_bumper) {
                 // thrower on
                 thrower.setPower(1);
             } else {
@@ -170,7 +178,7 @@ public class MechDrive2020 extends LinearOpMode {
             }
 
             // TODO: get input from controller dpad up - down for elbow
-            if (gamepad2.dpad_down){
+            if (gamepad2.dpad_down) {
                 elbow.setPower(0.5);
             } else if (gamepad2.dpad_up){
                 elbow.setPower(-0.5);
@@ -179,12 +187,14 @@ public class MechDrive2020 extends LinearOpMode {
             }
 
             if (gamepad2.a){
-                convoy.setPower(1);
+                convoy.setPower(0.5);
             } else if (gamepad2.y){
-                convoy.setPower(-1);
+                convoy.setPower(-0.5);
             } else {
                 convoy.setPower(0);
             }
+
+
 
             telemetry.update();
         }
@@ -196,6 +206,7 @@ public class MechDrive2020 extends LinearOpMode {
         convoy.setPower(0);
         elbow.setPower(0);
         thrower.setPower(0);
+        Vuforia.deinit();
         // turns off motors
     }
 }

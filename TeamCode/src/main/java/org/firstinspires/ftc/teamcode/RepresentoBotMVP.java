@@ -21,7 +21,7 @@ import java.util.TimerTask;
 public class RepresentoBotMVP {
 
     private static final double MAX_ANGLE = 3.0;
-    private static final double ANGLE_ADJ_PERC = 0.5;
+    private static final double ANGLE_ADJ_PERC = 0.3;
     private static final double ANGLE_ADJ_SPEED = 0.2;
 
 
