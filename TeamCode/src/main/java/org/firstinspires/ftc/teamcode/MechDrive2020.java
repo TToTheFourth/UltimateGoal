@@ -21,7 +21,7 @@ public class MechDrive2020 extends LinearOpMode {
     // TODO: declare motor for claw and elbow
     private DcMotor thrower;
     private DcMotor convoy;
-    private Servo elbow;
+    private Servo claw;
     private DcMotor sweeper;
 
     static final double INCREMENT   = 0.01;
@@ -49,9 +49,9 @@ public class MechDrive2020 extends LinearOpMode {
 
         // TODO: get claw and elbow motors
 
-        thrower = hardwareMap.get(DcMotor.class, "claw0");
-        convoy = hardwareMap.get(DcMotor.class, "elbow1");
-        elbow = hardwareMap.get(Servo.class, "convey2");
+        thrower = hardwareMap.get(DcMotor.class, "thrower");
+        convoy = hardwareMap.get(DcMotor.class, "convey2");
+        claw = hardwareMap.get(Servo.class, "claw");
         sweeper = hardwareMap.get(DcMotor.class, "sweeper");
 
         telemetry.addData("Status", "Initialized");
@@ -187,11 +187,11 @@ public class MechDrive2020 extends LinearOpMode {
             }
 
             if (gamepad1.dpad_left) {
-                elbow.setPosition(0.3);
+                claw.setPosition(0.3);
             } else if (gamepad1.dpad_right) {
-                elbow.setPosition(0.5);
+                claw.setPosition(0.5);
             } else {
-                elbow.setPosition(0.5);
+                claw.setPosition(0.5);
             }
 
 

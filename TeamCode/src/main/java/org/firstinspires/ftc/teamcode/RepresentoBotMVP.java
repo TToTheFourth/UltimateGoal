@@ -12,11 +12,6 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.Gyro;
-import org.firstinspires.ftc.teamcode.Gyro2;
-import org.firstinspires.ftc.teamcode.Timer;
-
-import java.util.TimerTask;
 
 public class RepresentoBotMVP {
 
@@ -32,8 +27,8 @@ public class RepresentoBotMVP {
     private DcMotor frontRightMotor;
     private DcMotor backRightMotor;
     private DcMotor shoot;
-    private DcMotor claw;
-    private Servo elbow;
+    private DcMotor elbow;
+    private Servo claw;
 
     private Gyro gyro;
     private LinearOpMode opMode;
@@ -51,8 +46,8 @@ public class RepresentoBotMVP {
         frontLeftMotor = opMode.hardwareMap.get(DcMotor.class, "motor1");
         frontRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = opMode.hardwareMap.get(DcMotor.class, "motor3");
-        elbow = opMode.hardwareMap.get(Servo.class, "convey2");
-        claw = opMode.hardwareMap.get(DcMotor.class, "claw0");
+        claw = opMode.hardwareMap.get(Servo.class, "claw");
+        elbow = opMode.hardwareMap.get(DcMotor.class, "elbow");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         gyro = new Gyro(imu, opMode);
         myTimer = new Timer();
@@ -596,10 +591,10 @@ public class RepresentoBotMVP {
         // sets motors to zero
     }
     public void clawOpenPosition() {
-        elbow.setPosition(0.5);
+        claw.setPosition(0.5);
     }
     public void clawClosePosition() {
-        elbow.setPosition(0.3);
+        claw.setPosition(0.3);
     }
     public void stopMotor(){
         frontLeftMotor.setPower(0.0);
