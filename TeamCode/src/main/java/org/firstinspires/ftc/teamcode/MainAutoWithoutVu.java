@@ -1,21 +1,20 @@
-package org.firstinspires.ftc.teamcode.tests;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.teamcode.CoordHolder;
 import org.firstinspires.ftc.teamcode.RepresentoBotMVP;
 import org.firstinspires.ftc.teamcode.UltimateVuforia;
 import org.firstinspires.ftc.teamcode.VuforiaNavigator;
-import org.tensorflow.lite.TensorFlowLite;
 
 @Autonomous
-public class TestCaseBoxZero extends LinearOpMode {
+public class MainAutoWithoutVu extends LinearOpMode {
     RepresentoBotMVP bot;
-    UltimateVuforia vu;
+    CoordHolder cH;
     VuforiaNavigator vuNav;
-//    int rings;
+    UltimateVuforia vu;
+    int rings;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -24,23 +23,27 @@ public class TestCaseBoxZero extends LinearOpMode {
         vuNav = new VuforiaNavigator(this, bot, vu);
         waitForStart();
         bot.startGyro();
-//        vu.yesVuforia();
+        vu.yesVuforia();
 
-//        rings = vu.tensorflow();
-//        telemetry.addData("rings", rings);
-//        telemetry.update();
-//        if (rings == 0) {
+        rings = vu.tensorflow();
+        telemetry.addData("rings", rings);
+        telemetry.update();
+        if (rings == 4) {
+            bot.turnLeft(85, 0.3);
+            bot.goForward(0.5, 24);
+            bot.turnRight(90, 0.3);
+            bot.goForward(0.5, 115);
+        } else if (rings == 1) {
+            bot.goForward(0.5, 96);
+        } else {
             bot.clawClosePosition();
             bot.goForward(0.5, 5);
             bot.turnLeft(85, 0.3);
             bot.goForward(0.5, 25);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 68);
-            vuNav.navigate(0, 60, 0);
-            sleep(500);
-            vuNav.navigate(0, 60, 0);
+            bot.goForward(0.5, 65);
             bot.clawOpenPosition();
-//        }
-//        vu.noVuforia();
+        }
+        vu.noVuforia();
     }
 }

@@ -370,14 +370,14 @@ public class RepresentoBotMVP {
         backRightMotor.setPower(backRight);
         frontRightMotor.setPower(frontRight);
 
-        backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // sets encoder
 
         miniGyro.reset();
         long ticks = ticksToInchesSlide(distance);
         while (opMode.opModeIsActive()) {
-            int rotations = backLeftMotor.getCurrentPosition();
+            int rotations = frontRightMotor.getCurrentPosition();
             if (rotations<0) {
                 rotations = rotations * -1;
             }
@@ -592,9 +592,15 @@ public class RepresentoBotMVP {
     }
     public void clawOpenPosition() {
         claw.setPosition(0.5);
+
     }
     public void clawClosePosition() {
         claw.setPosition(0.3);
+        myTimer.start();
+        myTimer.setCompareTime(1000);
+        elbow.setPower(0.5);
+        while (myTimer.timeChecker()) {}
+        elbow.setPower(0);
     }
     public void stopMotor(){
         frontLeftMotor.setPower(0.0);

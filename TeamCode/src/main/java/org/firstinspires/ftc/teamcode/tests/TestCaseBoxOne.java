@@ -11,13 +11,15 @@ import org.firstinspires.ftc.teamcode.VuforiaNavigator;
 @Autonomous
 public class TestCaseBoxOne extends LinearOpMode {
     RepresentoBotMVP bot;
-//    UltimateVuforia vu;
+    UltimateVuforia vu;
+    VuforiaNavigator vuNav;
 //    int rings;
 
     @Override
     public void runOpMode() throws InterruptedException {
         bot=new RepresentoBotMVP(this);
-//        vu = new UltimateVuforia(this);
+        vu = new UltimateVuforia(this);
+        vuNav = new VuforiaNavigator(this, bot, vu);
         waitForStart();
         bot.startGyro();
 //        vu.yesVuforia();
@@ -26,7 +28,12 @@ public class TestCaseBoxOne extends LinearOpMode {
 //        telemetry.addData("rings", rings);
 //        telemetry.update();
 //        if (rings == 1) {
-        bot.goForward(0.5, 96);
+        bot.clawOpenPosition();
+        bot.goForward(0.5, 112);
+        vuNav.navigate(36, 36, 0);
+        sleep(500);
+        vuNav.navigate(36, 36, 0);
+        bot.clawClosePosition();
 //        }
 //        vu.noVuforia();
     }

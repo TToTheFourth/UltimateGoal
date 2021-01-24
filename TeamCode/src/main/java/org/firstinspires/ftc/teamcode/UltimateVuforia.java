@@ -99,6 +99,7 @@ public class UltimateVuforia {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
+    public int OTF = 0;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -279,7 +280,6 @@ public class UltimateVuforia {
      }
 
      public int tensorflow () {
-        int OTF = 0;
         if (tfod != null) {List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
                 op.telemetry.addData("# Object Detected", updatedRecognitions.size());
@@ -292,6 +292,7 @@ public class UltimateVuforia {
                                 recognition.getLeft(), recognition.getTop());
                         op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
+                        op.telemetry.update();
                         if (recognition.getLabel() == LABEL_SECOND_ELEMENT) {
                             OTF = 1;
                         } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {

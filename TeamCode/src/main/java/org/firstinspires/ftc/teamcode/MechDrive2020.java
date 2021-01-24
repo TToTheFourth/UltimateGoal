@@ -22,7 +22,10 @@ public class MechDrive2020 extends LinearOpMode {
     private DcMotor thrower;
     private DcMotor convoy;
     private Servo claw;
+    private DcMotor elbow;
+    private Servo miniSweep;
     private DcMotor sweeper;
+    public double speed = 1;
 
     static final double INCREMENT   = 0.01;
     static final int    CYCLE_MS    =   50;
@@ -52,6 +55,8 @@ public class MechDrive2020 extends LinearOpMode {
         thrower = hardwareMap.get(DcMotor.class, "thrower");
         convoy = hardwareMap.get(DcMotor.class, "convey2");
         claw = hardwareMap.get(Servo.class, "claw");
+        elbow = hardwareMap.get(DcMotor.class, "elbow");
+        miniSweep = hardwareMap.get(Servo.class, "servoSweep");
         sweeper = hardwareMap.get(DcMotor.class, "sweeper");
 
         telemetry.addData("Status", "Initialized");
@@ -78,10 +83,10 @@ public class MechDrive2020 extends LinearOpMode {
             leftY_G1 = gamepad1.left_stick_y;
             leftX_G1 = -gamepad1.left_stick_x;
 
-            double frontLeft = (rightX_G1 + rightY_G1 - leftX_G1);
-            double backLeft = (rightX_G1 + rightY_G1 + leftX_G1);
-            double backRight = (rightX_G1 - rightY_G1 + leftX_G1);
-            double frontRight = (rightX_G1 - rightY_G1 - leftX_G1);
+            double frontLeft = (rightX_G1 + rightY_G1 - leftX_G1) * (speed);
+            double backLeft = (rightX_G1 + rightY_G1 + leftX_G1) * (speed);
+            double backRight = (rightX_G1 - rightY_G1 + leftX_G1) * (speed);
+            double frontRight = (rightX_G1 - rightY_G1 - leftX_G1) * (speed);
 
             telemetry.addData("frontLeft %.02f", frontLeft);
             telemetry.addData("frontRight %.02f", frontRight);
@@ -152,6 +157,12 @@ public class MechDrive2020 extends LinearOpMode {
                 vu.getCoords();
                 telemetry.addData("coords", vu.getCoords());
             }
+
+            if (gamepad1.left_bumper) {
+                speed = 0.5;
+            } else if (gamepad1.y) {
+                speed = 1;
+            }
             //Todo: add choord for power shot
 
             // TODO: get input from controller dpad left - right for claw
@@ -171,19 +182,16 @@ public class MechDrive2020 extends LinearOpMode {
                 thrower.setPower(0);
             }
 
-            if(gamepad2.b) {
-                sweeper.setPower(1);
-            } else {
-                sweeper.setPower(0);
-            }
-
             // TODO: get input from controller dpad up - down for elbow
             if (gamepad2.dpad_down) {
                 convoy.setPower(0.5);
+                thrower.setPower(1);
             } else if (gamepad2.dpad_up){
                 convoy.setPower(-0.5);
+                thrower.setPower(0);
             } else {
                 convoy.setPower(0);
+                thrower.setPower(0);
             }
 
             if (gamepad1.dpad_left) {
@@ -194,7 +202,19 @@ public class MechDrive2020 extends LinearOpMode {
                 claw.setPosition(0.5);
             }
 
+            if (gamepad2.a) {
+                elbow.setPower(0.5);
+            } else if (gamepad2.x) {
+                elbow.setPower(-0.5);
+            } else {
+                elbow.setPower(0);
+            }
 
+            if (gamepad2.dpad_right) {
+                miniSweep.setPosition(1);
+            } else {
+                miniSweep.setPosition(0);
+            }
 
             telemetry.update();
         }
@@ -205,6 +225,7 @@ public class MechDrive2020 extends LinearOpMode {
         backRightMotor.setPower(0);
         convoy.setPower(0);
         thrower.setPower(0);
+        elbow.setPower(0);
         Vuforia.deinit();
         // turns off motors
     }
