@@ -38,6 +38,8 @@ public class RepresentoBotMVP {
     ModernRoboticsI2cRangeSensor rangeSensor;
     private Gyro2 miniGyro;
     private DcMotor convoy;
+    private Servo miniSweep;
+    private DcMotor sweeper;
 
     private java.util.Timer timeKeeper = new java.util.Timer();
 
@@ -51,6 +53,8 @@ public class RepresentoBotMVP {
         claw = opMode.hardwareMap.get(Servo.class, "claw");
         elbow = opMode.hardwareMap.get(DcMotor.class, "elbow");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
+        miniSweep = hardwareMap.get(Servo.class, "servoSweep");
+        sweeper = hardwareMap.get(DcMotor.class, "sweeper");
         thrower = opMode.hardwareMap.get(DcMotor.class, "thrower");
         convoy = opMode.hardwareMap.get(DcMotor.class, "convey2");
         gyro = new Gyro(imu, opMode);
@@ -630,6 +634,8 @@ public class RepresentoBotMVP {
         opMode.sleep(2000);
         thrower.setPower(1);
         convoy.setPower(-1);
+        opMode.sleep(1000);
+        sweeper.setPower(1);
         opMode.sleep(seconds * 1000);
     }
 }
