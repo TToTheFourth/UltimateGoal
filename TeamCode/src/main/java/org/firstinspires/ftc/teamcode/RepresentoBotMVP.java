@@ -29,6 +29,7 @@ public class RepresentoBotMVP {
     private DcMotor shoot;
     private DcMotor elbow;
     private Servo claw;
+    private DcMotor thrower;
 
     private Gyro gyro;
     private LinearOpMode opMode;
@@ -36,6 +37,7 @@ public class RepresentoBotMVP {
     private NormalizedColorSensor sensorColor;
     ModernRoboticsI2cRangeSensor rangeSensor;
     private Gyro2 miniGyro;
+    private DcMotor convoy;
 
     private java.util.Timer timeKeeper = new java.util.Timer();
 
@@ -49,6 +51,8 @@ public class RepresentoBotMVP {
         claw = opMode.hardwareMap.get(Servo.class, "claw");
         elbow = opMode.hardwareMap.get(DcMotor.class, "elbow");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
+        thrower = opMode.hardwareMap.get(DcMotor.class, "thrower");
+        convoy = opMode.hardwareMap.get(DcMotor.class, "convey2");
         gyro = new Gyro(imu, opMode);
         myTimer = new Timer();
         //stoneServo = opMode.hardwareMap.get(Servo.class, "stoneServo");
@@ -621,7 +625,17 @@ public class RepresentoBotMVP {
         // inches to time formula
     }
 
-    public void shootRings(double power, double seconds) {
-
+    public void shootRings(long seconds) {
+        myTimer.start();
+        myTimer.setCompareTime(2000);
+        while (myTimer.timeChecker()) {
+            thrower.setPower(1);
+        }
+        thrower.setPower(1);
+        myTimer.start();
+        myTimer.setCompareTime(seconds * 1000);
+        while (myTimer.timeChecker()) {
+            convoy.setPower(1);
+        }
     }
 }
