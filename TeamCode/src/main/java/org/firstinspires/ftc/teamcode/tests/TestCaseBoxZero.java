@@ -24,7 +24,7 @@ public class TestCaseBoxZero extends LinearOpMode {
         vuNav = new VuforiaNavigator(this, bot, vu);
         waitForStart();
         bot.startGyro();
-//        vu.yesVuforia();
+        vu.yesVuforia();
 
 //        rings = vu.tensorflow();
 //        telemetry.addData("rings", rings);
@@ -36,11 +36,12 @@ public class TestCaseBoxZero extends LinearOpMode {
             bot.goForward(0.5, 25);
             bot.turnRight(90, 0.3);
             bot.goForward(0.5, 68);
-            vuNav.navigate(0, 60, 0);
             sleep(500);
-            vuNav.navigate(0, 60, 0);
+            vuNav.navigate(14, 60, 0);
+            sleep(500);
+            vuNav.navigate(14, 60, 0);
             bot.clawOpenPosition();
 //        }
-//        vu.noVuforia();
+        vu.noVuforia();
     }
 }

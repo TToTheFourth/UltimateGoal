@@ -13,7 +13,8 @@ public class TestCaseWobbleGoal extends LinearOpMode {
         bot.startGyro();
         waitForStart();
         bot.clawClosePosition();
-        sleep(1000);
+        sleep(3000);
         bot.clawOpenPosition();
+        sleep(6000);
     }
 }

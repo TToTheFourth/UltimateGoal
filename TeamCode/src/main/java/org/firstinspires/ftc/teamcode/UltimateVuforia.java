@@ -99,7 +99,6 @@ public class UltimateVuforia {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
-    public int OTF = 0;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -280,29 +279,40 @@ public class UltimateVuforia {
      }
 
      public int tensorflow () {
-        if (tfod != null) {List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+        int OTF = 0;
+        if (tfod != null) {
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
-                op.telemetry.addData("# Object Detected", updatedRecognitions.size());
+                //op.telemetry.addData("# Object Detected", updatedRecognitions.size());
                 int i = 0;
                 for (Recognition recognition : updatedRecognitions) {
-                    if (recognition.getBottom()>= 800) {
+                    //if (recognition.getBottom()>= 800) {
                         op.telemetry.addData(String.format("height", i), recognition.getHeight());
                         op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                         op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                 recognition.getLeft(), recognition.getTop());
                         op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
-                        op.telemetry.update();
-                        if (recognition.getLabel() == LABEL_SECOND_ELEMENT) {
+                        if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
                             OTF = 1;
-                        } else if (recognition.getLabel() == LABEL_FIRST_ELEMENT) {
+                        } else if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) {
                             OTF = 4;
                         } else {
                             OTF = 0;
                         }
-                    }
+
+                        op.telemetry.addData("Rings", OTF);
+                        op.telemetry.update();
+
+                    //}
                 }
-                op.telemetry.update();
+                if(i == 0) {
+                    op.telemetry.addData("Rings", OTF);
+                    op.telemetry.update();
+                }
+                //op.telemetry.update();
+            } else {
+                //op.telemetry.addData("# Object Detected", 0);
             }
         }
          return OTF;
