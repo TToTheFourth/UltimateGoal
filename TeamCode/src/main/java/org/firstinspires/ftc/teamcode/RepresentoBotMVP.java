@@ -629,7 +629,7 @@ public class RepresentoBotMVP {
         thrower.setPower(1);
         opMode.sleep(2000);
         thrower.setPower(1);
-        convoy.setPower(1);
+        convoy.setPower(-1);
         opMode.sleep(seconds * 1000);
     }
 }
