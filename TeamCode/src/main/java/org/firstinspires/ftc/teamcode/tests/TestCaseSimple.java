@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.UltimateVuforia;
 import org.firstinspires.ftc.teamcode.VuforiaNavigator;
 
 @Autonomous
-class TestCaseSimple extends LinearOpMode {
+public class TestCaseSimple extends LinearOpMode {
     RepresentoBotMVP bot;
 
     @Override

@@ -626,16 +626,14 @@ public class RepresentoBotMVP {
     }
 
     public void shootRings(long seconds) {
-        myTimer.start();
-        myTimer.setCompareTime(2000);
-        while (myTimer.timeChecker()) {
-            thrower.setPower(1);
-        }
         thrower.setPower(1);
         myTimer.start();
+        myTimer.setCompareTime(2000);
+        while (myTimer.timeChecker()) { }
+        thrower.setPower(1);
+        convoy.setPower(1);
+        myTimer.start();
         myTimer.setCompareTime(seconds * 1000);
-        while (myTimer.timeChecker()) {
-            convoy.setPower(1);
-        }
+        while (myTimer.timeChecker()) { }
     }
 }
