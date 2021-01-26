@@ -53,8 +53,8 @@ public class RepresentoBotMVP {
         claw = opMode.hardwareMap.get(Servo.class, "claw");
         elbow = opMode.hardwareMap.get(DcMotor.class, "elbow");
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
-        miniSweep = hardwareMap.get(Servo.class, "servoSweep");
-        sweeper = hardwareMap.get(DcMotor.class, "sweeper");
+        miniSweep = opMode.hardwareMap.get(Servo.class, "servoSweep");
+        sweeper = opMode.hardwareMap.get(DcMotor.class, "sweeper");
         thrower = opMode.hardwareMap.get(DcMotor.class, "thrower");
         convoy = opMode.hardwareMap.get(DcMotor.class, "convey2");
         gyro = new Gyro(imu, opMode);
