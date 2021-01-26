@@ -19,5 +19,6 @@ public class TestCaseSimple extends LinearOpMode {
 
         bot.goForward(0.5, 65);
         bot.shootRings(5 );
+        bot.goForward(0.5, 10);
     }
 }
