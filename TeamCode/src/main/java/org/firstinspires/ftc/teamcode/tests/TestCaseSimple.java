@@ -17,8 +17,8 @@ public class TestCaseSimple extends LinearOpMode {
         waitForStart();
         bot.startGyro();
 
-        bot.goForward(0.5, 65);
+        bot.goForward(0.5, 53);
         bot.shootRings(5 );
-        bot.goForward(0.5, 10);
+        bot.goForward(0.5, 18);
     }
 }

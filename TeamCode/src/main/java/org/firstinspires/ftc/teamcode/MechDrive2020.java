@@ -185,10 +185,10 @@ public class MechDrive2020 extends LinearOpMode {
             // TODO: get input from controller dpad up - down for elbow
             if (gamepad2.dpad_down) {
                 convoy.setPower(0.5);
-                thrower.setPower(1);
-            } else if (gamepad2.dpad_up){
-                convoy.setPower(-0.5);
                 thrower.setPower(0);
+            } else if (gamepad2.dpad_up){
+                thrower.setPower(1);
+                convoy.setPower(-0.5);
             } else {
                 convoy.setPower(0);
                 thrower.setPower(0);
@@ -214,6 +214,14 @@ public class MechDrive2020 extends LinearOpMode {
                 miniSweep.setPosition(1);
             } else {
                 miniSweep.setPosition(0);
+            }
+
+            if (gamepad2.b) {
+                sweeper.setPower(1);
+            } else if (gamepad2.y){
+                sweeper.setPower(-1);
+            } else {
+                sweeper.setPower(0);
             }
 
             telemetry.update();
