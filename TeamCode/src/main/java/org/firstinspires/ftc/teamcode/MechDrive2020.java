@@ -145,21 +145,27 @@ public class MechDrive2020 extends LinearOpMode {
             backRightMotor.setPower(backRight);
             frontRightMotor.setPower(frontRight);
 
-            if(gamepad1.a) {
-                vu.getCoords();
-                vuNav.navigate(-6,36, 0);
-                if(gamepad1.b) {
-                    break;
-                }
-            }
+//            if(gamepad1.a) {
+//                vu.getCoords();
+//                vuNav.navigate(-6,36, 0);
+//                if(gamepad1.b) {
+//                    break;
+//                }
+//            }
+//
+//            if (gamepad1.x){
+//                vu.getCoords();
+//                telemetry.addData("coords", vu.getCoords());
+//            }
 
-            if (gamepad1.x){
-                vu.getCoords();
-                telemetry.addData("coords", vu.getCoords());
+            if (gamepad2.left_bumper) {
+                thrower.setPower(1);
             }
 
             if (gamepad1.left_bumper) {
                 speed = 0.5;
+            } else if (gamepad1.x) {
+                speed = 0.25;
             } else if (gamepad1.y) {
                 speed = 1;
             }
@@ -174,13 +180,13 @@ public class MechDrive2020 extends LinearOpMode {
             //    claw.setPower(0);
             //}
 
-            if(gamepad2.right_bumper) {
-                // thrower on
-                thrower.setPower(1);
-            } else {
-                // thrower off
-                thrower.setPower(0);
-            }
+//            if(gamepad2.right_bumper) {
+//                // thrower on
+//                thrower.setPower(1);
+//            } else {
+//                // thrower off
+//                thrower.setPower(0);
+//            }
 
             // TODO: get input from controller dpad up - down for elbow
             if (gamepad2.dpad_down) {
@@ -194,17 +200,15 @@ public class MechDrive2020 extends LinearOpMode {
                 thrower.setPower(0);
             }
 
-            if (gamepad1.dpad_left) {
-                claw.setPosition(0.3);
-            } else if (gamepad1.dpad_right) {
+            if (gamepad2.right_bumper) {
                 claw.setPosition(0.5);
             } else {
-                claw.setPosition(0.5);
+                claw.setPosition(0.3);
             }
 
-            if (gamepad2.a) {
+            if (gamepad2.right_trigger > 0) {
                 elbow.setPower(0.5);
-            } else if (gamepad2.x) {
+            } else if (gamepad2.left_trigger > 0) {
                 elbow.setPower(-0.5);
             } else {
                 elbow.setPower(0);

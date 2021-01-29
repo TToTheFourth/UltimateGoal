@@ -513,6 +513,10 @@ public class RepresentoBotMVP {
     }
 
     public void goForward(double power, double distance){
+        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // sets the encoders
+
         double rightY_G1 = 1.0 * power;
         double rightX_G1 = 0.0;
         double leftX_G1 = 0.0;
@@ -523,10 +527,6 @@ public class RepresentoBotMVP {
         backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
         frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
         // sets the correct variables to the motors
-
-        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        // sets the encoders
 
         long ticks = ticksToInchesForward(distance);
         miniGyro.reset();
@@ -630,6 +630,9 @@ public class RepresentoBotMVP {
     }
 
     public void shootRings(long seconds) {
+        elbow.setPower(-1);
+        opMode.sleep(1000);
+        elbow.setPower(0);
         thrower.setPower(1);
         opMode.sleep(2000);
         thrower.setPower(1);
@@ -637,5 +640,10 @@ public class RepresentoBotMVP {
         opMode.sleep(1000);
         sweeper.setPower(1);
         opMode.sleep(seconds * 1000);
+    }
+
+    public void dropSweep() {
+        miniSweep.setPosition(-1);
+        opMode.sleep(500);
     }
 }
