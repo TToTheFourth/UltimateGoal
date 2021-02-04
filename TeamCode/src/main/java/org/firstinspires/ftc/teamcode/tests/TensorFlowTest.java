@@ -14,6 +14,9 @@ public class TensorFlowTest extends LinearOpMode {
     VuforiaNavigator vuNav;
     UltimateVuforia vu;
     int rings;
+    int zeroRing;
+    int oneRing;
+    int fourRing;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -24,6 +27,14 @@ public class TensorFlowTest extends LinearOpMode {
             rings = vu.tensorflow();
             telemetry.addData("rings", rings);
             telemetry.update();
+            if (rings == 0) {
+                zeroRing++;
+            } else if (rings == 1){
+                oneRing++;
+            } else if (rings == 4) {
+                fourRing++;
+            }
+
         }
         vu.noVuforia();
     }

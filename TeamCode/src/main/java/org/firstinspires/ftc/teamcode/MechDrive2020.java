@@ -158,10 +158,6 @@ public class MechDrive2020 extends LinearOpMode {
 //                telemetry.addData("coords", vu.getCoords());
 //            }
 
-            if (gamepad2.left_bumper) {
-                thrower.setPower(1);
-            }
-
             if (gamepad1.left_bumper) {
                 speed = 0.5;
             } else if (gamepad1.x) {
@@ -189,22 +185,38 @@ public class MechDrive2020 extends LinearOpMode {
 //            }
 
             // TODO: get input from controller dpad up - down for elbow
-            if (gamepad2.dpad_down) {
-                convoy.setPower(0.5);
-                thrower.setPower(0);
-            } else if (gamepad2.dpad_up){
+            if (gamepad2.left_bumper || gamepad2.dpad_up) {
                 thrower.setPower(1);
-                convoy.setPower(-0.5);
             } else {
-                convoy.setPower(0);
                 thrower.setPower(0);
             }
 
-            if (gamepad2.right_bumper) {
-                claw.setPosition(0.5);
+            if (gamepad2.dpad_down) {
+                convoy.setPower(0.5);
+            } else if (gamepad2.dpad_up){
+                convoy.setPower(-0.5);
             } else {
-                claw.setPosition(0.3);
+                convoy.setPower(0);
             }
+
+            //if (gamepad2.left_bumper) {
+            //    thrower.setPower(1);
+            //} else if (gamepad2.dpad_down) {
+            //    convoy.setPower(0.5);
+            //    thrower.setPower(0);
+            //} else if (gamepad2.dpad_up){
+            //    thrower.setPower(1);
+            //    convoy.setPower(-0.5);
+            //} else {
+            //    convoy.setPower(0);
+            //    thrower.setPower(0);
+            //}
+
+//            if (gamepad2.right_bumper) {
+//                claw.setPosition(0.5);
+//            } else {
+//                claw.setPosition(0.3);
+//            }
 
             if (gamepad2.right_trigger > 0) {
                 elbow.setPower(0.5);
@@ -212,6 +224,12 @@ public class MechDrive2020 extends LinearOpMode {
                 elbow.setPower(-0.5);
             } else {
                 elbow.setPower(0);
+            }
+
+            if (gamepad2.right_bumper) {
+                claw.setPosition(-1.0);
+            } else {
+                claw.setPosition(1.0);
             }
 
             if (gamepad2.dpad_right) {
