@@ -34,7 +34,9 @@ public class TensorFlowTest extends LinearOpMode {
             } else if (rings == 4) {
                 fourRing++;
             }
-
+            telemetry.addData("fourRing: ", fourRing);
+            telemetry.addData("oneRing: ", oneRing);
+            telemetry.addData("zeroRing: ", zeroRing);
         }
         vu.noVuforia();
     }
