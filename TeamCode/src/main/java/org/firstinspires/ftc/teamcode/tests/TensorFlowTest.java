@@ -37,6 +37,7 @@ public class TensorFlowTest extends LinearOpMode {
             telemetry.addData("fourRing: ", fourRing);
             telemetry.addData("oneRing: ", oneRing);
             telemetry.addData("zeroRing: ", zeroRing);
+            telemetry.update();
         }
         vu.noVuforia();
     }
