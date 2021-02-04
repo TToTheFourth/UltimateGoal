@@ -27,12 +27,21 @@ public class TensorFlowTest extends LinearOpMode {
             rings = vu.tensorflow();
             telemetry.addData("rings", rings);
             telemetry.update();
-            if (rings == 0) {
-                zeroRing++;
-            } else if (rings == 1){
-                oneRing++;
-            } else if (rings == 4) {
-                fourRing++;
+            for (int i = 0; i < 50; i++) {
+                rings = vu.tensorflow();
+                telemetry.addData("rings", rings);
+                telemetry.update();
+                if (rings == 0) {
+                    zeroRing++;
+                } else if (rings == 1) {
+                    oneRing++;
+                } else if (rings == 4) {
+                    fourRing++;
+                }
+                telemetry.addData("fourRing: ", fourRing);
+                telemetry.addData("oneRing: ", oneRing);
+                telemetry.addData("zeroRing: ", zeroRing);
+                telemetry.update();
             }
             telemetry.addData("fourRing: ", fourRing);
             telemetry.addData("oneRing: ", oneRing);
