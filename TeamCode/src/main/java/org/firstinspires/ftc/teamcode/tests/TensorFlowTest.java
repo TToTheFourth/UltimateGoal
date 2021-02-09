@@ -21,16 +21,18 @@ public class TensorFlowTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         vu = new UltimateVuforia(this);
-        waitForStart();
         vu.yesVuforia();
-        while (opModeIsActive()) {
-            rings = vu.tensorflow();
-            telemetry.addData("rings", rings);
-            telemetry.update();
+
+        waitForStart();
+
+        //while (opModeIsActive()) {
+        //    rings = vu.tensorflow();
+            //telemetry.addData("rings", rings);
+            //telemetry.update();
             for (int i = 0; i < 50; i++) {
                 rings = vu.tensorflow();
-                telemetry.addData("rings", rings);
-                telemetry.update();
+                //telemetry.addData("rings", rings);
+                //telemetry.update();
                 if (rings == 0) {
                     zeroRing++;
                 } else if (rings == 1) {
@@ -38,16 +40,20 @@ public class TensorFlowTest extends LinearOpMode {
                 } else if (rings == 4) {
                     fourRing++;
                 }
-                telemetry.addData("fourRing: ", fourRing);
-                telemetry.addData("oneRing: ", oneRing);
-                telemetry.addData("zeroRing: ", zeroRing);
-                telemetry.update();
+                //telemetry.addData("fourRing: ", fourRing);
+                //telemetry.addData("oneRing: ", oneRing);
+                //telemetry.addData("zeroRing: ", zeroRing);
+                //telemetry.update();
             }
             telemetry.addData("fourRing: ", fourRing);
             telemetry.addData("oneRing: ", oneRing);
             telemetry.addData("zeroRing: ", zeroRing);
             telemetry.update();
-        }
+        //}
         vu.noVuforia();
+
+        while(opModeIsActive()) {
+            idle();
+        }
     }
 }

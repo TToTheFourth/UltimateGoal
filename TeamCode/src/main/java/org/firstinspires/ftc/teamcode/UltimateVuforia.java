@@ -260,39 +260,29 @@ public class UltimateVuforia {
              ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
          }
 
-         // WARNING:
-         // In this sample, we do not wait for PLAY to be pressed.  Target Tracking is started immediately when INIT is pressed.
-         // This sequence is used to enable the new remote DS Camera Preview feature to be used with this sample.
-         // CONSEQUENTLY do not put any driving commands in this loop.
-         // To restore the normal opmode structure, just un-comment the following line:
-
-         // waitForStart();
-
-         // Note: To use the remote camera preview:
-         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
-         // Tap the preview window to receive a fresh image.
-
-         targetsUltimateGoal.activate();
-
         initTfod();
         tfod.activate();
-     }
+        tfod.setZoom(1.0, 16.0 / 9.0);
+
+    }
 
      public int tensorflow () {
         int OTF = 0;
         if (tfod != null) {
+            op.telemetry.addData("TFOD", "NOT NULL");
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
+                op.telemetry.addData("RECLIST", "NOT NULL");
                 //op.telemetry.addData("# Object Detected", updatedRecognitions.size());
                 int i = 0;
                 for (Recognition recognition : updatedRecognitions) {
                     //if (recognition.getBottom()>= 800) {
-                        op.telemetry.addData(String.format("height", i), recognition.getHeight());
-                        op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
+                        //op.telemetry.addData(String.format("height", i), recognition.getHeight());
+                        //op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        //op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                        //        recognition.getLeft(), recognition.getTop());
+                        //op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                        //        recognition.getRight(), recognition.getBottom());
                         if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)) {
                             OTF = 1;
                         } else if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)) {
@@ -301,19 +291,22 @@ public class UltimateVuforia {
                             OTF = 0;
                         }
 
-                        op.telemetry.addData("Rings", OTF);
-                        op.telemetry.update();
+                        //op.telemetry.addData("Rings", OTF);
+                        //op.telemetry.update();
 
                     //}
                 }
                 if(i == 0) {
-                    op.telemetry.addData("Rings", OTF);
-                    op.telemetry.update();
+                    //op.telemetry.addData("Rings", OTF);
+                    //op.telemetry.update();
                 }
                 //op.telemetry.update();
             } else {
+                op.telemetry.addData("RECLIST", "NULL");
                 //op.telemetry.addData("# Object Detected", 0);
             }
+        } else {
+            op.telemetry.addData("TFOD", "NULL");
         }
          return OTF;
      }
@@ -361,17 +354,68 @@ public class UltimateVuforia {
 
      // Turn off Vuforia
      public void noVuforia() {
-        // Disable Tracking when we are done;
-        targetsUltimateGoal.deactivate();
-        tfod.deactivate();
+         tfod.shutdown();
+         tfod.deactivate();
+
+         targetsUltimateGoal.deactivate();
      }
 
     private void initTfod() {
         int tfodMonitorViewId = op.hardwareMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id", op.hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minResultConfidence = 0.8f;
+        tfodParameters.useObjectTracker = false;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+
+    }
+
+    public int getRings() {
+        int rings = -1;
+
+
+        if (tfod != null) {
+
+            // getUpdatedRecognitions() will return null if no new information is available since
+            // the last time that call was made.
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            if (updatedRecognitions != null) {
+                op.telemetry.addData("# Object Detected", updatedRecognitions.size());
+
+                if (updatedRecognitions.size() == 0) {
+                    // empty list.  no objects recognized.
+                    op.telemetry.addData("TFOD", "No items detected.");
+                    op.telemetry.addData("Target Zone", "A");
+                    rings = 0;
+                } else {
+                    // list is not empty.
+                    // step through the list of recognitions and display boundary info.
+                    int i = 0;
+                    for (Recognition recognition : updatedRecognitions) {
+                        op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+
+                        // check label to see which target zone to go after.
+                        if (recognition.getLabel().equals("Single")) {
+                            op.telemetry.addData("Target Zone", "B");
+                            rings = 1;
+                        } else if (recognition.getLabel().equals("Quad")) {
+                            op.telemetry.addData("Target Zone", "C");
+                            rings = 4;
+                        } else {
+                            op.telemetry.addData("Target Zone", "UNKNOWN");
+                        }
+                    }
+                }
+            }
+
+            op.telemetry.update();
+        }
+
+        return rings;
     }
 
 }
