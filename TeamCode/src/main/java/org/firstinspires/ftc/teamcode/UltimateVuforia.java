@@ -409,6 +409,10 @@ public class UltimateVuforia {
                             } else {
                                 op.telemetry.addData("Target Zone", "UNKNOWN");
                             }
+                        } else {
+                            if(rings == -1) {
+                                rings = 0;
+                            }
                         }
                     }
                 }
