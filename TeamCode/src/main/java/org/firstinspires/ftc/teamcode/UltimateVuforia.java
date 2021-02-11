@@ -392,21 +392,23 @@ public class UltimateVuforia {
                     // step through the list of recognitions and display boundary info.
                     int i = 0;
                     for (Recognition recognition : updatedRecognitions) {
-                        op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                recognition.getLeft(), recognition.getTop());
-                        op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                recognition.getRight(), recognition.getBottom());
+                        if (recognition.getBottom()>= 800) {
+                            op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                            op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                    recognition.getLeft(), recognition.getTop());
+                            op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                    recognition.getRight(), recognition.getBottom());
 
-                        // check label to see which target zone to go after.
-                        if (recognition.getLabel().equals("Single")) {
-                            op.telemetry.addData("Target Zone", "B");
-                            rings = 1;
-                        } else if (recognition.getLabel().equals("Quad")) {
-                            op.telemetry.addData("Target Zone", "C");
-                            rings = 4;
-                        } else {
-                            op.telemetry.addData("Target Zone", "UNKNOWN");
+                            // check label to see which target zone to go after.
+                            if (recognition.getLabel().equals("Single")) {
+                                op.telemetry.addData("Target Zone", "B");
+                                rings = 1;
+                            } else if (recognition.getLabel().equals("Quad")) {
+                                op.telemetry.addData("Target Zone", "C");
+                                rings = 4;
+                            } else {
+                                op.telemetry.addData("Target Zone", "UNKNOWN");
+                            }
                         }
                     }
                 }
