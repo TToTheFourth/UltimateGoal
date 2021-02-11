@@ -33,6 +33,8 @@ public class TenserFlowTest3 extends LinearOpMode {
                 } else if (rings == 4) {
                     fourRing = fourRing + 1;
                 }
+            } else {
+                idle();
             }
         }
 
