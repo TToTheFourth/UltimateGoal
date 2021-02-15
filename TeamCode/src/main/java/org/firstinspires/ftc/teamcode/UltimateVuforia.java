@@ -392,7 +392,7 @@ public class UltimateVuforia {
                     // step through the list of recognitions and display boundary info.
                     int i = 0;
                     for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getBottom()>= 800) {
+                        if (recognition.getBottom()>= 300) {
                             op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
@@ -408,6 +408,10 @@ public class UltimateVuforia {
                                 rings = 4;
                             } else {
                                 op.telemetry.addData("Target Zone", "UNKNOWN");
+                            }
+                        } else {
+                            if(rings == -1) {
+                                rings = 0;
                             }
                         }
                     }
