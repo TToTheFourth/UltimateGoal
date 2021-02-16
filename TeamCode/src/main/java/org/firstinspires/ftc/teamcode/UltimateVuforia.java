@@ -390,6 +390,13 @@ public class UltimateVuforia {
                 } else {
                     // list is not empty.
                     // step through the list of recognitions and display boundary info.
+
+                    // TODO: if there is only one item in the list then use that item's label
+
+                    // TODO: if there are more than one items in the list find the best one and use it's label
+
+                    // TODO: can you return both the ring count and the confidence score?
+
                     int i = 0;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getBottom()>= 300) {
