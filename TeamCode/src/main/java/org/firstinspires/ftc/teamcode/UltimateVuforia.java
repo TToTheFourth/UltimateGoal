@@ -291,8 +291,8 @@ public class UltimateVuforia {
                             OTF = 0;
                         }
 
-                        //op.telemetry.addData("Rings", OTF);
-                        //op.telemetry.update();
+                        op.telemetry.addData("Rings", OTF);
+                        op.telemetry.update();
 
                     //}
                 }
