@@ -392,10 +392,21 @@ public class UltimateVuforia {
                     // step through the list of recognitions and display boundary info.
 
                     // TODO: if there is only one item in the list then use that item's label
+                    if (updatedRecognitions.size() == 1) {
+                        op.telemetry.addData("TFOD", "One item detected.");
+                        op.telemetry.addData("Target Zone", "B");
+                        rings = 1;
+                    }
 
                     // TODO: if there are more than one items in the list find the best one and use it's label
+                    if (updatedRecognitions.size() > 1) {
+                        op.telemetry.addData("TFOD", "Four items detected.");
+                        op.telemetry.addData("Target Zone", "C");
+                        rings = 4;
+                    }
 
                     // TODO: can you return both the ring count and the confidence score?
+                    //.getConfidence(); replaces .getLabel(); so you know how accurate it thinks it is
 
                     int i = 0;
                     for (Recognition recognition : updatedRecognitions) {
