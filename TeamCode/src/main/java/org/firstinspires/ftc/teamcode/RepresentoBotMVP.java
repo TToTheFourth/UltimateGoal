@@ -562,6 +562,53 @@ public class RepresentoBotMVP {
         // sets motors to zero
     }
 
+    public void goForwardGyroErrorCorrection(double power, double distance){
+        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        // sets the encoders
+
+        double rightY_G1 = 1.0 * power;
+        double rightX_G1 = 0.0;
+        double leftX_G1 = 0.0;
+        // sets power
+
+        // sets the correct variables to the motors
+
+        long ticks = ticksToInchesForward(distance);
+        miniGyro.reset();
+        while (opMode.opModeIsActive()) {
+            int rotations = frontRightMotor.getCurrentPosition();
+            if (rotations<0) {
+                rotations = rotations * -1;
+            }
+            if (rotations >= ticks) {
+                break;
+            }
+
+            // Get the current heading; anything other than 0 is off course
+            // this will return positive angle if drifting CCW
+            // this will return negative angle if drifting CW
+            double angle = miniGyro.getAngle();
+
+            // TODO: correct rightX_G1 [-1.0,1.0] to adjust turn
+            // if rightX_G1 < 0 then robot will turn left
+            // if rightX_G1 > 0 then robot will turn right
+
+
+            frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
+            backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
+            backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
+            frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+
+        }
+
+        frontLeftMotor.setPower(0.0);
+        backLeftMotor.setPower(0.0);
+        backRightMotor.setPower(0.0);
+        frontRightMotor.setPower(0.0);
+        // sets motors to zero
+    }
+
     public void goForwardNoGyro(double power, double distance){
         double rightY_G1 = 1.0 * power;
         double rightX_G1 = 0.0;
