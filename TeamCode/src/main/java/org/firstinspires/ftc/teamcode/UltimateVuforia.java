@@ -138,6 +138,9 @@ public class UltimateVuforia {
     private float phoneXRotate    = 0;
     private float phoneYRotate    = 0;
     private float phoneZRotate    = 0;
+    private float recConf = 0;
+    private float bestConf = 0;
+    private String bestLabel;
     public UltimateVuforia (LinearOpMode opMode){
         op = opMode;
     }
@@ -396,14 +399,29 @@ public class UltimateVuforia {
                     if (updatedRecognitions.size() == 1) {
                         op.telemetry.addData("TFOD", "One item detected.");
                         op.telemetry.addData("Target Zone", "B");
-                        rings = 1;
+                        if (updatedRecognitions.get(0).getLabel().equals(LABEL_SECOND_ELEMENT)) {
+                            rings = 1;
+                        } else if (updatedRecognitions.get(0).getLabel().equals(LABEL_FIRST_ELEMENT)) {
+                            rings = 4;
+                        }
                     }
 
                     // TODO: if there are more than one items in the list find the best one and use it's label
                     if (updatedRecognitions.size() > 1) {
                         op.telemetry.addData("TFOD", "Four items detected.");
                         op.telemetry.addData("Target Zone", "C");
-                        rings = 4;
+                        for (int i = 0; i < updatedRecognitions.size(); i++) {
+                           recConf = updatedRecognitions.get(i).getConfidence();
+                           if (recConf > bestConf) {
+                               bestConf = recConf;
+                               bestLabel = updatedRecognitions.get(i).getLabel();
+                           }
+                        }
+                        if (bestLabel == LABEL_FIRST_ELEMENT) {
+                            rings = 4;
+                        } else if (bestLabel == LABEL_SECOND_ELEMENT){
+                            rings = 1;
+                        }
                     }
 
                     // TODO: can you return both the ring count and the confidence score?
