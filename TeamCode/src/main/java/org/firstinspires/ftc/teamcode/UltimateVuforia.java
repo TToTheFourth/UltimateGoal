@@ -372,6 +372,7 @@ public class UltimateVuforia {
 
     public int getRings() {
         int rings = -1;
+        int conf = 1;
 
 
         if (tfod != null) {
@@ -440,6 +441,27 @@ public class UltimateVuforia {
         }
 
         return rings;
+    }
+
+    public float getConfidence() {
+        float conf = 1;
+        if (tfod != null) {
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            if (updatedRecognitions != null) {
+                    int i = 0;
+
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getBottom() >= 300) {
+                            op.telemetry.addData("Confidence: ", recognition.getConfidence());
+                            conf = recognition.getConfidence();
+                        } else {
+                            conf = 1;
+                    }
+                }
+            }
+        }
+        op.telemetry.update();
+        return conf;
     }
 
 }

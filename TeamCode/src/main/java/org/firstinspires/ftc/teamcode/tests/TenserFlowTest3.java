@@ -18,20 +18,22 @@ public class TenserFlowTest3 extends LinearOpMode {
         int zeroRing=0;
         int oneRing=0;
         int fourRing=0;
+        float conf = 1;
 
         int sampleCount = 0;
         while(sampleCount < 10) {
             rings = nulvin.getRings();
+            conf = nulvin.getConfidence();
 
             if(rings >= 0) {
                 sampleCount++;
 
                 if (rings == 0) {
-                    zeroRing = zeroRing + 1;
+                    zeroRing = (int) (zeroRing + (1 * conf));
                 } else if (rings == 1) {
-                    oneRing = oneRing + 1;
+                    oneRing = (int) (oneRing + (1 * conf));
                 } else if (rings == 4) {
-                    fourRing = fourRing + 1;
+                    fourRing = (int) (fourRing + (1 * conf));
                 }
             } else {
                 idle();
@@ -41,6 +43,7 @@ public class TenserFlowTest3 extends LinearOpMode {
         telemetry.addData("Zero", zeroRing);
         telemetry.addData("One", oneRing);
         telemetry.addData("Four", fourRing);
+        telemetry.addData("Confidence", conf);
 
         telemetry.update();
 
