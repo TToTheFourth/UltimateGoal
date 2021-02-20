@@ -417,9 +417,9 @@ public class UltimateVuforia {
                                bestLabel = updatedRecognitions.get(i).getLabel();
                            }
                         }
-                        if (bestLabel == LABEL_FIRST_ELEMENT) {
+                        if (bestLabel.equals(LABEL_FIRST_ELEMENT)) {
                             rings = 4;
-                        } else if (bestLabel == LABEL_SECOND_ELEMENT){
+                        } else if (bestLabel.equals(LABEL_SECOND_ELEMENT)){
                             rings = 1;
                         }
                     }
