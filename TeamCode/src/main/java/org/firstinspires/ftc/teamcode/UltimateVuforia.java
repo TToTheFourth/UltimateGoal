@@ -374,9 +374,8 @@ public class UltimateVuforia {
     }
 
     public RingResult getRings() {
-        int rings = -1;
         float bestConf = 0;
-        RingResult result = new RingResult(0, 0);
+        RingResult result = new RingResult(-1, 0);
 
         if (tfod != null) {
 
@@ -390,7 +389,8 @@ public class UltimateVuforia {
                     // empty list.  no objects recognized.
                     op.telemetry.addData("TFOD", "No items detected.");
                     op.telemetry.addData("Target Zone", "A");
-                    rings = 0;
+                    result.setConfidence(0.8f);
+                    result.setRingCount(0);
                 } else {
                     // list is not empty.
                     // step through the list of recognitions and display boundary info.
@@ -400,9 +400,11 @@ public class UltimateVuforia {
                         op.telemetry.addData("TFOD", "One item detected.");
                         op.telemetry.addData("Target Zone", "B");
                         if (updatedRecognitions.get(0).getLabel().equals(LABEL_SECOND_ELEMENT)) {
-                            rings = 1;
+                            result.setRingCount(1);
+                            result.setConfidence(updatedRecognitions.get(0).getConfidence());
                         } else if (updatedRecognitions.get(0).getLabel().equals(LABEL_FIRST_ELEMENT)) {
-                            rings = 4;
+                            result.setRingCount(4);
+                            result.setConfidence(updatedRecognitions.get(0).getConfidence());
                         }
                     }
 
@@ -418,9 +420,11 @@ public class UltimateVuforia {
                            }
                         }
                         if (bestLabel.equals(LABEL_FIRST_ELEMENT)) {
-                            rings = 4;
+                            result.setRingCount(4);
+                            result.setConfidence(bestConf);
                         } else if (bestLabel.equals(LABEL_SECOND_ELEMENT)){
-                            rings = 1;
+                            result.setRingCount(1);
+                            result.setConfidence(bestConf);
                         }
                     }
 
@@ -458,7 +462,7 @@ public class UltimateVuforia {
             op.telemetry.update();
         }
 
-        return result(rings, bestConf);
+        return result;
     }
 
     public float getConfidence() {
