@@ -427,31 +427,31 @@ public class UltimateVuforia {
                     // TODO: can you return both the ring count and the confidence score?
                     //.getConfidence(); replaces .getLabel(); so you know how accurate it thinks it is
 
-                    int i = 0;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getBottom()>= 300) {
-                            op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
-
-                            // check label to see which target zone to go after.
-                            if (recognition.getLabel().equals("Single")) {
-                                op.telemetry.addData("Target Zone", "B");
-                                rings = 1;
-                            } else if (recognition.getLabel().equals("Quad")) {
-                                op.telemetry.addData("Target Zone", "C");
-                                rings = 4;
-                            } else {
-                                op.telemetry.addData("Target Zone", "UNKNOWN");
-                            }
-                        } else {
-                            if(rings == -1) {
-                                rings = 0;
-                            }
-                        }
-                    }
+//                    int i = 0;
+//                    for (Recognition recognition : updatedRecognitions) {
+//                        if (recognition.getBottom()>= 300) {
+//                            op.telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+//                            op.telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+//                                    recognition.getLeft(), recognition.getTop());
+//                            op.telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+//                                    recognition.getRight(), recognition.getBottom());
+//
+//                            // check label to see which target zone to go after.
+//                            if (recognition.getLabel().equals("Single")) {
+//                                op.telemetry.addData("Target Zone", "B");
+//                                rings = 1;
+//                            } else if (recognition.getLabel().equals("Quad")) {
+//                                op.telemetry.addData("Target Zone", "C");
+//                                rings = 4;
+//                            } else {
+//                                op.telemetry.addData("Target Zone", "UNKNOWN");
+//                            }
+//                        } else {
+//                            if(rings == -1) {
+//                                rings = 0;
+//                            }
+//                        }
+//                    }
                 }
             }
 
