@@ -15,9 +15,9 @@ public class TenserFlowTest3 extends LinearOpMode {
         waitForStart();
 
         int rings;
-        int zeroRing=0;
-        int oneRing=0;
-        int fourRing=0;
+        float zeroRing=0;
+        float oneRing=0;
+        float fourRing=0;
         float conf = 1;
 
         int sampleCount = 0;
@@ -29,11 +29,11 @@ public class TenserFlowTest3 extends LinearOpMode {
                 sampleCount++;
 
                 if (rings == 0) {
-                    zeroRing = (int) (zeroRing + (1 * conf));
+                    zeroRing = (zeroRing + (1 * conf));
                 } else if (rings == 1) {
-                    oneRing = (int) (oneRing + (1 * conf));
+                    oneRing = (oneRing + (1 * conf));
                 } else if (rings == 4) {
-                    fourRing = (int) (fourRing + (1 * conf));
+                    fourRing = (fourRing + (1 * conf));
                 }
             } else {
                 idle();
