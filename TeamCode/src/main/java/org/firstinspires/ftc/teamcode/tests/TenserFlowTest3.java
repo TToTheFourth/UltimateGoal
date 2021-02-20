@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.tests;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.RingResult;
 import org.firstinspires.ftc.teamcode.UltimateVuforia;
 
 @Autonomous
@@ -22,8 +23,9 @@ public class TenserFlowTest3 extends LinearOpMode {
 
         int sampleCount = 0;
         while(sampleCount < 10) {
-            rings = nulvin.getRings();
-            conf = nulvin.getConfidence();
+            RingResult result = nulvin.getRings();
+            rings = result.getRingCount();
+            conf = result.getConfidence();
 
             if(rings >= 0) {
                 sampleCount++;

@@ -25,7 +25,8 @@ public class TestForTensorFlowWithMovement extends LinearOpMode {
 
         int sampleCount = 0;
         while (sampleCount < 10) {
-            rings = nulvin.getRings();
+            RingResult result = nulvin.getRings();
+            rings = result.getRingCount();
 
             if (rings >= 0) {
                 sampleCount++;
