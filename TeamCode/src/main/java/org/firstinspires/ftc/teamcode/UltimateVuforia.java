@@ -373,10 +373,10 @@ public class UltimateVuforia {
 
     }
 
-    public int getRings() {
+    public RingResult getRings() {
         int rings = -1;
-        int conf = 1;
-
+        float bestConf = 0;
+        RingResult result = new RingResult(0, 0);
 
         if (tfod != null) {
 
@@ -458,7 +458,7 @@ public class UltimateVuforia {
             op.telemetry.update();
         }
 
-        return rings;
+        return result(rings, bestConf);
     }
 
     public float getConfidence() {
