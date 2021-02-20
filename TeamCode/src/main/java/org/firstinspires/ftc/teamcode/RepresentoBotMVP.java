@@ -593,7 +593,7 @@ public class RepresentoBotMVP {
             // TODO: correct rightX_G1 [-1.0,1.0] to adjust turn
             // if rightX_G1 < 0 then robot will turn left
             // if rightX_G1 > 0 then robot will turn right
-
+            rightX_G1 = -1.0 * angle * 0.022;
 
             frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
             backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));

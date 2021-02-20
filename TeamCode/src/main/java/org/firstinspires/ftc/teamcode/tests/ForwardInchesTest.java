@@ -17,6 +17,6 @@ public class ForwardInchesTest extends LinearOpMode {
 
         waitForStart();
 
-        bot.goForward(0.5, 50);
+        bot.goForwardGyroErrorCorrection(0.5, 50);
     }
 }
