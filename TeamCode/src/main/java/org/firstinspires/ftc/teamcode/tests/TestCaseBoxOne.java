@@ -34,6 +34,7 @@ public class TestCaseBoxOne extends LinearOpMode {
         vuNav.navigate(36, 36, 0);
         sleep(2000);
         vuNav.navigate(36, 36, 0);
+        bot.goForwardGyroErrorCorrection(-.5, 40);
         bot.clawClosePosition();
 //        }
         vu.noVuforia();
