@@ -646,16 +646,12 @@ public class RepresentoBotMVP {
         // sets motors to zero
     }
     public void clawOpenPosition() {
-        claw.setPosition(0.5);
+        claw.setPosition(1);
 
     }
     public void clawClosePosition() {
-        claw.setPosition(0.3);
-        myTimer.start();
-        myTimer.setCompareTime(1000);
-        elbow.setPower(0.5);
-        while (myTimer.timeChecker()) {}
-        elbow.setPower(0);
+        claw.setPosition(-1);
+
     }
     public void stopMotor(){
         frontLeftMotor.setPower(0.0);
@@ -677,8 +673,8 @@ public class RepresentoBotMVP {
     }
 
     public void shootRings(long seconds) {
-        elbow.setPower(-1);
-        opMode.sleep(1000);
+        elbow.setPower(-0.5);
+        opMode.sleep(800);
         elbow.setPower(0);
         thrower.setPower(1);
         opMode.sleep(2000);
