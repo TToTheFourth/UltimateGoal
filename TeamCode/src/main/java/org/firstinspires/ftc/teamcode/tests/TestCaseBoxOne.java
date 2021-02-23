@@ -29,7 +29,7 @@ public class TestCaseBoxOne extends LinearOpMode {
 //        telemetry.update();
 //        if (rings == 1) {
         bot.clawOpenPosition();
-        bot.goForward(0.5, 112);
+        bot.goForwardGyroErrorCorrection(0.5, 112);
         sleep(2000);
         vuNav.navigate(36, 36, 0);
         sleep(2000);

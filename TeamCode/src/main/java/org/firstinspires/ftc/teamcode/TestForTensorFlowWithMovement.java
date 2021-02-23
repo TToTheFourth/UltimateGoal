@@ -30,15 +30,15 @@ public class TestForTensorFlowWithMovement extends LinearOpMode {
             rings = result.getRingCount();
             conf = result.getConfidence();
 
-            if(rings >= 0) {
+            if (rings >= 0) {
                 sampleCount++;
 
                 if (rings == 0) {
-                    zeroRing = (zeroRing + (1 * conf));
+                    zeroRing = zeroRing + 1;
                 } else if (rings == 1) {
-                    oneRing = (oneRing + (1 * conf));
+                    oneRing = oneRing + 1;
                 } else if (rings == 4) {
-                    fourRing = (fourRing + (1 * conf));
+                    fourRing = fourRing + 1;
                 }
             } else {
                 idle();

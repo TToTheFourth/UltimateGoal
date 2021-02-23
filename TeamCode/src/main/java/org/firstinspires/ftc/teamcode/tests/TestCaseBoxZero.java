@@ -31,7 +31,7 @@ public class TestCaseBoxZero extends LinearOpMode {
 //        telemetry.update();
 //        if (rings == 0) {
             bot.clawClosePosition();
-            bot.goForward(0.5, 5);
+            bot.goForwardGyroErrorCorrection(0.5, 5);
             bot.turnLeft(85, 0.3);
             bot.goForward(0.5, 25);
             bot.turnRight(90, 0.3);

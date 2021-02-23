@@ -389,8 +389,8 @@ public class UltimateVuforia {
                     // empty list.  no objects recognized.
                     op.telemetry.addData("TFOD", "No items detected.");
                     op.telemetry.addData("Target Zone", "A");
-                    result.setConfidence(0.8f);
                     result.setRingCount(0);
+                    result.setConfidence(0.8f);
                 } else {
                     // list is not empty.
                     // step through the list of recognitions and display boundary info.
