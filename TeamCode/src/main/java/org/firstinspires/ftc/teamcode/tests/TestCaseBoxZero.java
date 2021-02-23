@@ -33,9 +33,9 @@ public class TestCaseBoxZero extends LinearOpMode {
             bot.clawClosePosition();
             bot.goForwardGyroErrorCorrection(0.5, 5);
             bot.turnLeft(85, 0.3);
-            bot.goForward(0.5, 25);
+            bot.goForwardGyroErrorCorrection(0.5, 25);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 68);
+            bot.goForwardGyroErrorCorrection(0.5, 68);
             sleep(500);
             vuNav.navigate(14, 60, 0);
             sleep(500);

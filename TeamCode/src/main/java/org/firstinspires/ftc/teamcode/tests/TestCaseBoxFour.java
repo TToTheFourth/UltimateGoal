@@ -29,11 +29,11 @@ public class TestCaseBoxFour extends LinearOpMode {
 //        telemetry.update();
 //        if (rings == 4) {
             bot.clawClosePosition();
-            bot.goForward(0.5, 10);
+            bot.goForwardGyroErrorCorrection(0.5, 10);
             bot.slide(-0.5, 19);
-            bot.goForward(0.5, 102);
+            bot.goForwardGyroErrorCorrection(0.5, 102);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 18);
+            bot.goForwardGyroErrorCorrection(0.5, 18);
             vu.getCoords();
             vuNav.navigate(60, 60, 0);
             sleep(500);
