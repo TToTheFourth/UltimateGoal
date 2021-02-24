@@ -28,18 +28,21 @@ public class TestCaseBoxFour extends LinearOpMode {
 //        telemetry.addData("rings", rings);
 //        telemetry.update();
 //        if (rings == 4) {
-            bot.clawClosePosition();
-            bot.goForwardGyroErrorCorrection(0.5, 10);
-            bot.slide(-0.5, 19);
-            bot.goForwardGyroErrorCorrection(0.5, 102);
-            bot.turnRight(90, 0.3);
-            bot.goForwardGyroErrorCorrection(0.5, 18);
-            vu.getCoords();
-            vuNav.navigate(60, 60, 0);
-            sleep(500);
-            vuNav.navigate(60, 60, 0);
-            bot.clawOpenPosition();
-            //
+        bot.clawClosePosition();
+        bot.dropSweep();
+
+        bot.goForwardGyroErrorCorrection(0.5, 53);
+        bot.shootRings(3);
+
+        bot.goForwardGyroErrorCorrection(0.5, 63);
+        bot.slide(-0.5, 12);
+        //change 12 -> 10
+        bot.turnRight(83, 0.3);
+        bot.goForwardGyroErrorCorrection(-0.5, 8);
+        bot.clawOpenPosition();
+        bot.goForwardGyroErrorCorrection(0.5, 10);
+        bot.turnRight(90, 0.3);
+        bot.goForwardGyroErrorCorrection(0.5, 50);
 //        }
         vu.noVuforia();
     }

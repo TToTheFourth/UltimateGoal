@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode;
 
 import android.graphics.Color;
@@ -362,6 +363,7 @@ public class RepresentoBotMVP {
     public void slide (double power, double distance) {
 
         // sets power
+        // left is negative
 
         double rightY_G1 = 0;
         double rightX_G1 = 0;
@@ -683,6 +685,9 @@ public class RepresentoBotMVP {
         opMode.sleep(1000);
         sweeper.setPower(1);
         opMode.sleep(seconds * 1000);
+        sweeper.setPower(0);
+        convoy.setPower(0);
+        thrower.setPower(0);
     }
 
     public void dropSweep() {

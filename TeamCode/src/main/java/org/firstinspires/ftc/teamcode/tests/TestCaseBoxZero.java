@@ -22,25 +22,26 @@ public class TestCaseBoxZero extends LinearOpMode {
         bot=new RepresentoBotMVP(this);
         vu = new UltimateVuforia(this);
         vuNav = new VuforiaNavigator(this, bot, vu);
-        waitForStart();
         bot.startGyro();
         vu.yesVuforia();
+
+        waitForStart();
 
 //        rings = vu.tensorflow();
 //        telemetry.addData("rings", rings);
 //        telemetry.update();
 //        if (rings == 0) {
-            bot.clawClosePosition();
-            bot.goForwardGyroErrorCorrection(0.5, 5);
-            bot.turnLeft(85, 0.3);
-            bot.goForwardGyroErrorCorrection(0.5, 25);
-            bot.turnRight(90, 0.3);
-            bot.goForwardGyroErrorCorrection(0.5, 68);
-            sleep(500);
-            vuNav.navigate(14, 60, 0);
-            sleep(500);
-            vuNav.navigate(14, 60, 0);
-            bot.clawOpenPosition();
+        bot.clawClosePosition();
+        bot.dropSweep();
+
+        bot.goForwardGyroErrorCorrection(0.5, 53);
+        bot.shootRings(3);
+
+        bot.slide(-0.5, 12);
+        bot.goForwardGyroErrorCorrection(0.5, 28);
+        bot.clawOpenPosition();
+        bot.slide(0.5, 18);
+        bot.goForwardGyroErrorCorrection(-0.5, 12);
 //        }
         vu.noVuforia();
     }
