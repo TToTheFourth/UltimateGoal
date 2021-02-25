@@ -5,51 +5,90 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous
 public class AutoBot extends LinearOpMode {
-    RepresentoBotMVP bot;
-    VuforiaNavigator vuNav;
-    UltimateVuforia vision;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
-        bot=new RepresentoBotMVP(this);
-        waitForStart();
+        telemetry.addData("Status", "Initializing");
+        telemetry.update();
+
+        UltimateVuforia nulvin = new UltimateVuforia(this);
+        nulvin.yesVuforia();
+
+        RepresentoBotMVP bot = new RepresentoBotMVP(this);
         bot.startGyro();
+        sleep(4000);
 
-        // TODO: see how many rings there are
-        int rct = 0;
+        telemetry.addData("Status", "Ready");
+        telemetry.update();
 
-        if (rct == 0) {
-            //bot.forwardUntilPink(0.5);
-            bot.goForwardNoGyro(0.5, 70);
-            sleep(2000);
+        waitForStart();
+        bot.clawClosePosition();
+        bot.dropSweep();
+        bot.goForwardGyroErrorCorrection(0.3, 21);
 
-            bot.slide(-0.5, 23);
-            //drop goal
-            sleep(2000);
+        int rings;
+        float zeroRing=0;
+        float oneRing=0;
+        float fourRing=0;
+        float conf = 1;
 
-            bot.slide(0.5,46);
-            sleep(2000);
-            bot.goForwardNoGyro(-0.5,18);
-            //shoot rings
-            sleep(2000);
+        int sampleCount = 0;
+        while(sampleCount < 10) {
+            RingResult result = nulvin.getRings();
+            rings = result.getRingCount();
+            conf = result.getConfidence();
 
-            bot.goForwardNoGyro(0.5,18);
-        } else if (rct==1) {
-            bot.forwardUntilPink(0.5);
-            bot.goForward(0.5, 23);
-            //drop goal
-            bot.goForward(0.5, -41);
-            //shoot rings
-            bot.goForward(0.5, 18);
-        } else {
-                bot.forwardUntilPink(0.5);
-                bot.goForward(0.5,46);
-                bot.slide(0.5, 23);
-                //drop goal
-                bot.slide(0.5, -46);
-                bot.goForward(0.5, -64);
-                //shoot rings
-                bot.goForward(0.5, 18);
+            if(rings >= 0) {
+                sampleCount++;
+
+                if (rings == 0) {
+                    zeroRing = (zeroRing + (1 * conf));
+                } else if (rings == 1) {
+                    oneRing = (oneRing + (1 * conf));
+                } else if (rings == 4) {
+                    fourRing = (fourRing + (1 * conf));
+                }
+            } else {
+                idle();
+            }
+        }
+
+        telemetry.addData("Zero", zeroRing);
+        telemetry.addData("One", oneRing);
+        telemetry.addData("Four", fourRing);
+        telemetry.addData("Confidence", conf);
+
+        telemetry.update();
+
+        nulvin.noVuforia();
+
+
+        bot.goForwardGyroErrorCorrection(0.3, 32);
+        bot.shootRings(3);
+        if (zeroRing > oneRing && zeroRing > fourRing){
+            bot.slide(-0.5, 12);
+            bot.goForwardGyroErrorCorrection(0.5, 28);
+            bot.clawOpenPosition();
+            bot.slide(0.5, 18);
+            bot.goForwardGyroErrorCorrection(-0.5, 12);
+        }
+        else if (fourRing > oneRing && fourRing > zeroRing){
+            bot.goForwardGyroErrorCorrection(0.5, 63);
+            bot.slide(-0.5, 12);
+            //change 12 -> 10
+            bot.turnRight(83, 0.3);
+            bot.goForwardGyroErrorCorrection(-0.5, 8);
+            bot.clawOpenPosition();
+            bot.goForwardGyroErrorCorrection(0.5, 10);
+            bot.turnRight(90, 0.3);
+            bot.goForwardGyroErrorCorrection(0.5, 50);
+        }
+        else {
+            bot.goForwardGyroErrorCorrection(0.5, 59);
+            bot.clawOpenPosition();
+            bot.slide(0.5, 12);
+            bot.goForwardGyroErrorCorrection(-0.5, 37);
         }
     }
 }

@@ -636,6 +636,11 @@ public class RepresentoBotMVP {
                 break;
             }
 
+            // slow down the last 4 inches
+            if(ticks - rotations < 160) {
+                rightY_G1 = power * 0.5;
+            }
+
             // Get the current heading; anything other than 0 is off course
             // this will return positive angle if drifting CCW
             // this will return negative angle if drifting CW
@@ -729,13 +734,14 @@ public class RepresentoBotMVP {
         elbow.setPower(0);
         thrower.setPower(1);
         opMode.sleep(2000);
-        convoy.setPower(-1);
 
-        // TODO: set pauses here to allow wheel to spin up between rings
+        convoy.setPower(-0.5);
 
         opMode.sleep(1000);
+
         sweeper.setPower(1);
         opMode.sleep(seconds * 1000);
+
         sweeper.setPower(0);
         convoy.setPower(0);
         thrower.setPower(0);
