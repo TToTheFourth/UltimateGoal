@@ -68,13 +68,13 @@ public class AutoBot extends LinearOpMode {
         bot.shootRings(3);
         if (zeroRing > oneRing && zeroRing > fourRing){
             bot.slide(-0.5, 12);
-            bot.goForwardGyroErrorCorrection(0.5, 28);
+            bot.goForwardGyroErrorCorrection(0.5, 35); // 28
             bot.clawOpenPosition();
             bot.slide(0.5, 18);
-            bot.goForwardGyroErrorCorrection(-0.5, 12);
+            bot.goForwardGyroErrorCorrection(-0.5, 19); // 12
         }
         else if (fourRing > oneRing && fourRing > zeroRing){
-            bot.goForwardGyroErrorCorrection(0.5, 63);
+            bot.goForwardGyroErrorCorrection(0.5, 63); // 70
             bot.slide(-0.5, 12);
             //change 12 -> 10
             bot.turnRight(83, 0.3);
@@ -82,13 +82,13 @@ public class AutoBot extends LinearOpMode {
             bot.clawOpenPosition();
             bot.goForwardGyroErrorCorrection(0.5, 10);
             bot.turnRight(90, 0.3);
-            bot.goForwardGyroErrorCorrection(0.5, 50);
+            bot.goForwardGyroErrorCorrection(0.5, 57); // 50
         }
         else {
-            bot.goForwardGyroErrorCorrection(0.5, 59);
+            bot.goForwardGyroErrorCorrection(0.5, 66); // 59
             bot.clawOpenPosition();
             bot.slide(0.5, 12);
-            bot.goForwardGyroErrorCorrection(-0.5, 37);
+            bot.goForwardGyroErrorCorrection(-0.5, 44); // 37
         }
     }
 }

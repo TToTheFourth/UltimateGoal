@@ -99,7 +99,7 @@ public class MechDrive2020 extends LinearOpMode {
 
             //Todo: add choord for power shot
 
-            if (gamepad2.left_bumper || gamepad2.dpad_up) {
+            if (gamepad2.left_bumper) {
                 thrower.setPower(1);
             } else {
                 thrower.setPower(0);
