@@ -24,7 +24,7 @@ public class TestCaseBoxOne extends LinearOpMode {
         vu.yesVuforia();
 
         waitForStart();
-
+//
 //        rings = vu.tensorflow();
 //        telemetry.addData("rings", rings);
 //        telemetry.update();

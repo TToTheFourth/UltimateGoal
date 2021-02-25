@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.tests;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.RepresentoBotMVP;
 import org.firstinspires.ftc.teamcode.RingResult;
 import org.firstinspires.ftc.teamcode.UltimateVuforia;
 
@@ -10,10 +11,22 @@ import org.firstinspires.ftc.teamcode.UltimateVuforia;
 public class TenserFlowTest3 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addData("Status", "Initializing");
+        telemetry.update();
+
         UltimateVuforia nulvin = new UltimateVuforia(this);
         nulvin.yesVuforia();
 
+        RepresentoBotMVP bot = new RepresentoBotMVP(this);
+        bot.startGyro();
+        sleep(4000);
+
+        telemetry.addData("Status", "Ready");
+        telemetry.update();
+
         waitForStart();
+
+        bot.goForwardGyroErrorCorrection(0.3, 21);
 
         int rings;
         float zeroRing=0;
