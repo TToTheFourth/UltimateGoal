@@ -732,7 +732,7 @@ public class RepresentoBotMVP {
         elbow.setPower(-0.5);
         opMode.sleep(800);
         elbow.setPower(0);
-        thrower.setPower(1);
+        thrower.setPower(0.9);
         opMode.sleep(2000);
 
         convoy.setPower(-0.5);

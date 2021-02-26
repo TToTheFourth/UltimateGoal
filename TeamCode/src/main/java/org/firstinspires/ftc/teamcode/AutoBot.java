@@ -74,8 +74,8 @@ public class AutoBot extends LinearOpMode {
             bot.goForwardGyroErrorCorrection(-0.5, 19); // 12
         }
         else if (fourRing > oneRing && fourRing > zeroRing){
-            bot.goForwardGyroErrorCorrection(0.5, 63); // 70
-            bot.slide(-0.5, 12);
+            bot.goForwardGyroErrorCorrection(0.5, 70); // 70
+            bot.slide(-0.5, 8);
             //change 12 -> 10
             bot.turnRight(83, 0.3);
             bot.goForwardGyroErrorCorrection(-0.5, 8);
