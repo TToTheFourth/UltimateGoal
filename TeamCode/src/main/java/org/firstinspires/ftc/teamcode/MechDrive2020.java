@@ -127,7 +127,14 @@ public class MechDrive2020 extends LinearOpMode {
                 convoy.setPower(0.5);
             } else if (gamepad2.dpad_up){
                 convoy.setPower(-0.5);
-            } else {
+            } else if (gamepad2.a) {
+                // button to run conveyor only when it is > 415 RPM
+                if (rpm > 415) {
+                    convoy.setPower(0.5);
+                } else {
+                    convoy.setPower(0);
+                }
+            }   else {
                 convoy.setPower(0);
             }
 
@@ -158,19 +165,9 @@ public class MechDrive2020 extends LinearOpMode {
             } else {
                 sweeper.setPower(0);
             }
-
-            // add button to run conveyor only when it is > 415 RPM
-            if (gamepad2.a) {
-                if (rpm > 415) {
-                    convoy.setPower(0.5);
-                } else {
-                    convoy.setPower(0);
-                }
-            }   else {
-                convoy.setPower(0);
-            }
         }
 
+        // turns off motors
         frontLeftMotor.setPower(0);
         backLeftMotor.setPower(0);
         frontRightMotor.setPower(0);
@@ -178,7 +175,9 @@ public class MechDrive2020 extends LinearOpMode {
         convoy.setPower(0);
         thrower.setPower(0);
         elbow.setPower(0);
-        // turns off motors
+
+        // make sure the rpm sampler thread wakes up and stops if it is sleeping
+        t.interrupt();
     }
 
     private float getRPM() {
@@ -187,19 +186,25 @@ public class MechDrive2020 extends LinearOpMode {
         long startTicks = 0;
         long endTicks = 0;
         long stop;
+
+        // capture the start time
         start = System.currentTimeMillis();
-        startTicks = thrower.getCurrentPosition();
 
         // capture the start ticks on the motor
+        startTicks = thrower.getCurrentPosition();
+
 
         sleep(1000);
+
         // capture the end ticks on the motor
         endTicks = thrower.getCurrentPosition();
+
         // capture the end time
         stop = System.currentTimeMillis();
+
         // calculate the average rpm for this second
-        float rpm = (endTicks - startTicks) * degPerTick / (stop - start) * 166.67f;
-        // output to phone
-        return rpm;
+        float r = (endTicks - startTicks) * degPerTick / (stop - start) * 166.67f;
+
+        return r;
     }
 }
