@@ -34,6 +34,19 @@ public class MechDrive2020 extends LinearOpMode {
     double  power   = 0;
     boolean rampUp  = true;
 
+
+    float rpm = 0f;
+
+    class RPMSampler extends Thread {
+        @Override
+        public void run() {
+            while (opModeIsActive()) {
+                rpm = getRPM();
+            }
+        }
+    }
+
+
     @Override
     public void runOpMode() {
 
@@ -62,10 +75,17 @@ public class MechDrive2020 extends LinearOpMode {
         sweeper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // makes sure the robot doesn't drift
 
+        // initialize the encoder
+        thrower.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        thrower.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
+
+        Thread t = new Thread(new RPMSampler());
+        t.start();
 
         while (opModeIsActive()) {
 
@@ -139,15 +159,16 @@ public class MechDrive2020 extends LinearOpMode {
                 sweeper.setPower(0);
             }
 
-            // TODO: add button to run conveyor only when it is > 415 RPM
+            // add button to run conveyor only when it is > 415 RPM
             if (gamepad2.a) {
-                if (getRPM() > 415) {
+                if (rpm > 415) {
                     convoy.setPower(0.5);
+                } else {
+                    convoy.setPower(0);
                 }
             }   else {
                 convoy.setPower(0);
             }
-
         }
 
         frontLeftMotor.setPower(0);
