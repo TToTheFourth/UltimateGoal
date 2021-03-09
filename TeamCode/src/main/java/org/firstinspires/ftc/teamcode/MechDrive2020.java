@@ -140,6 +140,13 @@ public class MechDrive2020 extends LinearOpMode {
             }
 
             // TODO: add button to run conveyor only when it is > 415 RPM
+            if (gamepad2.a) {
+                if (getRPM() > 415) {
+                    convoy.setPower(0.5);
+                }
+            }   else {
+                convoy.setPower(0);
+            }
 
         }
 
@@ -153,8 +160,25 @@ public class MechDrive2020 extends LinearOpMode {
         // turns off motors
     }
 
-    // TODO: get code from RPMTest into here
     private float getRPM() {
-        return 0f;
+        float degPerTick = 1.01f;
+        long start;
+        long startTicks = 0;
+        long endTicks = 0;
+        long stop;
+        start = System.currentTimeMillis();
+        startTicks = thrower.getCurrentPosition();
+
+        // capture the start ticks on the motor
+
+        sleep(1000);
+        // capture the end ticks on the motor
+        endTicks = thrower.getCurrentPosition();
+        // capture the end time
+        stop = System.currentTimeMillis();
+        // calculate the average rpm for this second
+        float rpm = (endTicks - startTicks) * degPerTick / (stop - start) * 166.67f;
+        // output to phone
+        return rpm;
     }
 }
