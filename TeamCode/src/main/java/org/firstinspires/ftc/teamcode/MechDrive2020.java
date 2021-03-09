@@ -97,8 +97,6 @@ public class MechDrive2020 extends LinearOpMode {
             frontRightMotor.setPower(frontRight);
 
 
-            //Todo: add choord for power shot
-
             if (gamepad2.left_bumper) {
                 thrower.setPower(1);
             } else {
@@ -141,6 +139,8 @@ public class MechDrive2020 extends LinearOpMode {
                 sweeper.setPower(0);
             }
 
+            // TODO: add button to run conveyor only when it is > 415 RPM
+
         }
 
         frontLeftMotor.setPower(0);
@@ -151,5 +151,10 @@ public class MechDrive2020 extends LinearOpMode {
         thrower.setPower(0);
         elbow.setPower(0);
         // turns off motors
+    }
+
+    // TODO: get code from RPMTest into here
+    private float getRPM() {
+        return 0f;
     }
 }

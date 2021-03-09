@@ -65,24 +65,31 @@ public class AutoBot extends LinearOpMode {
 
 
         bot.goForwardGyroErrorCorrection(0.3, 32);
-        bot.shootRings(3);
+        bot.shootRings(5);
+
+        // |        |   |
+        // |        |   |
+        // |       \|/  |
+        // ..............
+        // |            |
+        // |            |
+
         if (zeroRing > oneRing && zeroRing > fourRing){
-            bot.slide(-0.5, 12);
-            bot.goForwardGyroErrorCorrection(0.5, 35); // 28
+            bot.slide(-0.5, 17);
+            bot.goForwardGyroErrorCorrection(0.5, 43); // 28
             bot.clawOpenPosition();
             bot.slide(0.5, 18);
             bot.goForwardGyroErrorCorrection(-0.5, 19); // 12
         }
         else if (fourRing > oneRing && fourRing > zeroRing){
-            bot.goForwardGyroErrorCorrection(0.5, 70); // 70
+            bot.goForwardGyroErrorCorrection(0.5, 75); // 70
             bot.slide(-0.5, 8);
-            //change 12 -> 10
             bot.turnRight(83, 0.3);
             bot.goForwardGyroErrorCorrection(-0.5, 8);
             bot.clawOpenPosition();
             bot.goForwardGyroErrorCorrection(0.5, 10);
             bot.turnRight(90, 0.3);
-            bot.goForwardGyroErrorCorrection(0.5, 57); // 50
+            bot.goForwardGyroErrorCorrection(0.5, 47); // 50
         }
         else {
             bot.goForwardGyroErrorCorrection(0.5, 66); // 59
