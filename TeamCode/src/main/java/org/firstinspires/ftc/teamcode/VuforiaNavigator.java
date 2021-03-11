@@ -20,15 +20,16 @@ public class VuforiaNavigator {
             opMode.telemetry.addData("X", String.format("%.1f", cH.x));
             opMode.telemetry.addData("Y", String.format("%.1f", cH.y));
 
+            // Get the robot on the desired heading (targetAngle heading)
             if (cH.angle > targetAngle) {
-                bot.turnRight(cH.angle, .25);
+                bot.turnRight(cH.angle - targetAngle, .25);
                 //assuming cH is based on angle right
             } else if (cH.angle < targetAngle) {
-                bot.turnLeft(-cH.angle, .25);
+                bot.turnLeft(targetAngle - cH.angle, .25);
                 //assuming cH is based on angle right
             }
 
-            // If X < 43 then go farward the difference; if X > 43 then backup the difference
+            // Move to the desired X coordinate
             if (cH.x < targetX) {
                 bot.goForward(.5, (targetX - cH.x));
                 //assuming slide left is positive
@@ -36,15 +37,16 @@ public class VuforiaNavigator {
                 bot.goForward(-.5, (cH.x - targetX));
                 //assuming slide left is positive
             }
-            // If Y < 35 then go slide left the difference; if Y > 35 then slide right the difference
+
+            // Move to the desired Y coordinate
             if (cH.y < targetY) {
                 bot.slide(-.5, (targetY - cH.y));
             } else if (cH.y > targetY) {
                 bot.slide(.5, (cH.y - targetY));
             }
         } else {
-            //opMode.telemetry.addData("No Image", ":(");
-            //opMode.telemetry.update();
+            opMode.telemetry.addData("No Image", ":(");
+            opMode.telemetry.update();
         }
     }
 }

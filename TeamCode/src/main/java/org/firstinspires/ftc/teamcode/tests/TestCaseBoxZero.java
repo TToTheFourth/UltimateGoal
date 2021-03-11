@@ -12,25 +12,17 @@ import org.tensorflow.lite.TensorFlowLite;
 
 @Autonomous
 public class TestCaseBoxZero extends LinearOpMode {
-    RepresentoBotMVP bot;
-    UltimateVuforia vu;
-    VuforiaNavigator vuNav;
-//    int rings;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        bot=new RepresentoBotMVP(this);
-        vu = new UltimateVuforia(this);
-        vuNav = new VuforiaNavigator(this, bot, vu);
+        RepresentoBotMVP bot=new RepresentoBotMVP(this);
+        UltimateVuforia vu = new UltimateVuforia(this);
+
         bot.startGyro();
         vu.yesVuforia();
 
         waitForStart();
 
-//        rings = vu.tensorflow();
-//        telemetry.addData("rings", rings);
-//        telemetry.update();
-//        if (rings == 0) {
         bot.clawClosePosition();
         bot.dropSweep();
 
@@ -42,7 +34,40 @@ public class TestCaseBoxZero extends LinearOpMode {
         bot.clawOpenPosition();
         bot.slide(0.5, 18);
         bot.goForwardGyroErrorCorrection(-0.5, 12);
-//        }
+
+        // where are we on the XY grid?
+        CoordHolder c = vu.getCoords();
+        if(c.seeImage) {
+
+            // Correct to point 0 degrees (forward)
+            if(c.angle > 0) {
+                bot.turnRight(c.angle, 0.3);
+            } else if(c.angle < 0) {
+                bot.turnLeft(-c.angle, 0.3);
+            }
+
+            // How far to backup to -48?
+            bot.goForwardGyroErrorCorrection(-0.3, 48 - c.x);
+
+            // How far to slide left to get to 48?
+            bot.slide(-0.3, 48 - c.y);
+
+            // grab goal
+            bot.clawClosePosition();
+
+            // go to the box
+            bot.goForwardGyroErrorCorrection(0.5, 72);
+            bot.slide(-0.5, 12);
+
+            // drop the goal
+            bot.clawOpenPosition();
+
+            // go back to the line
+            bot.slide(0.5, 18);
+            bot.goForwardGyroErrorCorrection(-0.5, 12);
+        }
+
+
         vu.noVuforia();
     }
 }
