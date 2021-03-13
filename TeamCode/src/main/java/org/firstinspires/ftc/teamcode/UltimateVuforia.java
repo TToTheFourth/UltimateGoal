@@ -263,6 +263,8 @@ public class UltimateVuforia {
              ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(robotFromCamera, parameters.cameraDirection);
          }
 
+        targetsUltimateGoal.activate();
+
         initTfod();
         tfod.activate();
         tfod.setZoom(1.0, 16.0 / 9.0);
