@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.tests;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.CoordHolder;
 import org.firstinspires.ftc.teamcode.RepresentoBotMVP;
 import org.firstinspires.ftc.teamcode.UltimateVuforia;
 import org.firstinspires.ftc.teamcode.VuforiaNavigator;
@@ -18,15 +19,13 @@ public class NavX36Y36Test extends LinearOpMode {
         bot=new RepresentoBotMVP(this);
         vu = new UltimateVuforia(this);
         vuNav = new VuforiaNavigator(this, bot, vu);
-
         bot.startGyro();
         vu.yesVuforia();
 
         waitForStart();
 
         sleep(2000);
-        vuNav.navigate(36,36,0);
-
+     vuNav.navigate(36, 36, 0);
         while(opModeIsActive()) {
             idle();
         }

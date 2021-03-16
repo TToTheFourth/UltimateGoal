@@ -15,7 +15,22 @@ public class VuforiaNavigator {
     }
 
     public void navigate(float targetX, float targetY, float targetAngle) {
-        cH = vu.getCoords();
+
+        // loop up to 10 times
+        //   if you see an image break
+        //   else wait 500ms
+        // end
+
+        for (int i = 0; i < 10; i++){
+            cH = vu.getCoords();
+            if (cH.seeImage == true){
+                break;
+
+            } else {
+                opMode.sleep(500);
+            }
+        }
+
         if(cH.seeImage) {
             opMode.telemetry.addData("X", String.format("%.1f", cH.x));
             opMode.telemetry.addData("Y", String.format("%.1f", cH.y));

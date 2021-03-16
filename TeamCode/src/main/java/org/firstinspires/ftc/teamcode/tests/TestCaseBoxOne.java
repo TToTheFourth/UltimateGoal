@@ -24,11 +24,6 @@ public class TestCaseBoxOne extends LinearOpMode {
         vu.yesVuforia();
 
         waitForStart();
-//
-//        rings = vu.tensorflow();
-//        telemetry.addData("rings", rings);
-//        telemetry.update();
-//        if (rings == 1) {
         bot.clawClosePosition();
         bot.dropSweep();
 
@@ -39,13 +34,41 @@ public class TestCaseBoxOne extends LinearOpMode {
         bot.clawOpenPosition();
         bot.slide(0.5, 12);
         bot.goForwardGyroErrorCorrection(-0.5, 37);
-//        sleep(2000);
-//        vuNav.navigate(36, 36, 0);
-//        sleep(2000);
-//        vuNav.navigate(36, 36, 0);
-//        bot.goForwardGyroErrorCorrection(-.5, 40);
-//        bot.clawClosePosition();
-//        }
+        // we should be at (36, 36)
+
+        // where are we on the XY grid?
+        CoordHolder c = vu.getCoords();
+        if(c.seeImage) {
+
+            // Correct to point 0 degrees (forward)
+            if(c.angle > 0) {
+                bot.turnRight(c.angle, 0.3);
+            } else if(c.angle < 0) {
+                bot.turnLeft(-c.angle, 0.3);
+            }
+
+            // How far to backup to -48?
+            bot.goForwardGyroErrorCorrection(-0.3, 48 - c.x);
+
+            // How far to slide left to get to 48?
+            bot.slide(-0.3, 48 - c.y);
+
+            // grab goal
+            bot.clawClosePosition();
+
+            // go from (-48, 48) to the box (36, 36)
+
+bot.goForwardGyroErrorCorrection(0.5, 84);
+bot.goForwardGyroErrorCorrection(-0.5, 70);
+
+            // drop the goal
+            bot.clawOpenPosition();
+
+            // go back to the line
+            bot.slide(0.5, 18);
+            bot.goForwardGyroErrorCorrection(-0.5, 12);
+        }
+
         vu.noVuforia();
     }
 }
