@@ -43,7 +43,39 @@ public class TestCaseBoxFour extends LinearOpMode {
         bot.goForwardGyroErrorCorrection(0.5, 10);
         bot.turnRight(90, 0.3);
         bot.goForwardGyroErrorCorrection(0.5, 50);
+        // where are we on the XY grid?
+        CoordHolder c = vu.getCoords();
+        if(c.seeImage) {
+
+            // Correct to point 0 degrees (forward)
+            if(c.angle > 0) {
+                bot.turnRight(c.angle, 0.3);
+            } else if(c.angle < 0) {
+                bot.turnLeft(-c.angle, 0.3);
+            }
+
+            // How far to backup to -48?
+            bot.goForwardGyroErrorCorrection(-0.3, 48 - c.x);
+
+            // How far to slide left to get to 48?
+            bot.slide(-0.3, 48 - c.y);
+
+            // grab goal
+            bot.clawClosePosition();
+
+            // go to the box
+            bot.goForwardGyroErrorCorrection(0.5, 118);
+            bot.slide(-0.5, 12);
+
+            // drop the goal
+            bot.clawOpenPosition();
+
+            // go back to the line
+            bot.slide(0.5, 18);
+            bot.goForwardGyroErrorCorrection(-0.5, 58);
+        }
 //        }
         vu.noVuforia();
+
     }
 }
