@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.vuforia.Vuforia;
@@ -21,7 +22,7 @@ public class MechDrive2020 extends LinearOpMode {
     private DcMotor thrower;
     private DcMotor convoy;
     private Servo claw;
-    private Servo sweep2;
+    private CRServo sweep2;
     private DcMotor elbow;
     private Servo miniSweep;
     private DcMotor sweeper;
@@ -67,7 +68,7 @@ public class MechDrive2020 extends LinearOpMode {
         claw = hardwareMap.get(Servo.class, "claw");
         elbow = hardwareMap.get(DcMotor.class, "elbow");
         miniSweep = hardwareMap.get(Servo.class, "servoSweep");
-        sweep2 = hardwareMap.get(Servo.class, "sweep2");
+        sweep2 = hardwareMap.get(CRServo.class, "sweep2");
         sweeper = hardwareMap.get(DcMotor.class, "sweeper");
 
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -156,10 +157,10 @@ public class MechDrive2020 extends LinearOpMode {
 
             if (gamepad2.dpad_right) {
                 miniSweep.setPosition(1);
-                sweep2.setPosition(1);
+                sweep2.setPower(1);
             } else {
                 miniSweep.setPosition(0);
-                sweep2.setPosition(0);
+                sweep2.setPower(0);
             }
 
             if (gamepad2.b) {

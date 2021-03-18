@@ -9,11 +9,11 @@ import org.firstinspires.ftc.teamcode.UltimateVuforia;
 public class TestForTensorFlowWithMovement extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        UltimateVuforia nulvin = new UltimateVuforia(this);
+        UltimateVuforia vu = new UltimateVuforia(this);
         RepresentoBotMVP bot = new RepresentoBotMVP(this);
-        VuforiaNavigator vuNav = new VuforiaNavigator(this, bot, nulvin);
+        VuforiaNavigator vuNav = new VuforiaNavigator(this, bot, vu);
 
-        nulvin.yesVuforia();
+        vu.yesVuforia();
         bot.startGyro();
 
         waitForStart();
@@ -26,19 +26,19 @@ public class TestForTensorFlowWithMovement extends LinearOpMode {
 
         int sampleCount = 0;
         while(sampleCount < 10) {
-            RingResult result = nulvin.getRings();
+            RingResult result = vu.getRings();
             rings = result.getRingCount();
             conf = result.getConfidence();
 
-            if (rings >= 0) {
+            if(rings >= 0) {
                 sampleCount++;
 
                 if (rings == 0) {
-                    zeroRing = zeroRing + 1;
+                    zeroRing = (zeroRing + (1 * conf));
                 } else if (rings == 1) {
-                    oneRing = oneRing + 1;
+                    oneRing = (oneRing + (1 * conf));
                 } else if (rings == 4) {
-                    fourRing = fourRing + 1;
+                    fourRing = (fourRing + (1 * conf));
                 }
             } else {
                 idle();
@@ -54,41 +54,41 @@ public class TestForTensorFlowWithMovement extends LinearOpMode {
         if (fourRing > oneRing & fourRing > zeroRing) {
             //TensorFlow saw four rings the most
             bot.clawClosePosition();
-            bot.goForward(0.5, 10);
-            bot.slide(-0.5, 19);
-            bot.goForward(0.5, 102);
+            bot.dropSweep();
+            bot.goForwardGyroErrorCorrection(0.5, 53);
+            bot.shootRings(3);
+            bot.goForwardGyroErrorCorrection(0.5, 63);
+            bot.slide(-0.5, 12);
+            bot.turnRight(83, 0.3);
+            bot.goForwardGyroErrorCorrection(-0.5, 8);
+            bot.clawOpenPosition();
+            bot.goForwardGyroErrorCorrection(0.5, 10);
             bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 18);
-            //nulvin.getCoords();
-            //vuNav.navigate(60, 60, 0);
-            //sleep(500);
-            //vuNav.navigate(60, 60, 0);
-            //bot.clawOpenPosition();
+            bot.goForwardGyroErrorCorrection(0.5, 50);
         } else if (oneRing > fourRing & oneRing > zeroRing) {
             //TensorFlow saw one ring the most
+            bot.clawClosePosition();
+            bot.dropSweep();
+            bot.goForwardGyroErrorCorrection(0.5, 53);
+            bot.shootRings(3);
+            bot.goForwardGyroErrorCorrection(0.5, 59);
             bot.clawOpenPosition();
-            bot.goForward(0.5, 112);
-            //sleep(2000);
-            //vuNav.navigate(36, 36, 0);
-            //sleep(2000);
-            //vuNav.navigate(36, 36, 0);
-            //bot.clawOpenPosition();
+            bot.slide(0.5, 12);
+            bot.goForwardGyroErrorCorrection(-0.5, 37);
         } else if (zeroRing > fourRing & zeroRing > oneRing) {
             //TensorFlow saw zero rings the most
             bot.clawClosePosition();
-            bot.goForward(0.5, 5);
-            bot.turnLeft(85, 0.3);
-            bot.goForward(0.5, 25);
-            bot.turnRight(90, 0.3);
-            bot.goForward(0.5, 68);
-            //sleep(500);
-            //vuNav.navigate(14, 60, 0);
-            //sleep(500);
-            //vuNav.navigate(14, 60, 0);
-            //bot.clawOpenPosition();
+            bot.dropSweep();
+            bot.goForwardGyroErrorCorrection(0.5, 53);
+            bot.shootRings(3);
+            bot.slide(-0.5, 12);
+            bot.goForwardGyroErrorCorrection(0.5, 28);
+            bot.clawOpenPosition();
+            bot.slide(0.5, 18);
+            bot.goForwardGyroErrorCorrection(-0.5, 12);
         }
 
-        nulvin.noVuforia();
+        vu.noVuforia();
 
         while (opModeIsActive()) {
 
