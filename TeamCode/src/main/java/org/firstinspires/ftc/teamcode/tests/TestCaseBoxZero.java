@@ -30,13 +30,44 @@ public class TestCaseBoxZero extends LinearOpMode {
         bot.shootRings(3);
 
         bot.slide(-0.5, 12);
-        bot.goForwardGyroErrorCorrection(0.5, 28);
+        bot.goForwardGyroErrorCorrection(0.5, 35);
         bot.clawOpenPosition();
-        bot.slide(0.5, 18);
-        bot.goForwardGyroErrorCorrection(-0.5, 12);
+        bot.slide(0.5, 12);
+        bot.goForwardGyroErrorCorrection(-0.5, 18);
+        bot.turnLeft(90, 0.3);
+        //bot.goForwardGyroErrorCorrection(-0.5, 12);
 
         // where are we on the XY grid?
         CoordHolder c = vu.getCoords();
+        if(c.seeImage == false) {
+            bot.goForwardGyroErrorCorrection(0.4, 4);
+            sleep(200);
+            c = vu.getCoords();
+
+            if(c.seeImage == false) {
+                bot.turnLeft(5, 0.3);
+                sleep(200);
+                c = vu.getCoords();
+
+                if(c.seeImage == false) {
+                    bot.turnRight(10, 0.3);
+                    sleep(200);
+                    c = vu.getCoords();
+                }
+            }
+        }
+        /*
+        CoordHolder c = null;
+        for (int i = 0 ; i < 3; i++){
+            c = vu.getCoords();
+            if (c.seeImage == true){
+                break;
+            }else{
+                bot.goForwardGyroErrorCorrection(0.3, 2);
+            }
+        }
+        */
+
         if(c.seeImage) {
 
             // Correct to point 0 degrees (forward)
@@ -47,16 +78,16 @@ public class TestCaseBoxZero extends LinearOpMode {
             }
 
             // How far to backup to -48?
-            bot.goForwardGyroErrorCorrection(-0.3, 48 - c.x);
+            bot.goForwardGyroErrorCorrection(-0.5, 48 - c.x);
 
             // How far to slide left to get to 48?
-            bot.slide(-0.3, 48 - c.y);
+            bot.slide(-0.5, 48 - c.y);
 
             // grab goal
             bot.clawClosePosition();
 
             // go to the box
-            bot.goForwardGyroErrorCorrection(0.5, 72);
+            bot.goForwardGyroErrorCorrection(0.5, 45);
             bot.slide(-0.5, 12);
 
             // drop the goal
@@ -65,9 +96,15 @@ public class TestCaseBoxZero extends LinearOpMode {
             // go back to the line
             bot.slide(0.5, 18);
             bot.goForwardGyroErrorCorrection(-0.5, 12);
+        } else {
+            telemetry.addData("Image", "No");
+            telemetry.update();
         }
 
-
         vu.noVuforia();
+
+        while (opModeIsActive()) {
+            idle();
+        }
     }
 }

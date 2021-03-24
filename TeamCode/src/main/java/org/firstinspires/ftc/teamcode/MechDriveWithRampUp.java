@@ -30,16 +30,15 @@ public class MechDriveWithRampUp extends LinearOpMode {
         frontRightMotor = hardwareMap.get(DcMotor.class, "motor2");
         backRightMotor = hardwareMap.get(DcMotor.class, "motor3");
 
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
-        waitForStart();
-
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        // makes sure the robot doesn't drift
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        waitForStart();
 
         while (opModeIsActive()) {
 

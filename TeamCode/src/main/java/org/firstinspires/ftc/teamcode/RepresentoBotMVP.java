@@ -637,9 +637,9 @@ public class RepresentoBotMVP {
             }
 
             // slow down the last 4 inches
-            if(ticks - rotations < 160) {
-                rightY_G1 = power * 0.5;
-            }
+            //if(ticks - rotations < 160) {
+            //    rightY_G1 = power * 0.5;
+            //}
 
             // Get the current heading; anything other than 0 is off course
             // this will return positive angle if drifting CCW
@@ -750,5 +750,60 @@ public class RepresentoBotMVP {
     public void dropSweep() {
         miniSweep.setPosition(-1);
         opMode.sleep(500);
+    }
+
+    //  +++++++========================--------
+    //  ramp up                        ramp down
+    public void goForwardRamp(double power, double distance){
+        frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        double rightY_G1 = 1.0 * power;
+        double rightX_G1 = 0.0;
+        double leftX_G1 = 0.0;
+
+        long ticks = ticksToInchesForward(distance);
+
+        // TODO: figure out the increment value based on the target speed
+        float increement = 0.0f;
+
+        // TODO: set the rightY_G1 start speed to a low value, but not so low the motors won't turn
+
+        miniGyro.reset();
+        while (opMode.opModeIsActive()) {
+            int rotations = frontRightMotor.getCurrentPosition();
+            if (rotations<0) {
+                rotations = rotations * -1;
+            }
+            if (rotations >= ticks) {
+                break;
+            }
+
+            // TODO: if a certain number of ticks has occured then increment rightY_G1 until desired speed
+
+            // TODO: if we are approaching the target distance then start to decrement rightY_G1 speed
+
+            // Get the current heading; anything other than 0 is off course
+            // this will return positive angle if drifting CCW
+            // this will return negative angle if drifting CW
+            double angle = miniGyro.getAngle();
+
+            // Correct rightX_G1 [-1.0,1.0] to adjust turn
+            // if rightX_G1 < 0 then robot will turn left
+            // if rightX_G1 > 0 then robot will turn right
+            rightX_G1 = -1.0 * angle * 0.022;
+
+            frontLeftMotor.setPower((rightX_G1 + rightY_G1 - leftX_G1));
+            backLeftMotor.setPower((rightX_G1 + rightY_G1 + leftX_G1));
+            backRightMotor.setPower((rightX_G1 - rightY_G1 + leftX_G1));
+            frontRightMotor.setPower((rightX_G1 - rightY_G1 - leftX_G1));
+
+        }
+
+        // sets motors to zero
+        frontLeftMotor.setPower(0.0);
+        backLeftMotor.setPower(0.0);
+        backRightMotor.setPower(0.0);
+        frontRightMotor.setPower(0.0);
     }
 }
