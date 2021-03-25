@@ -157,19 +157,19 @@ public class MechDrive2020 extends LinearOpMode {
 
             if (gamepad2.dpad_right) {
                 miniSweep.setPosition(1);
-                sweep2.setPower(1);
             } else {
                 miniSweep.setPosition(0);
-                sweep2.setPower(0);
             }
 
             if (gamepad2.b) {
                 sweeper.setPower(1);
+                sweep2.setPower(-1);
             } else if (gamepad2.y){
                 sweeper.setPower(-1);
             } else {
                 sweeper.setPower(0);
-            }
+                sweep2.setPower(0);
+           }
         }
 
         // turns off motors
