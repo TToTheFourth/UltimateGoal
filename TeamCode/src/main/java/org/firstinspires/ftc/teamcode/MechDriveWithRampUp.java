@@ -65,19 +65,19 @@ public class MechDriveWithRampUp extends LinearOpMode {
                 backRight += INCREMENT;
                 if (frontLeft >= MAX_FWD ) {
                     frontLeft = MAX_FWD;
-                    rampUp = !rampUp;   // Switch ramp direction
+                    rampUp = true;   // Switch ramp direction
                 }
                 if (frontRight >= MAX_FWD ) {
                     frontRight = MAX_FWD;
-                    rampUp = !rampUp;   // Switch ramp direction
+                    rampUp = true;   // Switch ramp direction
                 }
                 if (backLeft >= MAX_FWD ) {
                     backLeft = MAX_FWD;
-                    rampUp = !rampUp;   // Switch ramp direction
+                    rampUp = true;   // Switch ramp direction
                 }
                 if (backRight >= MAX_FWD ) {
                     backRight = MAX_FWD;
-                    rampUp = !rampUp;   // Switch ramp direction
+                    rampUp = true;   // Switch ramp direction
                 }
             }
             else {
@@ -88,19 +88,19 @@ public class MechDriveWithRampUp extends LinearOpMode {
                 backRight -= INCREMENT ;
                 if (frontLeft <= MAX_REV ) {
                     frontLeft = MAX_REV;
-                    rampUp = !rampUp;  // Switch ramp direction
+                    rampUp = false;  // Switch ramp direction
                 }
                 if (frontRight <= MAX_REV ) {
                     frontRight = MAX_REV;
-                    rampUp = !rampUp;  // Switch ramp direction
+                    rampUp = false;  // Switch ramp direction
                 }
                 if (backLeft <= MAX_REV ) {
                     backLeft = MAX_REV;
-                    rampUp = !rampUp;  // Switch ramp direction
+                    rampUp = false;  // Switch ramp direction
                 }
                 if (backRight <= MAX_REV ) {
                     backRight = MAX_REV;
-                    rampUp = !rampUp;  // Switch ramp direction
+                    rampUp = false;  // Switch ramp direction
                 }
             }
 
