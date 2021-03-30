@@ -33,41 +33,48 @@ public class TestCaseBoxZero extends LinearOpMode {
         bot.goForwardGyroErrorCorrection(0.5, 35);
         bot.clawOpenPosition();
         bot.slide(0.5, 12);
-        bot.goForwardGyroErrorCorrection(-0.5, 18);
-        bot.turnLeft(90, 0.3);
-        //bot.goForwardGyroErrorCorrection(-0.5, 12);
+        //bot.goForwardGyroErrorCorrection(-0.5, 18);
+        //bot.turnLeft(90, 0.3);
 
         // where are we on the XY grid?
+//        CoordHolder c = vu.getCoords();
+//        if(c.seeImage == false) {
+//            bot.goForwardGyroErrorCorrection(0.4, 4);
+//            sleep(200);
+//            c = vu.getCoords();
+//
+//            if(c.seeImage == false) {
+//                bot.turnLeft(5, 0.3);
+//                sleep(200);
+//                c = vu.getCoords();
+//
+//                if(c.seeImage == false) {
+//                    bot.turnRight(10, 0.3);
+//                    sleep(200);
+//                    c = vu.getCoords();
+//                }
+//            }
+//        }
+
+        // TODO: default coordinates by dead reckoning
+        float xpos = 27.5f; // left back wheel
+        float ypos = 42.5f; // left back wheel
+
         CoordHolder c = vu.getCoords();
-        if(c.seeImage == false) {
-            bot.goForwardGyroErrorCorrection(0.4, 4);
-            sleep(200);
-            c = vu.getCoords();
-
-            if(c.seeImage == false) {
-                bot.turnLeft(5, 0.3);
-                sleep(200);
-                c = vu.getCoords();
-
-                if(c.seeImage == false) {
-                    bot.turnRight(10, 0.3);
-                    sleep(200);
-                    c = vu.getCoords();
-                }
-            }
+        // TODO: if we see an image update the coordinates.
+        if (c.seeImage == true){
+            xpos = c.x;
+            ypos = c.y;
         }
+        // TODO: navigate from current coords to -48, 48
+        bot.goForwardGyroErrorCorrection(-0.5, xpos + 38);
+        bot.slide(-0.5, 51.5-ypos);
+
+        bot.clawClosePosition();
+        bot.goForwardGyroErrorCorrection(0.5, 34);
+        bot.turnRight(120, 0.5);
+        sleep(300);
         /*
-        CoordHolder c = null;
-        for (int i = 0 ; i < 3; i++){
-            c = vu.getCoords();
-            if (c.seeImage == true){
-                break;
-            }else{
-                bot.goForwardGyroErrorCorrection(0.3, 2);
-            }
-        }
-        */
-
         if(c.seeImage) {
 
             // Correct to point 0 degrees (forward)
@@ -78,13 +85,17 @@ public class TestCaseBoxZero extends LinearOpMode {
             }
 
             // How far to backup to -48?
-            bot.goForwardGyroErrorCorrection(-0.5, 48 - c.x);
+            bot.goForwardGyroErrorCorrection(-0.5, 43 - c.x);
 
             // How far to slide left to get to 48?
-            bot.slide(-0.5, 48 - c.y);
+            bot.slide(-0.5, 51.5 - c.y);
+
+            sleep(3000);
 
             // grab goal
             bot.clawClosePosition();
+
+            sleep(3000);
 
             // go to the box
             bot.goForwardGyroErrorCorrection(0.5, 45);
@@ -100,6 +111,7 @@ public class TestCaseBoxZero extends LinearOpMode {
             telemetry.addData("Image", "No");
             telemetry.update();
         }
+        */
 
         vu.noVuforia();
 
@@ -107,4 +119,5 @@ public class TestCaseBoxZero extends LinearOpMode {
             idle();
         }
     }
+
 }
