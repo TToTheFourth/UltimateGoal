@@ -31,9 +31,27 @@ public class TestCaseBoxOne extends LinearOpMode {
         bot.shootRings(3);
 
         bot.goForwardGyroErrorCorrection(0.5, 59);
+        bot.slide(1, 3);
         bot.clawOpenPosition();
-        bot.slide(0.5, 12);
-        bot.goForwardGyroErrorCorrection(-0.5, 37);
+        bot.slide(1, 12);
+
+        // TODO: default coordinates by dead reckoning
+        float xpos = 48f; // left back wheel
+        float ypos = 29f; // left back wheel
+
+        CoordHolder c = vu.getCoords();
+        // TODO: if we see an image update the coordinates.
+        if (c.seeImage == true){
+            xpos = c.x;
+            ypos = c.y;
+        }
+
+        bot.goForwardGyroErrorCorrection(-0.5, 85.5);
+        bot.slide(-1, 21);
+
+
+
+        /*bot.goForwardGyroErrorCorrection(-0.5, 37);
         // we should be at (36, 36)
 
         // where are we on the XY grid?
@@ -68,7 +86,7 @@ bot.goForwardGyroErrorCorrection(-0.5, 70);
             bot.slide(0.5, 18);
             bot.goForwardGyroErrorCorrection(-0.5, 12);
         }
-
+*/
         vu.noVuforia();
     }
 }

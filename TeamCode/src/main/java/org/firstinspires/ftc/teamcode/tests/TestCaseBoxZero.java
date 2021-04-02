@@ -57,8 +57,8 @@ public class TestCaseBoxZero extends LinearOpMode {
 //        }
 
         // TODO: default coordinates by dead reckoning
-        float xpos = 27.5f; // left back wheel
-        float ypos = 42.5f; // left back wheel
+        float xpos = 24f; // left back wheel 27.5
+        float ypos = 40f; // left back wheel 42.5
 
         CoordHolder c = vu.getCoords();
         // TODO: if we see an image update the coordinates.
@@ -67,13 +67,19 @@ public class TestCaseBoxZero extends LinearOpMode {
             ypos = c.y;
         }
         // TODO: navigate from current coords to -48, 48
-        bot.goForwardGyroErrorCorrection(-0.5, xpos + 38);
-        bot.slide(-0.5, 51.5-ypos);
+        bot.goForwardGyroErrorCorrection(-0.5, xpos + 38.5); //35
+        bot.slide(-0.5, 54-ypos); //51.5
 
         bot.clawClosePosition();
+        sleep(500);
         bot.goForwardGyroErrorCorrection(0.5, 34);
-        bot.turnRight(120, 0.5);
-        sleep(300);
+        bot.turnRight(90, 0.5);
+        bot.clawOpenPosition();
+        sleep(500);
+        bot.turnLeft(70, 0.3);
+        bot.goForwardGyroErrorCorrection(0.5, 5);
+
+
         /*
         if(c.seeImage) {
 

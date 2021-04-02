@@ -626,6 +626,15 @@ public class RepresentoBotMVP {
         // sets the correct variables to the motors
 
         long ticks = ticksToInchesForward(distance);
+
+        double minPower = 0.3;
+        if(power < 0) {
+            minPower = minPower * -1.0;
+        }
+        double increment = (power - minPower) / 2.0;
+
+
+
         miniGyro.reset();
         while (opMode.opModeIsActive()) {
             int rotations = frontRightMotor.getCurrentPosition();
@@ -634,6 +643,19 @@ public class RepresentoBotMVP {
             }
             if (rotations >= ticks) {
                 break;
+            }
+
+            long rem = ticks - rotations;
+            if(rotations < 360) {
+                rightY_G1 = minPower;
+            } else if( rotations >= 360 && rotations < 720) {
+                rightY_G1 = minPower + increment;
+            } else if(rem < 360) {
+                rightY_G1 = minPower;
+            } else if( rem >= 360 && rem < 720) {
+                rightY_G1 = minPower + increment;
+            }  else  {
+                rightY_G1 = power;
             }
 
             // slow down the last 4 inches
