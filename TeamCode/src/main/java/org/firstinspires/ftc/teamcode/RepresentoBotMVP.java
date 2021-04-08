@@ -44,6 +44,17 @@ public class RepresentoBotMVP {
 
     private java.util.Timer timeKeeper = new java.util.Timer();
 
+    float rpm = 0f;
+    Thread rpmThread = null;
+    class RPMSampler extends Thread {
+        @Override
+        public void run() {
+            while (opMode.opModeIsActive()) {
+                rpm = getRPM();
+            }
+        }
+    }
+
     public RepresentoBotMVP(LinearOpMode om) {
         this.opMode = om;
 
@@ -67,6 +78,14 @@ public class RepresentoBotMVP {
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public void startRpm (){
+        if(rpmThread == null) {
+            rpmThread = new Thread(new RPMSampler());
+            rpmThread.setDaemon(true);
+            rpmThread.start();
+        }
     }
 
     public void startGyro(){
@@ -645,18 +664,18 @@ public class RepresentoBotMVP {
                 break;
             }
 
-            long rem = ticks - rotations;
-            if(rotations < 360) {
-                rightY_G1 = minPower;
-            } else if( rotations >= 360 && rotations < 720) {
-                rightY_G1 = minPower + increment;
-            } else if(rem < 360) {
-                rightY_G1 = minPower;
-            } else if( rem >= 360 && rem < 720) {
-                rightY_G1 = minPower + increment;
-            }  else  {
-                rightY_G1 = power;
-            }
+//            long rem = ticks - rotations;
+//            if(rotations < 360) {
+//                rightY_G1 = minPower;
+//            } else if( rotations >= 360 && rotations < 720) {
+//                rightY_G1 = minPower + increment;
+//            } else if(rem < 360) {
+//                rightY_G1 = minPower;
+//            } else if( rem >= 360 && rem < 720) {
+//                rightY_G1 = minPower + increment;
+//            }  else  {
+//                rightY_G1 = power;
+//            }
 
             // slow down the last 4 inches
             //if(ticks - rotations < 160) {
@@ -755,6 +774,8 @@ public class RepresentoBotMVP {
         opMode.sleep(800);
         elbow.setPower(0);
         thrower.setPower(0.9);
+
+        // TODO: if rpm < 415 turn off conveyor, else turn on; do this for 6 seconds
         opMode.sleep(2000);
 
         convoy.setPower(-0.5);
@@ -827,5 +848,32 @@ public class RepresentoBotMVP {
         backLeftMotor.setPower(0.0);
         backRightMotor.setPower(0.0);
         frontRightMotor.setPower(0.0);
+    }
+    public float getRPM() {
+        float degPerTick = 1.01f;
+        long start;
+        long startTicks = 0;
+        long endTicks = 0;
+        long stop;
+
+        // capture the start time
+        start = System.currentTimeMillis();
+
+        // capture the start ticks on the motor
+        startTicks = thrower.getCurrentPosition();
+
+
+        opMode.sleep(250);
+
+        // capture the end ticks on the motor
+        endTicks = thrower.getCurrentPosition();
+
+        // capture the end time
+        stop = System.currentTimeMillis();
+
+        // calculate the average rpm for this second
+        float r = (endTicks - startTicks) * degPerTick / (stop - start) * 166.67f;
+
+        return r;
     }
 }

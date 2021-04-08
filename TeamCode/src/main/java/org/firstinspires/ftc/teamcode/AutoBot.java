@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous
 public class AutoBot extends LinearOpMode {
 
+    RepresentoBotMVP bot;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -15,9 +16,12 @@ public class AutoBot extends LinearOpMode {
         UltimateVuforia nulvin = new UltimateVuforia(this);
         nulvin.yesVuforia();
 
-        RepresentoBotMVP bot = new RepresentoBotMVP(this);
+        bot = new RepresentoBotMVP(this);
         bot.startGyro();
+        bot.startRpm();
         sleep(4000);
+
+        // TODO: start the thread
 
         telemetry.addData("Status", "Ready");
         telemetry.update();
@@ -98,4 +102,5 @@ public class AutoBot extends LinearOpMode {
             bot.goForwardGyroErrorCorrection(-0.5, 44); // 37
         }
     }
+
 }
