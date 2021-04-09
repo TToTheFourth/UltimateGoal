@@ -69,7 +69,7 @@ public class AutoBot extends LinearOpMode {
 
 
         bot.goForwardGyroErrorCorrection(0.3, 32);
-        bot.shootRings(5);
+        bot.shootRings(8);
 
         // |        |   |
         // |        |   |
@@ -79,11 +79,38 @@ public class AutoBot extends LinearOpMode {
         // |            |
 
         if (zeroRing > oneRing && zeroRing > fourRing){
-            bot.slide(-0.5, 17);
-            bot.goForwardGyroErrorCorrection(0.5, 43); // 28
+            bot.slide(-0.5, 12);
+            bot.goForwardGyroErrorCorrection(0.5, 35);
             bot.clawOpenPosition();
-            bot.slide(0.5, 18);
-            bot.goForwardGyroErrorCorrection(-0.5, 19); // 12
+            bot.slide(0.5, 12);
+
+            float xpos = 24f; // left back wheel 27.5
+            float ypos = 40f; // left back wheel 42.5
+
+            CoordHolder c = nulvin.getCoords();
+            // if we see an image update the coordinates.
+            if (c.seeImage == true){
+                xpos = c.x;
+                ypos = c.y;
+            }
+            // navigate from current coords to -48, 48
+            bot.goForwardGyroErrorCorrection(-0.5, xpos + 38.5); //35
+            bot.slide(-0.5, 54-ypos); //51.5
+
+            bot.clawClosePosition();
+            sleep(500);
+            bot.goForwardGyroErrorCorrection(0.5, 34);
+            bot.turnRight(90, 0.5);
+            bot.clawOpenPosition();
+            sleep(500);
+            bot.turnLeft(70, 0.3);
+            bot.goForwardGyroErrorCorrection(0.5, 5);
+
+//            bot.slide(-0.5, 17);
+//            bot.goForwardGyroErrorCorrection(0.5, 43); // 28
+//            bot.clawOpenPosition();
+//            bot.slide(0.5, 18);
+//            bot.goForwardGyroErrorCorrection(-0.5, 19); // 12
         }
         else if (fourRing > oneRing && fourRing > zeroRing){
             bot.goForwardGyroErrorCorrection(0.5, 75); // 70

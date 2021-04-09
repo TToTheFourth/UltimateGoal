@@ -6,6 +6,7 @@ import android.graphics.Color;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -31,6 +32,7 @@ public class RepresentoBotMVP {
     private DcMotor elbow;
     private Servo claw;
     private DcMotor thrower;
+    private CRServo sweep2;
 
     private Gyro gyro;
     private LinearOpMode opMode;
@@ -46,7 +48,7 @@ public class RepresentoBotMVP {
 
     float rpm = 0f;
     Thread rpmThread = null;
-    class RPMSampler extends Thread {
+    class RPMSampler implements Runnable {
         @Override
         public void run() {
             while (opMode.opModeIsActive()) {
@@ -67,6 +69,7 @@ public class RepresentoBotMVP {
         BNO055IMU imu = opMode.hardwareMap.get(BNO055IMU.class, "imu");
         miniSweep = opMode.hardwareMap.get(Servo.class, "servoSweep");
         sweeper = opMode.hardwareMap.get(DcMotor.class, "sweeper");
+        sweep2 = opMode.hardwareMap.get(CRServo.class, "sweep2");
         thrower = opMode.hardwareMap.get(DcMotor.class, "thrower");
         convoy = opMode.hardwareMap.get(DcMotor.class, "convey2");
         gyro = new Gyro(imu, opMode);
@@ -78,17 +81,20 @@ public class RepresentoBotMVP {
         frontLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // initialize the encoder
+        thrower.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        thrower.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void startRpm (){
-        if(rpmThread == null) {
-            rpmThread = new Thread(new RPMSampler());
-            rpmThread.setDaemon(true);
-            rpmThread.start();
-        }
+        rpmThread = new Thread(new RPMSampler());
+        rpmThread.start();
     }
 
     public void startGyro(){
+        opMode.telemetry.addData("POS", 1);
+        opMode.telemetry.update();
         gyro.StartGyro();
         miniGyro = gyro.getMiniGyro();
     }
@@ -770,24 +776,41 @@ public class RepresentoBotMVP {
     }
 
     public void shootRings(long seconds) {
-        elbow.setPower(-0.5);
+        //elbow.setPower(-0.5);
         opMode.sleep(800);
         elbow.setPower(0);
         thrower.setPower(0.9);
 
         // TODO: if rpm < 415 turn off conveyor, else turn on; do this for 6 seconds
-        opMode.sleep(2000);
+        long start = System.currentTimeMillis();
+        while(opMode.opModeIsActive() && System.currentTimeMillis() - start < seconds*1000) {
+            if(rpm > 415) {
+                convoy.setPower(-0.5);
+                sweep2.setPower(-1);
+            } else {
+                convoy.setPower(0);
+                sweep2.setPower(0);
+            }
 
-        convoy.setPower(-0.5);
-
-        opMode.sleep(1000);
-
-        sweeper.setPower(1);
-        opMode.sleep(seconds * 1000);
-
-        sweeper.setPower(0);
+            opMode.telemetry.addData("RPM", rpm);
+            opMode.telemetry.update();
+        }
         convoy.setPower(0);
+        sweep2.setPower(0);
         thrower.setPower(0);
+
+//        opMode.sleep(2000);
+//
+//        convoy.setPower(-0.5);
+//
+//        opMode.sleep(1000);
+//
+//        sweeper.setPower(1);
+//        opMode.sleep(seconds * 1000);
+//
+//        sweeper.setPower(0);
+//        convoy.setPower(0);
+//        thrower.setPower(0);
     }
 
     public void dropSweep() {
@@ -863,7 +886,7 @@ public class RepresentoBotMVP {
         startTicks = thrower.getCurrentPosition();
 
 
-        opMode.sleep(250);
+        opMode.sleep(200);
 
         // capture the end ticks on the motor
         endTicks = thrower.getCurrentPosition();
